@@ -2,13 +2,6 @@ import Head from "next/head";
 import Link from "next/link";
 import styles from "../styles/Login.module.scss";
 
-interface Login {
-  id: string;
-  Login: string;
-
-  Senha: string;
-}
-
 export default function Login() {
   return (
     <>
@@ -29,27 +22,21 @@ export default function Login() {
         </div>
         <div className={styles.LoginContainer}>
           <div className={styles.Login}>
-            <p className={styles.title}>Login</p>
-            <p className={styles.subtitle}>Informe seu acesso para entrar</p>
+            <p className={styles.title}>Recuperar senha</p>
+            <p className={styles.subtitle}>Informe seu email de cadastro</p>
 
             <p className={styles.label}>Email</p>
             <input id="email" className={styles.field} type="email" />
 
-            <p className={styles.label}>Senha</p>
-            <input id="senha" className={styles.field} type="password" />
-
-            <Link href="/recuperar" className={styles.forget}>
-              Esqueci minha senha
-            </Link>
-
-            <button className={styles.button}>Entrar</button>
+            <button className={styles.button}>
+              Enviar link de recuperação
+            </button>
 
             <div className={styles.linha}></div>
 
             <div className={styles.sign}>
-              <p className={styles.signNew}>Ainda não tem uma conta? </p>
-              <Link href="/create" className={styles.create}>
-                Criar
+              <Link href="/" className={styles.create}>
+                Voltar ao login
               </Link>
             </div>
           </div>
