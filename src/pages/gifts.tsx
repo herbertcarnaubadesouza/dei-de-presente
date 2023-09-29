@@ -8,7 +8,7 @@ export default function Gifts() {
       <div className={styles.container}>
         <Header />
 
-        <div className={styles.presentesRecebidos}>
+        <div className={styles.presentesRecebidosGifts}>
           <div className={styles.textSection}>
             <p>Presentes</p>
             <span>
