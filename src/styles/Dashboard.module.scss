@@ -100,3 +100,18 @@
     cursor: pointer;
   }
 }
+
+.presentesRecebidos {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  button {
+    border: none;
+    border-radius: 4.776px;
+    background: #09a9b5;
+    padding: 15.284px 53.493px;
+    color: white;
+    cursor: pointer;
+  }
+}

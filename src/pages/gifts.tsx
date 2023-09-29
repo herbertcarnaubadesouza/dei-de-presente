@@ -16,6 +16,7 @@ export default function Gifts() {
               alterar ou incluir.
             </span>
           </div>
+          <button>Adicionar presente</button>
         </div>
       </div>
       <GiftsList />
