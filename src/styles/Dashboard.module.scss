@@ -81,12 +81,22 @@
   padding-inline: 187px;
   margin-top: 111px;
   text-align: left;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 62px;
   p {
     color: #222;
     font-size: 26px;
     font-style: normal;
     font-weight: 500;
+  }
 
-    margin-bottom: 62px;
+  button {
+    border: none;
+    border-radius: 4.776px;
+    background: #09a9b5;
+    padding: 15.284px 53.493px;
+    color: white;
+    cursor: pointer;
   }
 }

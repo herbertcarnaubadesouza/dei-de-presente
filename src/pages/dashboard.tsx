@@ -13,7 +13,6 @@ export default function Dashboard() {
     <>
       <div className={styles.container}>
         <Header />
-
         <div className={styles.presentesRecebidos}>
           <div className={styles.textSection}>
             <p>Olá, Leonardo!</p>
@@ -55,6 +54,7 @@ export default function Dashboard() {
       </div>
       <div className={styles.presentesRecebidosText}>
         <p>Presentes recebidos</p>
+        <button>Adicionar presente</button>
       </div>
       <GiftsList />
     </>
