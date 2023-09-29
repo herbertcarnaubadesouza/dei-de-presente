@@ -1,0 +1,29 @@
+.tableContainer {
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: 187px;
+
+  table {
+    border-radius: 16px;
+    box-shadow: 0px -1px 0px 0px rgba(0, 0, 0, 0.12) inset;
+  }
+}
+
+.header {
+  background: #09a9b5;
+  box-shadow: 0px -1px 0px 0px rgba(0, 0, 0, 0.12) inset;
+  color: white !important;
+}
+
+.rowOdd {
+  background-color: #f2f2f2;
+}
+
+.rowEven {
+  background-color: #ffffff;
+}
+
+// No seu arquivo styles.module.scss
+.header :global(.MuiTableCell-root) {
+  color: white;
+}

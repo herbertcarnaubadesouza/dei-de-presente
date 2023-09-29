@@ -1,0 +1,69 @@
+.header {
+  background: #09a9b5;
+  text-transform: uppercase;
+  font-weight: 400;
+
+  .headerContent {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1440px;
+    margin-inline: auto;
+    padding-inline: 187px;
+  }
+
+  .leftSide {
+    display: flex;
+    align-items: center;
+    gap: 64px;
+  }
+
+  .rightSide {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+  }
+
+  a {
+    font-weight: 400;
+    cursor: pointer;
+  }
+
+  button {
+    border-radius: 4.776px;
+    background: #fff;
+    color: #09a9b5;
+    border: none;
+    cursor: pointer;
+    padding-block: 15px;
+    padding-inline: 38px;
+    font-size: 13.373px;
+    text-transform: uppercase;
+  }
+}
+.stylewebsiteSection {
+  background: #ebedf4;
+  box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  padding-block: 26px;
+  cursor: pointer;
+
+  a {
+    color: #09a9b5;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+}
+
+.menulink {
+  opacity: 0.6;
+}
+
+.active {
+  opacity: 1;
+}

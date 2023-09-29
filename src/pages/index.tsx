@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import styles from "../styles/Login.module.scss";
 
 interface Login {
@@ -10,6 +11,12 @@ interface Login {
 }
 
 export default function Login() {
+  const router = useRouter();
+
+  const handleLogin = () => {
+    router.push("/dashboard");
+  };
+
   return (
     <>
       <Head>
@@ -42,7 +49,9 @@ export default function Login() {
               Esqueci minha senha
             </Link>
 
-            <button className={styles.button}>Entrar</button>
+            <button onClick={handleLogin} className={styles.button}>
+              Entrar
+            </button>
 
             <div className={styles.linha}></div>
 
