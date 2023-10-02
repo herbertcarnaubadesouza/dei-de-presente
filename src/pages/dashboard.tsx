@@ -1,14 +1,11 @@
 import GiftsList from "@/components/Admin/GiftsList";
 import Header from "@/components/Admin/Header";
+import Sidebar from "@/components/Admin/Sidebar";
+import { useState } from "react";
 import styles from "../styles/Dashboard.module.scss";
 
-// Definir um array de presentes
-const gifts = Array(50).fill({
-  title: "forma de bolo",
-  price: "R$ 68,90",
-});
-
 export default function Dashboard() {
+  const [showSidebar, setShowSidebar] = useState(false);
   return (
     <>
       <div className={styles.container}>
@@ -21,6 +18,13 @@ export default function Dashboard() {
               personalização do seu site
             </span>
           </div>
+          <Sidebar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
+          <div
+            className={`${styles.overlay} ${
+              showSidebar ? styles.showOverlay : ""
+            }`}
+            onClick={() => setShowSidebar(false)}
+          ></div>
           <div className={styles.secondSectionPresentesRecebidos}>
             <div className={styles.containerPresentes}>
               <div className={styles.firstPresentes}>
@@ -45,7 +49,7 @@ export default function Dashboard() {
                 <div className={styles.containerLogo}>
                   <img className={styles.logo} src="/Eye.svg" alt="logo" />
                 </div>
-                <span>Presentes recebidos</span>
+                <span>Visitas</span>
               </div>
               <p>1.235</p>
             </div>
@@ -54,7 +58,7 @@ export default function Dashboard() {
       </div>
       <div className={styles.presentesRecebidosText}>
         <p>Presentes recebidos</p>
-        <button>Adicionar presente</button>
+        <button onClick={() => setShowSidebar(true)}>Adicionar presente</button>
       </div>
       <GiftsList />
     </>

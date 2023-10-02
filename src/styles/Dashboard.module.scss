@@ -37,6 +37,7 @@
 .secondSectionPresentesRecebidos {
   display: flex;
   justify-content: space-between;
+  gap: 24px;
 
   .firstPresentes {
     display: flex;
@@ -58,6 +59,8 @@
   display: flex;
   flex-direction: column;
   gap: 40px;
+  max-width: 332px;
+  width: 100%;
 
   p {
     color: #222;
@@ -128,4 +131,28 @@
     color: white;
     cursor: pointer;
   }
+}
+
+.show {
+  transform: translateX(0);
+}
+
+.overlay {
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 0;
+  cursor: pointer;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.showOverlay {
+  display: block;
+  opacity: 0.6;
 }
