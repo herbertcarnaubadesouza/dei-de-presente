@@ -2,7 +2,7 @@ import GiftsList from "@/components/Admin/GiftsList";
 import Header from "@/components/Admin/Header";
 import Sidebar from "@/components/Admin/Sidebar";
 import { useState } from "react";
-import styles from "../styles/Dashboard.module.scss";
+import styles from "../../styles/Dashboard.module.scss";
 
 export default function Dashboard() {
   const [showSidebar, setShowSidebar] = useState(false);

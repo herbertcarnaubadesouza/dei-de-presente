@@ -1,0 +1,24 @@
+.header {
+  background: #09a9b5;
+}
+
+.headerContent {
+  padding: 25px;
+  display: flex;
+  justify-content: space-between;
+  color: #fff;
+  max-width: 1440px;
+  margin-inline: auto;
+
+  p {
+    color: #fff;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+
+  img {
+    cursor: pointer;
+  }
+}
