@@ -352,6 +352,7 @@
 
 .sectionFotos {
   padding-top: 200px;
+  position: relative;
 
   margin-left: max(0px, (100% - 1440px)/2);
 
@@ -360,6 +361,7 @@
     content: url("/leftFlowers.svg");
     position: absolute;
     left: 0;
+    display: none;
     margin-top: -22%;
     overflow: hidden;
     opacity: 0.35;
