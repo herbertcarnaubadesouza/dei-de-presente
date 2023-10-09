@@ -17,7 +17,6 @@ export default function MarriedTemplate() {
   const [currentPage, setCurrentPage] = useState(1);
   const giftsPerPage = 12;
 
-  // Calcular o número total de páginas
   const totalPages = Math.ceil(gifts.length / giftsPerPage);
 
   const indexOfLastGift = currentPage * giftsPerPage;
@@ -27,7 +26,6 @@ export default function MarriedTemplate() {
   const nextPage = () => setCurrentPage(currentPage + 1);
   const prevPage = () => setCurrentPage(currentPage - 1);
 
-  // Ir para uma página específica
   const goToPage = (page: any) => setCurrentPage(page);
 
   const decrementar = () => {
@@ -70,7 +68,7 @@ export default function MarriedTemplate() {
   return (
     <>
       <div className={styles.templateContainer}>
-        <section className={styles.banner}>
+        <section className={styles.banner} id="home">
           <div className={styles.overlay}>
             <div className={styles.headerWebsite}>
               <img src="/logoPresente.svg" />
@@ -125,7 +123,7 @@ export default function MarriedTemplate() {
           </div>
         </section>
 
-        <section className={styles.history}>
+        <section className={styles.history} id="historia">
           <div className={styles.historyTitle}>
             <div className={styles.hrBlockHistory}>
               <hr />
@@ -180,7 +178,7 @@ export default function MarriedTemplate() {
             </div>
           </div>
         </section>
-        <section className={styles.mosaico}>
+        <section className={styles.mosaico} id="fotoscasal">
           <div className={styles.firstMosaico}>
             <img src="/mosaicoImage2.png" />
           </div>
@@ -196,7 +194,7 @@ export default function MarriedTemplate() {
             <img src="/mosaicoImage3.png" />
           </div>
         </section>
-        <section className={styles.mapsSection}>
+        <section className={styles.mapsSection} id="localdocasamento">
           <div className={styles.mapsSectionContent}>
             <div className={styles.sectionFotosDivisor}>
               <p>local do casamento</p>
