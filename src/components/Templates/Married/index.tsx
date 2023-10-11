@@ -2,17 +2,134 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 
+interface MarriedInterface {
+  nomeCasal: string;
+  mensagemCurta: string;
+  dataCasamento: string;
+  sobreCasal: string;
+  fotosCasalText: string;
+  horaCasamento: string;
+  nomeRua: string;
+  complemento: string;
+  numeroRua: string;
+  cep: string;
+  bannerUrl: string | null;
+  fotoCasalUrl: string | null;
+  fotoMosaico1Url: string | null;
+  fotoMosaico2Url: string | null;
+  fotoMosaico3Url: string | null;
+  fotoMosaico4Url: string | null;
+  fotoMosaico5Url: string | null;
+  fotoMosaico6Url: string | null;
+  fotoLocalUrl: string | null;
+}
+
 const gifts = Array(50).fill({
   title: "forma de bolo",
   price: "R$ 68,90",
 });
 
-export default function MarriedTemplate() {
+export default function MarriedTemplate({
+  nomeCasal,
+  mensagemCurta,
+  dataCasamento,
+  sobreCasal,
+  fotosCasalText,
+  horaCasamento,
+  nomeRua,
+  complemento,
+  numeroRua,
+  cep,
+  bannerUrl,
+  fotoCasalUrl,
+  fotoMosaico1Url,
+  fotoMosaico2Url,
+  fotoMosaico3Url,
+  fotoMosaico4Url,
+  fotoMosaico5Url,
+  fotoMosaico6Url,
+  fotoLocalUrl,
+}: MarriedInterface) {
+  const initialStateBanner =
+    typeof window !== "undefined"
+      ? bannerUrl || localStorage.getItem("fotoBanner") || null
+      : null;
+
+  const initialStateLocalr =
+    typeof window !== "undefined"
+      ? fotoLocalUrl || localStorage.getItem("fotoLocal") || null
+      : null;
+
+  const initialStateFotoCasal =
+    typeof window !== "undefined"
+      ? fotoCasalUrl || localStorage.getItem("fotoCasal") || null
+      : null;
+  const initialStateMosaico1 =
+    typeof window !== "undefined"
+      ? fotoMosaico1Url || localStorage.getItem("fotoCasal1") || null
+      : null;
+  const initialStateMosaico2 =
+    typeof window !== "undefined"
+      ? fotoMosaico2Url || localStorage.getItem("fotoCasal2") || null
+      : null;
+  const initialStateMosaico3 =
+    typeof window !== "undefined"
+      ? fotoMosaico3Url || localStorage.getItem("fotoCasal3") || null
+      : null;
+  const initialStateMosaico4 =
+    typeof window !== "undefined"
+      ? fotoMosaico4Url || localStorage.getItem("fotoCasal4") || null
+      : null;
+  const initialStateMosaico5 =
+    typeof window !== "undefined"
+      ? fotoMosaico5Url || localStorage.getItem("fotoCasal5") || null
+      : null;
+  const initialStateMosaico6 =
+    typeof window !== "undefined"
+      ? fotoMosaico6Url || localStorage.getItem("fotoCasal6") || null
+      : null;
+
   const [days, setDays] = useState(0);
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
   const [acompanhantes, setAcompanhantes] = useState(0);
+  const [internalBannerUrl, setInternalBannerUrl] = useState<string | null>(
+    initialStateBanner
+  );
+
+  const [internalFotoCasalUrl, setInternalFotoCasalUrl] = useState<
+    string | null
+  >(initialStateFotoCasal);
+
+  const [internalFotoLocalUrl, setInternalFotoLocalUrl] = useState<
+    string | null
+  >(initialStateLocalr);
+
+  const [internalMosaico1lUrl, setInternalMosaico1Url] = useState<
+    string | null
+  >(initialStateMosaico1);
+
+  const [internalMosaico2lUrl, setInternalMosaico2Url] = useState<
+    string | null
+  >(initialStateMosaico2);
+
+  const [internalMosaico3lUrl, setInternalMosaico3Url] = useState<
+    string | null
+  >(initialStateMosaico3);
+
+  const [internalMosaico4lUrl, setInternalMosaico4Url] = useState<
+    string | null
+  >(initialStateMosaico4);
+
+  const [internalMosaico5lUrl, setInternalMosaico5Url] = useState<
+    string | null
+  >(initialStateMosaico5);
+
+  const [internalMosaico6lUrl, setInternalMosaico6Url] = useState<
+    string | null
+  >(initialStateMosaico6);
+  const [mapUrl, setMapUrl] = useState("");
 
   const [currentPage, setCurrentPage] = useState(1);
   const giftsPerPage = 12;
@@ -38,8 +155,118 @@ export default function MarriedTemplate() {
     setAcompanhantes(acompanhantes + 1);
   };
 
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    date.setDate(date.getDate() + 1);
+
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = date.getFullYear();
+
+    return `${day}/${month}/${year}`;
+  };
+
   useEffect(() => {
-    const targetDate = new Date("December 31, 2023 00:00:00").getTime();
+    if (!bannerUrl) {
+      const storedBannerUrl = localStorage.getItem("fotoBanner");
+      if (storedBannerUrl) {
+        setInternalBannerUrl(`/temp/${storedBannerUrl}`);
+      }
+    } else {
+      setInternalBannerUrl(bannerUrl);
+    }
+
+    if (!fotoCasalUrl) {
+      const storedCasalUrl = localStorage.getItem("fotoCasal");
+      if (storedCasalUrl) {
+        setInternalFotoCasalUrl(`/temp/${storedCasalUrl}`);
+      }
+    } else {
+      setInternalFotoCasalUrl(fotoCasalUrl);
+    }
+
+    if (!fotoMosaico1Url) {
+      const storedMosaico1Url = localStorage.getItem("fotosCasal1");
+      if (storedMosaico1Url) {
+        setInternalMosaico1Url(`/temp/${storedMosaico1Url}`);
+      }
+    } else {
+      setInternalMosaico1Url(fotoMosaico1Url);
+    }
+
+    if (!fotoMosaico2Url) {
+      const storedMosaico2Url = localStorage.getItem("fotosCasal2");
+      if (storedMosaico2Url) {
+        setInternalMosaico2Url(`/temp/${storedMosaico2Url}`);
+      }
+    } else {
+      setInternalMosaico2Url(fotoMosaico2Url);
+    }
+
+    if (!fotoMosaico3Url) {
+      const storedMosaico3Url = localStorage.getItem("fotosCasal3");
+      if (storedMosaico3Url) {
+        setInternalMosaico3Url(`/temp/${storedMosaico3Url}`);
+      }
+    } else {
+      setInternalMosaico3Url(fotoMosaico3Url);
+    }
+
+    if (!fotoMosaico4Url) {
+      const storedMosaico4Url = localStorage.getItem("fotosCasal4");
+      if (storedMosaico4Url) {
+        setInternalMosaico4Url(`/temp/${storedMosaico4Url}`);
+      }
+    } else {
+      setInternalMosaico4Url(fotoMosaico4Url);
+    }
+
+    if (!fotoMosaico5Url) {
+      const storedMosaico5Url = localStorage.getItem("fotosCasal5");
+      if (storedMosaico5Url) {
+        setInternalMosaico5Url(`/temp/${storedMosaico5Url}`);
+      }
+    } else {
+      setInternalMosaico5Url(fotoMosaico5Url);
+    }
+
+    if (!fotoMosaico6Url) {
+      const fotoMosaico6Url = localStorage.getItem("fotosCasal6");
+      if (fotoMosaico6Url) {
+        setInternalMosaico6Url(`/temp/${fotoMosaico6Url}`);
+      }
+    } else {
+      setInternalMosaico6Url(fotoMosaico6Url);
+    }
+
+    if (!fotoLocalUrl) {
+      const fotoLocalUrl = localStorage.getItem("fotoLocal");
+      if (fotoLocalUrl) {
+        setInternalFotoLocalUrl(`/temp/${fotoLocalUrl}`);
+      }
+    } else {
+      setInternalFotoLocalUrl(fotoLocalUrl);
+    }
+  }, [
+    bannerUrl,
+    fotoCasalUrl,
+    fotoMosaico1Url,
+    fotoMosaico2Url,
+    fotoMosaico3Url,
+    fotoMosaico4Url,
+    fotoMosaico5Url,
+    fotoMosaico6Url,
+    fotoLocalUrl,
+  ]);
+
+  useEffect(() => {
+    let targetDate: any;
+
+    if (dataCasamento) {
+      targetDate = new Date(`${dataCasamento}T00:00:00`).getTime();
+    } else {
+      targetDate = new Date("December 31, 2023 00:00:00").getTime();
+    }
 
     const interval = setInterval(() => {
       const now = new Date().getTime();
@@ -54,21 +281,34 @@ export default function MarriedTemplate() {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, []);
-
-  const [mapUrl, setMapUrl] = useState("");
-  const [address, setAddress] = useState("Avenida Iguaçu 3001");
+  }, [dataCasamento]);
 
   useEffect(() => {
-    const encodedAddress = encodeURIComponent(address);
+    let fullAddress;
+
+    if (nomeRua && numeroRua && cep) {
+      fullAddress = `${nomeRua}, ${numeroRua}, ${cep}`;
+    } else {
+      fullAddress = "avenida paulista, cep 01310-930";
+    }
+
+    const encodedAddress = encodeURIComponent(fullAddress);
     const newUrl = `https://www.google.com/maps?q=${encodedAddress}&output=embed`;
     setMapUrl(newUrl);
-  }, [address]);
+  }, [nomeRua, numeroRua, cep]);
 
   return (
     <>
       <div className={styles.templateContainer}>
-        <section className={styles.banner} id="home">
+        <section
+          className={styles.banner}
+          id="home"
+          style={
+            internalBannerUrl
+              ? { backgroundImage: `url(${internalBannerUrl})` }
+              : {}
+          }
+        >
           <div className={styles.overlay}>
             <div className={styles.headerWebsite}>
               <img src="/logoPresente.svg" />
@@ -86,14 +326,12 @@ export default function MarriedTemplate() {
                 <hr />
               </div>
               <div className={styles.titleBlock}>
-                <h1>Laura & Leonardo</h1>
+                <h1>{nomeCasal || "Laura & Leonardo"}</h1>
               </div>
               <div className={styles.descriptionEvent}>
                 <p>
-                  Noivos, convidados e amigos, sejam todos bem-vindos a um lugar
-                  onde sonhos se tornam realidade. Nossa plataforma de presentes
-                  de casamento é o seu guia para uma jornada inesquecível rumo
-                  ao altar.
+                  {mensagemCurta ||
+                    "Noivos, convidados e amigos, sejam todos bem-vindos a um lugar onde sonhos se tornam realidade. Nossa plataforma de presentes de casamento é o seu guia para uma jornada inesquecível rumo ao altar."}
                 </p>
               </div>
             </div>
@@ -134,28 +372,40 @@ export default function MarriedTemplate() {
           </div>
           <div className={styles.historyContent}>
             <div className={styles.leftSideHistoryContent}>
-              <h3>laura & leonardo</h3>
+              <h3>{nomeCasal || "Laura & Leonardo"}</h3>
               <p>
-                Lorem ipsum dolor sit amet consectetur. Amet ullamcorper quam
-                maecenas ac placerat porttitor porttitor mi. Ipsum volutpat
-                proin quisque urna tortor et. Praesent porttitor aliquam a
-                tristique tortor et eget. Potenti eu maecenas diam aenean nec.
-                Lorem ipsum dolor sit amet consectetur. Amet ullamcorper quam
-                maecenas ac placerat porttitor porttitor mi. Ipsum volutpat
-                proin quisque urna tortor et. Praesent porttitor aliquam a
-                tristique tortor et eget. Potenti eu maecenas diam aenean nec.
+                {sobreCasal ||
+                  "Lorem ipsum dolor sit amet consectetur. Amet ullamcorper quam maecenas ac placerat porttitor porttitor mi. Ipsum volutpat proin quisque urna tortor et. Praesent porttitor aliquam a tristique tortor et eget. Potenti eu maecenas diam aenean nec. Lorem ipsum dolor sit amet consectetur. Amet ullamcorper quam maecenas ac placerat porttitor porttitor mi. Ipsum volutpat proin quisque urna tortor et. Praesent porttitor aliquam a tristique tortor et eget. Potenti eu maecenas diam aenean nec."}
               </p>
               <button>confirmar presença</button>
             </div>
             <div className={styles.rightSideHistoryContent}>
               <div className={styles.firstMoldura}>
-                <img src="/defaultMarried.png" />
+                <img
+                  src={
+                    internalFotoCasalUrl
+                      ? internalFotoCasalUrl
+                      : "/defaultMarried.png"
+                  }
+                />
               </div>
               <div className={`${styles.firstMoldura} ${styles.secondMoldura}`}>
-                <img src="/defaultMarried.png" />
+                <img
+                  src={
+                    internalFotoCasalUrl
+                      ? internalFotoCasalUrl
+                      : "/defaultMarried.png"
+                  }
+                />
               </div>
               <div className={`${styles.firstMoldura} ${styles.thirdMoldura}`}>
-                <img src="/defaultMarried.png" />
+                <img
+                  src={
+                    internalFotoCasalUrl
+                      ? internalFotoCasalUrl
+                      : "/defaultMarried.png"
+                  }
+                />
               </div>
             </div>
           </div>
@@ -170,30 +420,66 @@ export default function MarriedTemplate() {
             <div className={styles.titleSectionFotos}>
               <h2>Um pouco do nosso amor em fotos</h2>
               <p>
-                Lorem ipsum dolor sit amet consectetur. Amet ullamcorper quam
-                maecenas ac placerat porttitor porttitor mi. Ipsum volutpat
-                proin quisque urna tortor et. Praesent porttitor aliquam a
-                tristique tortor et eget. Potenti eu maecenas diam aenean nec.
+                {fotosCasalText ||
+                  "Lorem ipsum dolor sit amet consectetur. Amet ullamcorper quam maecenas ac placerat porttitor porttitor mi. Ipsum volutpat proin quisque urna tortor et. Praesent porttitor aliquam a tristique tortor et eget. Potenti eu maecenas diam aenean nec."}
               </p>
             </div>
           </div>
         </section>
+
         <section className={styles.mosaico} id="fotoscasal">
           <div className={styles.firstMosaico}>
-            <img src="/mosaicoImage2.png" />
+            <img
+              src={
+                internalMosaico1lUrl
+                  ? internalMosaico1lUrl
+                  : "/mosaicoImage2.png"
+              }
+            />
           </div>
           <div className={styles.secondMosaico}>
-            <img src="/mosaicoImage3.png" />
-            <img src="/mosaicoImage4.png" />
+            <img
+              src={
+                internalMosaico2lUrl
+                  ? internalMosaico2lUrl
+                  : "/mosaicoImage3.png"
+              }
+            />
+            <img
+              src={
+                internalMosaico3lUrl
+                  ? internalMosaico3lUrl
+                  : "/mosaicoImage4.png"
+              }
+            />
           </div>
           <div className={styles.thirdMosaico}>
-            <img src="/mosaicoImage1.png" />
-            <img src="/mosaicoImage4.png" />
+            <img
+              src={
+                internalMosaico4lUrl
+                  ? internalMosaico4lUrl
+                  : "/mosaicoImage1.png"
+              }
+            />
+            <img
+              src={
+                internalMosaico5lUrl
+                  ? internalMosaico5lUrl
+                  : "/mosaicoImage4.png"
+              }
+            />
           </div>
           <div className={styles.lastMosaico}>
-            <img src="/mosaicoImage3.png" />
+            <img
+              src={
+                internalMosaico6lUrl
+                  ? internalMosaico6lUrl
+                  : "/mosaicoImage3.png"
+              }
+            />
           </div>
         </section>
+
         <section className={styles.mapsSection} id="localdocasamento">
           <div className={styles.mapsSectionContent}>
             <div className={styles.sectionFotosDivisor}>
@@ -211,7 +497,10 @@ export default function MarriedTemplate() {
                 <img src="/CalendarBlank.svg" />
                 <div className={styles.dataHora}>
                   <p>data e horário</p>
-                  <span>24/10/2023 às 16:00h</span>
+                  <span>
+                    {dataCasamento ? formatDate(dataCasamento) : "24/10/2023"}{" "}
+                    às {horaCasamento || "16:00h"}
+                  </span>
                 </div>
               </div>
               <div className={styles.mapsFooterBlock}>
@@ -219,8 +508,9 @@ export default function MarriedTemplate() {
                 <div className={styles.dataHora}>
                   <p>Endereço</p>
                   <span>
-                    Rua das laranjeiras, Lote 1420/1520 chácara Recanto dos
-                    sabiás, Brasília - DF
+                    {nomeRua && complemento && numeroRua
+                      ? `${nomeRua}, ${complemento} ${numeroRua}, ${cep}`
+                      : "Rua das laranjeiras, Lote 1420/1520 chácara Recanto dos sabiás, Brasília - DF"}
                   </span>
                 </div>
               </div>
@@ -228,7 +518,14 @@ export default function MarriedTemplate() {
           </div>
         </section>
 
-        <section className={styles.formSectionCasamento}>
+        <section
+          className={styles.formSectionCasamento}
+          style={
+            internalFotoLocalUrl
+              ? { backgroundImage: `url(${internalFotoLocalUrl})` }
+              : {}
+          }
+        >
           <div className={styles.formContainer}>
             <div className={styles.formDivisorBlock}>
               <hr />

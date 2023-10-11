@@ -2,6 +2,7 @@
   background: #09a9b5;
   text-transform: uppercase;
   font-weight: 400;
+  z-index: 9999;
 
   .headerContent {
     display: flex;
@@ -22,6 +23,17 @@
     display: flex;
     gap: 24px;
     align-items: center;
+  }
+
+  .logout {
+    border: 1px solid white;
+    text-align: center;
+    padding-block: 14px;
+    background: none;
+    padding-inline: 8px;
+    min-width: 100px;
+    color: white;
+    border-radius: 4.776px;
   }
 
   a {

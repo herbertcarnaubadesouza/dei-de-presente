@@ -1,4 +1,6 @@
 import StepsHeader from "@/components/Admin/StepsHeader";
+import { GetServerSidePropsContext } from "next";
+import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import styles from "../../styles/Event.module.scss";
@@ -69,7 +71,7 @@ export default function Event() {
               onClick={() => handleClick(index)}
             >
               <img src={`/${src}`} />
-              <p>{["Casamento", "Aniversário", "Festa"][index]}</p>
+              <p>{["Festa", "Aniversário", "Casamento"][index]}</p>
             </div>
           ))}
         </div>
@@ -79,4 +81,22 @@ export default function Event() {
       </div>
     </>
   );
+}
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const session = await getSession(context);
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      session,
+    },
+  };
 }

@@ -1,5 +1,7 @@
 import Header from "@/components/Admin/Header";
 import TableUsers from "@/components/Admin/Table";
+import { GetServerSidePropsContext } from "next";
+import { getSession } from "next-auth/react";
 import styles from "../../styles/Dashboard.module.scss";
 
 export default function Confirmations() {
@@ -20,4 +22,22 @@ export default function Confirmations() {
       <TableUsers />
     </>
   );
+}
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const session = await getSession(context);
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      session,
+    },
+  };
 }

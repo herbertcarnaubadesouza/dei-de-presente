@@ -1,15 +1,44 @@
 import MarriedTemplate from "@/components/Templates/Married";
+import axios from "axios";
+import { GetServerSidePropsContext } from "next";
+import { getSession } from "next-auth/react";
+import router from "next/router";
 import { ChangeEvent, useEffect, useState } from "react";
 import styles from "../../styles/Customize.module.scss";
 
 export default function Customize() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isFileSelected, setIsFileSelected] = useState(false);
+  const [isRightSideVisible, setIsRightSideVisible] = useState(true);
   const [activeAccordion, setActiveAccordion] = useState<string | null>("Home");
+  const [slug, setSlug] = useState("");
+  const [nomeCasal, setNomeCasal] = useState("");
+  const [mensagemCurta, setMensagemCurta] = useState("");
+  const [dataCasamento, setDataCasamento] = useState("");
+  const [horaCasamento, setHoraCasamento] = useState("");
+  const [sobreCasal, setSobreCasal] = useState("");
+  const [fotosCasalText, setFotosCasalText] = useState("");
+  const [nomeRua, setNomeRua] = useState("");
+  const [complemento, setComplementoRua] = useState("");
+  const [numeroRua, setNumeroRua] = useState("");
+  const [nextHandlerIndex, setNextHandlerIndex] = useState(1);
+  const [bannerUrl, setBannerUrl] = useState<string | null>(null);
+  const [fotoCasalUrl, setFotoCasalUrl] = useState<string | null>(null);
+  const [fotoMosaico1Url, setFotoMosaico1Url] = useState<string | null>(null);
+  const [fotoMosaico2Url, setFotoMosaico2Url] = useState<string | null>(null);
+  const [fotoMosaico3Url, setFotoMosaico3Url] = useState<string | null>(null);
+  const [fotoMosaico4Url, setFotoMosaico4Url] = useState<string | null>(null);
+  const [fotoMosaico5Url, setFotoMosaico5Url] = useState<string | null>(null);
+  const [fotoMosaico6Url, setFotoMosaico6Url] = useState<string | null>(null);
+  const [fotoLocalUrl, setFotoLocalUrl] = useState<string | null>(null);
 
   const [cep, setCep] = useState("");
 
-  const handleCepChange = (e: any) => {
+  const today = new Date();
+  today.setDate(today.getDate() + 1);
+  const nextDay = today.toISOString().split("T")[0];
+
+  const handleCepChange = (e: ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value;
 
     value = value.replace(/\D/g, "");
@@ -22,6 +51,15 @@ export default function Customize() {
 
     setCep(value.substring(0, 9));
   };
+
+  const handlePreviewClick = () => {
+    setIsRightSideVisible(!isRightSideVisible);
+  };
+
+  const handleContinueEditingClick = () => {
+    setIsRightSideVisible(!isRightSideVisible);
+  };
+
   const toggleAccordion = (name: string) => {
     if (activeAccordion === name) {
       setActiveAccordion(null);
@@ -54,12 +92,270 @@ export default function Customize() {
     return isActive ? `${styles.accordion} ${styles.active}` : styles.accordion;
   };
 
-  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    setSelectedFile(file || null);
+  const handleImageBannerChange = async (e: any) => {
+    const file = e.target.files[0];
 
-    if (file) {
-      setIsFileSelected(true);
+    if (!file) {
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const response = await axios.post("/api/upload", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      if (response.data.file) {
+        localStorage.setItem("fotoBanner", response.data.file);
+        setBannerUrl(`/temp/${response.data.file}`);
+      }
+    } catch (err) {
+      console.error("Ocorreu um erro durante o upload:", err);
+    }
+  };
+
+  const handleImageLocalChange = async (e: any) => {
+    const file = e.target.files[0];
+
+    if (!file) {
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const response = await axios.post("/api/upload", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      if (response.data.file) {
+        localStorage.setItem("fotoLocal", response.data.file);
+        setFotoLocalUrl(`/temp/${response.data.file}`);
+      }
+    } catch (err) {
+      console.error("Ocorreu um erro durante o upload:", err);
+    }
+  };
+
+  const handleDeleteImage = async (index: number) => {
+    const fileName = localStorage.getItem(`fotosCasal${index + 1}`);
+    localStorage.removeItem(`fotosCasal${index + 1}`);
+
+    if (fileName) {
+      try {
+        await axios.post("/api/delete", { fileName });
+        window.location.reload();
+      } catch (err) {
+        console.error("Erro ao deletar o arquivo", err);
+      }
+    }
+  };
+
+  const handleImageFotoCasalChange = async (e: any) => {
+    const file = e.target.files[0];
+
+    if (!file) {
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const response = await axios.post("/api/upload", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      if (response.data.file) {
+        localStorage.setItem("fotoCasal", response.data.file);
+        setFotoCasalUrl(`/temp/${response.data.file}`);
+      }
+    } catch (err) {
+      console.error("Ocorreu um erro durante o upload:", err);
+    }
+  };
+
+  const handleImageCasalGeneric = async (e: any) => {
+    const file = e.target.files[0];
+
+    if (!file) {
+      return;
+    }
+
+    switch (nextHandlerIndex) {
+      case 1:
+        await handleImageFotosCasal1(file);
+        break;
+      case 2:
+        await handleImageFotosCasal2(file);
+        break;
+      case 3:
+        await handleImageFotosCasal3(file);
+        break;
+      case 4:
+        await handleImageFotosCasal4(file);
+        break;
+      case 5:
+        await handleImageFotosCasal5(file);
+        break;
+      case 6:
+        await handleImageFotosCasal6(file);
+        break;
+      default:
+        break;
+    }
+
+    setNextHandlerIndex(nextHandlerIndex + 1);
+  };
+
+  const handleImageFotosCasal1 = async (file: File) => {
+    if (!file) {
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const response = await axios.post("/api/upload", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      if (response.data.file) {
+        localStorage.setItem("fotosCasal1", response.data.file);
+        setFotoMosaico1Url(`/temp/${response.data.file}`);
+      }
+    } catch (err) {
+      console.error("Ocorreu um erro durante o upload:", err);
+    }
+  };
+
+  const handleImageFotosCasal2 = async (file: File) => {
+    if (!file) {
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const response = await axios.post("/api/upload", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      if (response.data.file) {
+        localStorage.setItem("fotosCasal2", response.data.file);
+        setFotoMosaico2Url(`/temp/${response.data.file}`);
+      }
+    } catch (err) {
+      console.error("Ocorreu um erro durante o upload:", err);
+    }
+  };
+
+  const handleImageFotosCasal3 = async (file: File) => {
+    if (!file) {
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const response = await axios.post("/api/upload", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      if (response.data.file) {
+        localStorage.setItem("fotosCasal3", response.data.file);
+        setFotoMosaico3Url(`/temp/${response.data.file}`);
+      }
+    } catch (err) {
+      console.error("Ocorreu um erro durante o upload:", err);
+    }
+  };
+  const handleImageFotosCasal4 = async (file: File) => {
+    if (!file) {
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const response = await axios.post("/api/upload", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      if (response.data.file) {
+        localStorage.setItem("fotosCasal4", response.data.file);
+        setFotoMosaico4Url(`/temp/${response.data.file}`);
+      }
+    } catch (err) {
+      console.error("Ocorreu um erro durante o upload:", err);
+    }
+  };
+  const handleImageFotosCasal5 = async (file: File) => {
+    if (!file) {
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const response = await axios.post("/api/upload", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      if (response.data.file) {
+        localStorage.setItem("fotosCasal5", response.data.file);
+        setFotoMosaico5Url(`/temp/${response.data.file}`);
+      }
+    } catch (err) {
+      console.error("Ocorreu um erro durante o upload:", err);
+    }
+  };
+
+  const handleImageFotosCasal6 = async (file: File) => {
+    if (!file) {
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const response = await axios.post("/api/upload", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      if (response.data.file) {
+        localStorage.setItem("fotosCasal6", response.data.file);
+        setFotoMosaico6Url(`/temp/${response.data.file}`);
+      }
+    } catch (err) {
+      console.error("Ocorreu um erro durante o upload:", err);
     }
   };
 
@@ -87,17 +383,226 @@ export default function Customize() {
     };
   }, []);
 
+  useEffect(() => {
+    const savedNomeCasal = localStorage.getItem("nomeCasal");
+    if (savedNomeCasal) {
+      setNomeCasal(savedNomeCasal);
+    }
+    const savedMensagemCurta = localStorage.getItem("mensagemCurta");
+    if (savedMensagemCurta) {
+      setMensagemCurta(savedMensagemCurta);
+    }
+    const savedDataCasamento = localStorage.getItem("dataCasamento");
+    if (savedDataCasamento) {
+      setDataCasamento(savedDataCasamento);
+    }
+    const savedHoraCasamento = localStorage.getItem("horaCasamento");
+    if (savedHoraCasamento) {
+      setHoraCasamento(savedHoraCasamento);
+    }
+    const savedSobreCasal = localStorage.getItem("sobreCasal");
+    if (savedSobreCasal) {
+      setSobreCasal(savedSobreCasal);
+    }
+    const savedFotosCasalText = localStorage.getItem("fotosCasalText");
+    if (savedFotosCasalText) {
+      setFotosCasalText(savedFotosCasalText);
+    }
+    const savedNomeRua = localStorage.getItem("nomeDaRua");
+    if (savedNomeRua) {
+      setNomeRua(savedNomeRua);
+    }
+    const savedNumeroRua = localStorage.getItem("numeroDaRua");
+    if (savedNumeroRua) {
+      setNumeroRua(savedNumeroRua);
+    }
+    const savedComplemento = localStorage.getItem("complemento");
+    if (savedComplemento) {
+      setComplementoRua(savedComplemento);
+    }
+    const savedCep = localStorage.getItem("cep");
+    if (savedCep) {
+      setCep(savedCep);
+    }
+    const savedSlug = localStorage.getItem("slug");
+    if (savedSlug) {
+      setSlug(savedSlug);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("nomeCasal", nomeCasal);
+    localStorage.setItem("slug", slug);
+    localStorage.setItem("mensagemCurta", mensagemCurta);
+    localStorage.setItem("dataCasamento", dataCasamento);
+    localStorage.setItem("horaCasamento", horaCasamento);
+    localStorage.setItem("sobreCasal", sobreCasal);
+    localStorage.setItem("fotosCasalText", fotosCasalText);
+    localStorage.setItem("nomeDaRua", nomeRua);
+    localStorage.setItem("complemento", complemento);
+    localStorage.setItem("numeroDaRua", numeroRua);
+    localStorage.setItem("cep", cep);
+  }, [
+    nomeCasal,
+    mensagemCurta,
+    dataCasamento,
+    horaCasamento,
+    sobreCasal,
+    fotosCasalText,
+    nomeRua,
+    numeroRua,
+    cep,
+    complemento,
+    slug,
+  ]);
+
+  const handleNomeCasalChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setNomeCasal(value);
+  };
+  const handleSlugChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSlug(value);
+  };
+  const handleMensagemCurtaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    const value = e.target.value;
+    setMensagemCurta(value);
+  };
+  const handleDataCasamentoChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setDataCasamento(value);
+  };
+  const handleHoraCasamentoChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setHoraCasamento(value);
+  };
+  const handleSobreCasalChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    const value = e.target.value;
+    setSobreCasal(value);
+  };
+  const handleFotosCasalTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    const value = e.target.value;
+    setFotosCasalText(value);
+  };
+  const handleNomeDaRuaChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setNomeRua(value);
+  };
+  const handleComplementoChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setComplementoRua(value);
+  };
+  const handleNumeroDaRuaChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setNumeroRua(value);
+  };
+
+  const handlePublishClick = async () => {
+    const payload = {
+      nomeCasal,
+      slug,
+      mensagemCurta,
+      dataCasamento,
+      horaCasamento,
+      sobreCasal,
+      fotosCasalText,
+      nomeRua,
+      complemento,
+      numeroRua,
+      nextHandlerIndex,
+      bannerUrl,
+      fotoCasalUrl,
+      fotoMosaico1Url,
+      fotoMosaico2Url,
+      fotoMosaico3Url,
+      fotoMosaico4Url,
+      fotoMosaico5Url,
+      fotoMosaico6Url,
+      fotoLocalUrl,
+    };
+
+    console.log(payload);
+
+    const res = await fetch("/api/saveWebsite", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (res.ok) {
+      // Trate a resposta do servidor aqui, se necessário
+      const data = await res.json();
+      console.log(data.message);
+    } else {
+      console.log("Falha ao salvar os dados");
+    }
+  };
+
   return (
     <>
       <div className={styles.headerCustomize}>
         <p>Personalize o tema escolhido </p>
-        <img src="/close.svg" />
+        <img
+          src="/close.svg"
+          onClick={() => {
+            if (
+              window.confirm("Todos os dados serão apagados. Você tem certeza?")
+            ) {
+              localStorage.clear();
+              router.push("/admin/dashboard");
+            }
+          }}
+        />
       </div>
-      <div className={styles.container}>
-        <div className={styles.leftSide}>
-          <MarriedTemplate />
+      {isRightSideVisible ? (
+        <></>
+      ) : (
+        <div
+          className={styles.continueEditing}
+          onClick={handleContinueEditingClick}
+        >
+          <button>Continuar editando</button>
         </div>
-        <div className={styles.rightSide}>
+      )}
+      <div
+        className={`${styles.container} ${
+          isRightSideVisible ? "" : styles.exitContainer
+        }`}
+      >
+        <div
+          className={`${styles.leftSide} ${
+            isRightSideVisible ? "" : styles.exitLeft
+          }`}
+        >
+          <MarriedTemplate
+            nomeCasal={nomeCasal}
+            dataCasamento={dataCasamento}
+            horaCasamento={horaCasamento}
+            mensagemCurta={mensagemCurta}
+            sobreCasal={sobreCasal}
+            fotosCasalText={fotosCasalText}
+            nomeRua={nomeRua}
+            complemento={complemento}
+            numeroRua={numeroRua}
+            cep={cep}
+            bannerUrl={bannerUrl}
+            fotoCasalUrl={fotoCasalUrl}
+            fotoMosaico1Url={fotoMosaico1Url}
+            fotoMosaico2Url={fotoMosaico2Url}
+            fotoMosaico3Url={fotoMosaico3Url}
+            fotoMosaico4Url={fotoMosaico4Url}
+            fotoMosaico5Url={fotoMosaico5Url}
+            fotoMosaico6Url={fotoMosaico6Url}
+            fotoLocalUrl={fotoLocalUrl}
+          />
+        </div>
+        <div
+          className={`${styles.rightSide} ${
+            isRightSideVisible ? "" : styles.exit
+          }`}
+        >
           <div className={styles.headerAccordion}>
             <p>Personalize seu site</p>
           </div>
@@ -116,20 +621,47 @@ export default function Customize() {
           {activeAccordion === "Home" && (
             <div className={styles.accordionContent}>
               <div className={styles.inputAccordion}>
+                <label>Nome do seu site</label>
+                <input
+                  placeholder="Exemplo: lauraeleonardo"
+                  type="text"
+                  value={slug}
+                  onChange={handleSlugChange}
+                />
+              </div>
+              <div className={styles.inputAccordion}>
                 <label>Nome do casal</label>
-                <input placeholder="LAURA & LEONARDO" type="text" />
+                <input
+                  placeholder="LAURA & LEONARDO"
+                  type="text"
+                  value={nomeCasal}
+                  onChange={handleNomeCasalChange}
+                />
               </div>
               <div className={styles.inputAccordion}>
                 <label>Mensagem curta</label>
-                <textarea placeholder="Noivos, convidados e amigos, sejam todos bem-vindos a um lugar onde sonhos se tornam realidade. Nossa plataforma de presentes de casamento é o seu guia para uma jornada inesquecível rumo ao altar." />
+                <textarea
+                  placeholder="Noivos, convidados e amigos, sejam todos bem-vindos a um lugar onde sonhos se tornam realidade. Nossa plataforma de presentes de casamento é o seu guia para uma jornada inesquecível rumo ao altar."
+                  value={mensagemCurta}
+                  onChange={handleMensagemCurtaChange}
+                />
               </div>
               <div className={styles.inputAccordion}>
                 <label>Data do casamento</label>
-                <input type="date" />
+                <input
+                  type="date"
+                  value={dataCasamento}
+                  min={nextDay}
+                  onChange={handleDataCasamentoChange}
+                />
               </div>
               <div className={styles.inputAccordion}>
                 <label>Hora do casamento</label>
-                <input type="time" />
+                <input
+                  type="time"
+                  value={horaCasamento}
+                  onChange={handleHoraCasamentoChange}
+                />
               </div>
               <div className={styles.inputAccordion}>
                 <label>Banner do site</label>
@@ -142,7 +674,7 @@ export default function Customize() {
                 <input
                   type="file"
                   accept=".pdf, .jpeg, .jpg, .png"
-                  onChange={handleFileChange}
+                  onChange={handleImageBannerChange}
                   id="fileInput"
                   style={{ display: "none" }}
                 />
@@ -153,6 +685,7 @@ export default function Customize() {
                   Formatos aceitos PDF, JPEG e PNG
                 </p>
               </div>
+
               <div
                 className={styles.FileSelected}
                 style={{ display: isFileSelected ? "flex" : "none" }}
@@ -191,7 +724,11 @@ export default function Customize() {
             <div className={styles.accordionContent}>
               <div className={styles.inputAccordion}>
                 <label>Texto sobre o casal</label>
-                <textarea placeholder="Noivos, convidados e amigos, sejam todos bem-vindos a um lugar onde sonhos se tornam realidade. Nossa plataforma de presentes de casamento é o seu guia para uma jornada inesquecível rumo ao altar." />
+                <textarea
+                  placeholder="Noivos, convidados e amigos, sejam todos bem-vindos a um lugar onde sonhos se tornam realidade. Nossa plataforma de presentes de casamento é o seu guia para uma jornada inesquecível rumo ao altar."
+                  value={sobreCasal}
+                  onChange={handleSobreCasalChange}
+                />
               </div>
               <div className={styles.inputAccordion}>
                 <label>Foto do casal</label>
@@ -204,7 +741,7 @@ export default function Customize() {
                 <input
                   type="file"
                   accept=".pdf, .jpeg, .jpg, .png"
-                  onChange={handleFileChange}
+                  onChange={handleImageFotoCasalChange}
                   id="fileInput"
                   style={{ display: "none" }}
                 />
@@ -253,7 +790,11 @@ export default function Customize() {
             <div className={styles.accordionContent}>
               <div className={styles.inputAccordion}>
                 <label>Mensagem curta</label>
-                <textarea placeholder="Noivos, convidados e amigos, sejam todos bem-vindos a um lugar onde sonhos se tornam realidade. Nossa plataforma de presentes de casamento é o seu guia para uma jornada inesquecível rumo ao altar." />
+                <textarea
+                  placeholder="Noivos, convidados e amigos, sejam todos bem-vindos a um lugar onde sonhos se tornam realidade. Nossa plataforma de presentes de casamento é o seu guia para uma jornada inesquecível rumo ao altar."
+                  value={fotosCasalText}
+                  onChange={handleFotosCasalTextChange}
+                />
               </div>
               <div className={styles.PrintContainer}>
                 <img src="/upload.png" className={styles.Upload} />
@@ -263,7 +804,7 @@ export default function Customize() {
                 <input
                   type="file"
                   accept=".pdf, .jpeg, .jpg, .png"
-                  onChange={handleFileChange}
+                  onChange={handleImageCasalGeneric}
                   id="fileInput"
                   style={{ display: "none" }}
                 />
@@ -296,14 +837,25 @@ export default function Customize() {
                 />
               </div>
               <div className={styles.gridFotos}>
-                {[1, 2, 3, 4, 5, 6].map((item, index) => (
-                  <div key={index} className={styles.gridImage}>
-                    <img src="/defaultMarried.png" alt={`Image ${index}`} />
-                    <div className={styles.trashIcon}>
-                      <img src="/TrashSimple.svg" alt="Delete" />
+                {[1, 2, 3, 4, 5, 6].map((item, index) => {
+                  const fileNameFromLocalStorage = localStorage.getItem(
+                    `fotosCasal${item}`
+                  );
+                  const imageSource = fileNameFromLocalStorage
+                    ? `/temp/${fileNameFromLocalStorage}`
+                    : "/defaultMarried.png";
+                  return (
+                    <div key={index} className={styles.gridImage}>
+                      <img src={imageSource} alt={`Image ${index}`} />
+                      <div
+                        className={styles.trashIcon}
+                        onClick={() => handleDeleteImage(index)}
+                      >
+                        <img src="/TrashSimple.svg" alt="Delete" />
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           )}
@@ -324,11 +876,30 @@ export default function Customize() {
             <div className={styles.accordionContent}>
               <div className={styles.inputAccordion}>
                 <label>Nome da rua</label>
-                <input placeholder="Avenida Iguaçu" type="text" />
+                <input
+                  placeholder="Avenida Iguaçu"
+                  type="text"
+                  value={nomeRua}
+                  onChange={handleNomeDaRuaChange}
+                />
+              </div>
+              <div className={styles.inputAccordion}>
+                <label>Complemento</label>
+                <input
+                  placeholder="Próximo ao supermercado"
+                  type="text"
+                  value={complemento}
+                  onChange={handleComplementoChange}
+                />
               </div>
               <div className={styles.inputAccordion}>
                 <label>Número</label>
-                <input placeholder="3001" type="number" />
+                <input
+                  placeholder="3001"
+                  type="number"
+                  value={numeroRua}
+                  onChange={handleNumeroDaRuaChange}
+                />
               </div>
               <div className={styles.inputAccordion}>
                 <label>Digite o CEP</label>
@@ -339,10 +910,54 @@ export default function Customize() {
                   type="text"
                 />
               </div>
+              <div className={styles.inputAccordion}>
+                <label>Foto do local</label>
+              </div>
+              <div className={styles.PrintContainer}>
+                <img src="/upload.png" className={styles.Upload} />
+                <label htmlFor="fileInput" className={styles.LabelUpload}>
+                  Arraste e jogue seu anexo aqui ou se preferir{" "}
+                </label>
+                <input
+                  type="file"
+                  accept=".pdf, .jpeg, .jpg, .png"
+                  onChange={handleImageLocalChange}
+                  id="fileInput"
+                  style={{ display: "none" }}
+                />
+                <button className={styles.UploadButton} onClick={handleClick}>
+                  Escolher arquivo
+                </button>
+                <p className={styles.UploadInfo}>
+                  Formatos aceitos PDF, JPEG e PNG
+                </p>
+              </div>
             </div>
           )}
+          <div className={styles.footerAccordion}>
+            <button onClick={handlePublishClick}>Publicar</button>
+            <button onClick={handlePreviewClick}>Ver prévia do site</button>
+          </div>
         </div>
       </div>
     </>
   );
+}
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const session = await getSession(context);
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      session,
+    },
+  };
 }

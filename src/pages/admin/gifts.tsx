@@ -1,6 +1,8 @@
 import GiftsList from "@/components/Admin/GiftsList";
 import Header from "@/components/Admin/Header";
 import Sidebar from "@/components/Admin/Sidebar";
+import { GetServerSidePropsContext } from "next";
+import { getSession } from "next-auth/react";
 import { useState } from "react";
 import styles from "../../styles/Dashboard.module.scss";
 
@@ -35,4 +37,22 @@ export default function Gifts() {
       <GiftsList />
     </>
   );
+}
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const session = await getSession(context);
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      session,
+    },
+  };
 }

@@ -11,6 +11,7 @@
 
 .header {
   background: #09a9b5;
+  z-index: 9999;
   box-shadow: 0px -1px 0px 0px rgba(0, 0, 0, 0.12) inset;
   color: white !important;
 }
@@ -23,7 +24,6 @@
   background-color: #ffffff;
 }
 
-// No seu arquivo styles.module.scss
 .header :global(.MuiTableCell-root) {
   color: white;
 }

@@ -1,3 +1,4 @@
+import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import styles from "./styles.module.scss";
@@ -9,6 +10,10 @@ export default function Header() {
     return route === router.pathname
       ? `${styles.menulink} ${styles.active}`
       : styles.menulink;
+  };
+
+  const handleSignOut = () => {
+    signOut({ callbackUrl: "/" });
   };
 
   return (
@@ -30,8 +35,10 @@ export default function Header() {
             </Link>
           </div>
           <div className={styles.rightSide}>
-            <Link href="/confirmacoes">Meu perfil</Link>
             <button>ver meu site</button>
+            <button onClick={handleSignOut} className={styles.logout}>
+              Sair
+            </button>
           </div>
         </div>
       </div>
