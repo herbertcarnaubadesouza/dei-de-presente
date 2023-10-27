@@ -1,10 +1,14 @@
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 
 export default function Header() {
   const router = useRouter();
+  const session = useSession();
+  const [slug, setSlug] = useState(null);
+  const [buttonLabel, setButtonLabel] = useState("Criar meu site");
 
   const isActive = (route: any) => {
     return route === router.pathname
@@ -14,6 +18,28 @@ export default function Header() {
 
   const handleSignOut = () => {
     signOut({ callbackUrl: "/" });
+  };
+
+  useEffect(() => {
+    const userId = session.data?.id;
+
+    fetch(`/api/websites/checkWebsites?userId=${userId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.slug) {
+          setSlug(data.slug);
+        }
+      })
+
+      .catch((error) => console.error("Failed to fetch websites:", error));
+  }, []);
+
+  const handleButtonClick = () => {
+    if (slug) {
+      window.open(`/${slug}`, "_blank");
+    } else {
+      router.push("/admin/event");
+    }
   };
 
   return (
@@ -35,7 +61,9 @@ export default function Header() {
             </Link>
           </div>
           <div className={styles.rightSide}>
-            <button>ver meu site</button>
+            <button onClick={handleButtonClick}>
+              {slug ? "Ver meu site" : "Criar meu site"}
+            </button>
             <button onClick={handleSignOut} className={styles.logout}>
               Sair
             </button>
@@ -46,7 +74,11 @@ export default function Header() {
         <Link href="/admin/event">
           <img className={styles.logo} src="/Pencil.svg" alt="logo" />
         </Link>
-        <Link href="/admin/event">Personalizar site</Link>
+        {slug ? (
+          <Link href={`/${slug}`}>Editar site criado</Link>
+        ) : (
+          <Link href="/admin/event">Personalizar um site</Link>
+        )}
       </div>
     </>
   );

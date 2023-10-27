@@ -1,17 +1,27 @@
 import { useState } from "react";
 import styles from "./styles.module.scss";
 
-// Definir um array de presentes
-const gifts = Array(50).fill({
-  title: "forma de bolo",
-  price: "R$ 68,90",
-});
+interface Gift {
+  id: string;
+  name: string;
+  price: string;
+  imageUrl: string;
+}
 
-export default function GiftsList() {
+interface GiftsListProps {
+  gifts: Gift[];
+  setShowSidebarEdit: React.Dispatch<React.SetStateAction<boolean>>;
+  onEditGift: (id: string) => void;
+}
+
+export default function GiftsList({
+  gifts,
+  setShowSidebarEdit,
+  onEditGift,
+}: GiftsListProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const giftsPerPage = 12;
 
-  // Calcular o número total de páginas
   const totalPages = Math.ceil(gifts.length / giftsPerPage);
 
   const indexOfLastGift = currentPage * giftsPerPage;
@@ -21,7 +31,6 @@ export default function GiftsList() {
   const nextPage = () => setCurrentPage(currentPage + 1);
   const prevPage = () => setCurrentPage(currentPage - 1);
 
-  // Ir para uma página específica
   const goToPage = (page: any) => setCurrentPage(page);
 
   return (
@@ -31,10 +40,23 @@ export default function GiftsList() {
           {currentGifts.map((gift, index) => (
             <div key={index} className={styles.tableGift}>
               <div className={styles.card}>
-                <img className={styles.logo} src="/Rectangle.png" alt="logo" />
-                <p>{gift.title}</p>
-                <span>{gift.price}</span>
-                <button>editar</button>
+                <img className={styles.logo} src={gift?.imageUrl} alt="logo" />
+                <p>{gift.name}</p>
+                <span>
+                  {parseFloat(gift.price?.toString()).toLocaleString("pt-BR", {
+                    style: "currency",
+                    currency: "BRL",
+                  })}
+                </span>
+
+                <button
+                  onClick={() => {
+                    setShowSidebarEdit(true);
+                    onEditGift(gift.id);
+                  }}
+                >
+                  editar
+                </button>
               </div>
             </div>
           ))}

@@ -1,16 +1,52 @@
 import GiftsList from "@/components/Admin/GiftsList";
 import Header from "@/components/Admin/Header";
 import Sidebar from "@/components/Admin/Sidebar";
+import SidebarEdit from "@/components/Admin/SidebarEdit";
+import axios from "axios";
 import { GetServerSidePropsContext } from "next";
 import { getSession, useSession } from "next-auth/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "../../styles/Dashboard.module.scss";
+
+interface Gift {
+  id: string;
+  name: string;
+  price: string;
+  imageUrl: string;
+}
 
 export default function Dashboard() {
   const [showSidebar, setShowSidebar] = useState(false);
-  const { data: session } = useSession();
+  const [showSidebarEdit, setShowSidebarEdit] = useState(false);
+  const [giftCounter, setGiftCounter] = useState(0);
+  const [gifts, setGifts] = useState<Gift[]>([]);
+  const [selectedGiftId, setSelectedGiftId] = useState<string | null>(null);
+  const session = useSession();
 
-  console.log(session);
+  const handleGiftAdded = () => {
+    setGiftCounter((prevCounter) => prevCounter + 1);
+  };
+
+  const handleEditGift = (id: string) => {
+    setSelectedGiftId(id);
+    setShowSidebarEdit(true);
+  };
+
+  useEffect(() => {
+    const userId = session.data?.id;
+    const fetchGifts = async () => {
+      const res = await axios.get<Gift[]>("/api/gifts/getGifts", {
+        params: { userId },
+      });
+      setGifts(res.data);
+    };
+
+    fetchGifts();
+  }, [giftCounter]);
+
+  function capitalizeFirstLetter(name: string) {
+    return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+  }
 
   return (
     <>
@@ -18,18 +54,33 @@ export default function Dashboard() {
         <Header />
         <div className={styles.presentesRecebidos}>
           <div className={styles.textSection}>
-            <p>Olá, Leonardo!</p>
+            <p>Olá, {capitalizeFirstLetter(session.data?.user?.name || "")}</p>
             <span>
               Abaixo você vai encontrar algumas estatísticas e opções de
               personalização do seu site
             </span>
           </div>
-          <Sidebar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
+
+          <Sidebar
+            showSidebar={showSidebar}
+            setShowSidebar={setShowSidebar}
+            onGiftAdded={handleGiftAdded}
+          />
+          <SidebarEdit
+            showSidebar={showSidebarEdit}
+            setShowSidebar={setShowSidebarEdit}
+            onGiftAdded={handleGiftAdded}
+            selectedGiftId={selectedGiftId}
+          />
+
           <div
             className={`${styles.overlay} ${
-              showSidebar ? styles.showOverlay : ""
+              showSidebar || showSidebarEdit ? styles.showOverlay : ""
             }`}
-            onClick={() => setShowSidebar(false)}
+            onClick={() => {
+              setShowSidebar(false);
+              setShowSidebarEdit(false);
+            }}
           ></div>
           <div className={styles.secondSectionPresentesRecebidos}>
             <div className={styles.containerPresentes}>
@@ -66,7 +117,11 @@ export default function Dashboard() {
         <p>Presentes recebidos</p>
         <button onClick={() => setShowSidebar(true)}>Adicionar presente</button>
       </div>
-      <GiftsList />
+      <GiftsList
+        gifts={gifts}
+        setShowSidebarEdit={setShowSidebarEdit}
+        onEditGift={handleEditGift}
+      />
     </>
   );
 }

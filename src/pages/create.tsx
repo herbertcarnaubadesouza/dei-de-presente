@@ -1,19 +1,22 @@
+import { defaultOptions } from "@/animation";
 import axios from "axios";
 import Link from "next/link";
 import router from "next/router";
 import { XCircle } from "phosphor-react";
 import { useState } from "react";
+import Lottie from "react-lottie";
 import { toast } from "react-toastify";
 import styles from "../styles/Create.module.scss";
 
 export default function Create() {
-  // Declare estados para cada input
+  const [isLoading, setIsLoading] = useState(false);
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleCreateAccount = async () => {
+    setIsLoading(true);
     if (password !== confirmPassword) {
       toast.error("As senhas não coincidem", {
         icon: <XCircle size={32} color="#ff3838" />,
@@ -22,15 +25,16 @@ export default function Create() {
     }
 
     try {
-      const response = await axios.post("/api/createUser", {
-        nome,
+      await axios.post("/api/users/createUser", {
+        name: nome,
         email,
         password,
       });
 
       toast.success("Conta criada com sucesso!", {
-        icon: <XCircle size={32} color="#32CD32" />,
+        icon: "🎉",
       });
+      setIsLoading(false);
 
       router.push("/");
     } catch (error: any) {
@@ -38,6 +42,7 @@ export default function Create() {
         toast.error("Este email já está cadastrado!", {
           icon: <XCircle size={32} color="#ff3838" />,
         });
+        setIsLoading(false);
         return false;
       }
       console.error("Erro na criação da conta:", error);
@@ -84,7 +89,12 @@ export default function Create() {
           />
 
           <button onClick={handleCreateAccount} className={styles.button}>
-            Criar conta
+            {isLoading ? (
+              /*@ts-ignore*/
+              <Lottie options={defaultOptions} height={40} width={50} />
+            ) : (
+              "Criar conta"
+            )}
           </button>
 
           <div className={styles.linha}></div>

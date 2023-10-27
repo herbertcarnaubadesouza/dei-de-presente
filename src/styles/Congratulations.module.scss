@@ -1,0 +1,90 @@
+.container {
+  background: #ebedf4;
+  height: 100vh;
+}
+
+.header {
+  background: #09a9b5;
+
+  .headerContent {
+    max-width: 1440px;
+    margin-inline: auto;
+    padding-inline: 187px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-block: 18px;
+
+    p {
+      text-transform: uppercase;
+      color: #fff;
+      font-family: "Outfit";
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 500;
+    }
+
+    img {
+      cursor: pointer;
+    }
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-inline: auto;
+  width: 100%;
+  margin-top: 159px;
+
+  img {
+    width: 142px;
+    height: 142px;
+    object-fit: contain;
+  }
+
+  h2 {
+    color: #222;
+    font-family: "Outfit";
+    margin-top: 28px;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+
+  p {
+    color: #222;
+    font-family: "Outfit";
+    font-size: 14px;
+    margin-block: 24px;
+    font-style: normal;
+    font-weight: 400;
+    opacity: 0.8;
+  }
+
+  a {
+    color: #3852da;
+    font-family: "Outfit";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    text-decoration-line: underline;
+  }
+
+  button {
+    border-radius: 5px;
+    background: #09a9b5;
+    border: none;
+    text-transform: uppercase;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    padding-block: 16px;
+    cursor: pointer;
+    min-width: 315px;
+    margin-top: 75px;
+  }
+}

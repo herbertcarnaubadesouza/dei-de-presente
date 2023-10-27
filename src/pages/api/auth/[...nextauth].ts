@@ -8,6 +8,7 @@ interface CustomSession extends Session {
     id: string;
     email: string;
     role: string;
+    name: string;
 }
 
 
@@ -36,7 +37,7 @@ export default NextAuth({
                     const userRecord = docSnap.data();
 
                     if (userRecord && await passwordMatches(password as string, userRecord)) {
-                        return { email: userRecord.email, id: docSnap.id };
+                        return { email: userRecord.email, id: docSnap.id, name: userRecord.name };
                     } else {
                         return null;
                     }
@@ -45,6 +46,7 @@ export default NextAuth({
                     return null;
                 }
             }
+
         }),
     ],
     session: {
@@ -57,6 +59,7 @@ export default NextAuth({
             if (user) {
                 token.id = user.id;
                 token.email = user.email;
+                token.name = user.name;
             }
             return token;
         },
@@ -66,6 +69,7 @@ export default NextAuth({
                 customSession.id = token.id as string;
                 customSession.email = token.email as string;
                 customSession.role = token.role as string;
+                customSession.name = token.name as string;
             }
             return customSession;
         }

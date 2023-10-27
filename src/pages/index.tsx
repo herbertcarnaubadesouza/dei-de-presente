@@ -1,18 +1,22 @@
+import { defaultOptions } from "@/animation";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { CheckCircle, XCircle } from "phosphor-react";
+import { XCircle } from "phosphor-react";
 import { useState } from "react";
+import Lottie from "react-lottie";
 import { toast } from "react-toastify";
 import styles from "../styles/Login.module.scss";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
 
   const handleLogin = async () => {
+    setIsLoading(true);
     const result = await signIn("credentials", {
       redirect: false,
       email,
@@ -23,10 +27,12 @@ export default function Login() {
       toast.error("Usuário ou senha inválidos!", {
         icon: <XCircle size={32} color="#ff3838" weight="fill" />,
       });
+      setIsLoading(false);
     } else {
       toast.success("Autenticado com sucesso!", {
-        icon: <CheckCircle size={32} color="#07bc0c" weight="fill" />,
+        icon: "🎉",
       });
+      setIsLoading(false);
       router.push("/admin/dashboard");
     }
   };
@@ -69,7 +75,12 @@ export default function Login() {
           </Link>
 
           <button onClick={handleLogin} className={styles.button}>
-            Entrar
+            {isLoading ? (
+              /*@ts-ignore*/
+              <Lottie options={defaultOptions} height={40} width={50} />
+            ) : (
+              "Entrar"
+            )}
           </button>
 
           <div className={styles.linha}></div>

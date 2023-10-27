@@ -1,9 +1,13 @@
-import MarriedTemplate from "@/components/Templates/Married";
+import { defaultOptionsGift } from "@/animation";
+import MarriedTemplate from "@/components/Templates/Wedding";
 import axios from "axios";
 import { GetServerSidePropsContext } from "next";
-import { getSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 import router from "next/router";
+import { XCircle } from "phosphor-react";
 import { ChangeEvent, useEffect, useState } from "react";
+import Lottie from "react-lottie";
+import { toast } from "react-toastify";
 import styles from "../../styles/Customize.module.scss";
 
 export default function Customize() {
@@ -31,8 +35,10 @@ export default function Customize() {
   const [fotoMosaico5Url, setFotoMosaico5Url] = useState<string | null>(null);
   const [fotoMosaico6Url, setFotoMosaico6Url] = useState<string | null>(null);
   const [fotoLocalUrl, setFotoLocalUrl] = useState<string | null>(null);
-
   const [cep, setCep] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const session = useSession();
 
   const today = new Date();
   today.setDate(today.getDate() + 1);
@@ -103,7 +109,7 @@ export default function Customize() {
     formData.append("file", file);
 
     try {
-      const response = await axios.post("/api/upload", formData, {
+      const response = await axios.post("/api/upload/upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -129,7 +135,7 @@ export default function Customize() {
     formData.append("file", file);
 
     try {
-      const response = await axios.post("/api/upload", formData, {
+      const response = await axios.post("/api/upload/upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -150,7 +156,7 @@ export default function Customize() {
 
     if (fileName) {
       try {
-        await axios.post("/api/delete", { fileName });
+        await axios.post("/api/upload/delete", { fileName });
         window.location.reload();
       } catch (err) {
         console.error("Erro ao deletar o arquivo", err);
@@ -169,7 +175,7 @@ export default function Customize() {
     formData.append("file", file);
 
     try {
-      const response = await axios.post("/api/upload", formData, {
+      const response = await axios.post("/api/upload/upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -226,7 +232,7 @@ export default function Customize() {
     formData.append("file", file);
 
     try {
-      const response = await axios.post("/api/upload", formData, {
+      const response = await axios.post("/api/upload/upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -250,7 +256,7 @@ export default function Customize() {
     formData.append("file", file);
 
     try {
-      const response = await axios.post("/api/upload", formData, {
+      const response = await axios.post("/api/upload/upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -274,7 +280,7 @@ export default function Customize() {
     formData.append("file", file);
 
     try {
-      const response = await axios.post("/api/upload", formData, {
+      const response = await axios.post("/api/upload/upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -297,7 +303,7 @@ export default function Customize() {
     formData.append("file", file);
 
     try {
-      const response = await axios.post("/api/upload", formData, {
+      const response = await axios.post("/api/upload/upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -320,7 +326,7 @@ export default function Customize() {
     formData.append("file", file);
 
     try {
-      const response = await axios.post("/api/upload", formData, {
+      const response = await axios.post("/api/upload/upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -344,7 +350,7 @@ export default function Customize() {
     formData.append("file", file);
 
     try {
-      const response = await axios.post("/api/upload", formData, {
+      const response = await axios.post("/api/upload/upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -461,7 +467,10 @@ export default function Customize() {
     setNomeCasal(value);
   };
   const handleSlugChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
+    let value = e.target.value;
+    value = value.toLowerCase();
+    value = value.replace(/\s+/g, "");
+    value = value.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     setSlug(value);
   };
   const handleMensagemCurtaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -498,7 +507,11 @@ export default function Customize() {
   };
 
   const handlePublishClick = async () => {
-    const payload = {
+    const { event } = router.query;
+    const userId = session.data?.id;
+
+    const fields = {
+      userId,
       nomeCasal,
       slug,
       mensagemCurta,
@@ -519,11 +532,48 @@ export default function Customize() {
       fotoMosaico5Url,
       fotoMosaico6Url,
       fotoLocalUrl,
+      event,
+      cep,
     };
 
-    console.log(payload);
+    for (const [key, value] of Object.entries(fields)) {
+      if (!value) {
+        let errorMessage = "Todos os campos devem ser preenchidos";
 
-    const res = await fetch("/api/saveWebsite", {
+        switch (key) {
+          case "fotoMosaico1Url":
+          case "fotoMosaico2Url":
+          case "fotoMosaico3Url":
+          case "fotoMosaico4Url":
+          case "fotoMosaico5Url":
+          case "fotoMosaico6Url":
+            errorMessage = "Insira 6 imagens do casal";
+            break;
+          case "fotoLocalUrl":
+            errorMessage = "Insira uma foto do local";
+            break;
+          case "bannerUrl":
+            errorMessage = "Insira uma foto para a capa do site";
+            break;
+          case "fotoCasalUrl":
+            errorMessage = "Insira uma do casal para o site";
+            break;
+        }
+
+        toast.error(errorMessage, {
+          icon: <XCircle size={32} color="#ff3838" />,
+        });
+
+        return;
+      }
+    }
+    setLoading(true);
+
+    const payload = {
+      ...fields,
+    };
+
+    const res = await fetch("/api/websites/saveWebsite", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -531,17 +581,54 @@ export default function Customize() {
       body: JSON.stringify(payload),
     });
 
+    const data = await res.json();
+
     if (res.ok) {
-      // Trate a resposta do servidor aqui, se necessário
-      const data = await res.json();
-      console.log(data.message);
+      toast.success("Seu site foi criado com sucesso!", {
+        icon: "🎉",
+      });
     } else {
-      console.log("Falha ao salvar os dados");
+      if (data.error === "slug_already_exists") {
+        toast.error(
+          `O nome do site ${fields.slug} já está sendo usado. Por favor, escolha outro.`,
+          {
+            icon: <XCircle size={32} color="#ff3838" />,
+          }
+        );
+        setLoading(false);
+        return;
+      } else {
+        toast.error(data.message || "Um erro ocorreu", {
+          icon: <XCircle size={32} color="#ff3838" />,
+        });
+        setLoading(false);
+        return;
+      }
     }
+
+    setLoading(false);
+    router.push({
+      pathname: "/admin/congratulations",
+      query: { slug: fields.slug },
+    });
   };
+
+  useEffect(() => {
+    if (loading) {
+      document.documentElement.style.overflow = "hidden";
+    } else {
+      document.documentElement.style.overflow = "auto";
+    }
+  }, [loading]);
 
   return (
     <>
+      {loading && (
+        <div id="publishLoader">
+          {/*@ts-ignore*/}
+          <Lottie options={defaultOptionsGift} height={300} width={300} />
+        </div>
+      )}
       <div className={styles.headerCustomize}>
         <p>Personalize o tema escolhido </p>
         <img
@@ -621,7 +708,9 @@ export default function Customize() {
           {activeAccordion === "Home" && (
             <div className={styles.accordionContent}>
               <div className={styles.inputAccordion}>
-                <label>Nome do seu site</label>
+                <label>
+                  Nome do seu site (www.deidepresente.com/nomedosite)
+                </label>
                 <input
                   placeholder="Exemplo: lauraeleonardo"
                   type="text"
@@ -673,7 +762,7 @@ export default function Customize() {
                 </label>
                 <input
                   type="file"
-                  accept=".pdf, .jpeg, .jpg, .png"
+                  accept=" .jpeg, .jpg, .png"
                   onChange={handleImageBannerChange}
                   id="fileInput"
                   style={{ display: "none" }}
@@ -740,7 +829,7 @@ export default function Customize() {
                 </label>
                 <input
                   type="file"
-                  accept=".pdf, .jpeg, .jpg, .png"
+                  accept=".jpeg, .jpg, .png"
                   onChange={handleImageFotoCasalChange}
                   id="fileInput"
                   style={{ display: "none" }}
@@ -803,7 +892,7 @@ export default function Customize() {
                 </label>
                 <input
                   type="file"
-                  accept=".pdf, .jpeg, .jpg, .png"
+                  accept=".jpeg, .jpg, .png"
                   onChange={handleImageCasalGeneric}
                   id="fileInput"
                   style={{ display: "none" }}
@@ -920,7 +1009,7 @@ export default function Customize() {
                 </label>
                 <input
                   type="file"
-                  accept=".pdf, .jpeg, .jpg, .png"
+                  accept=".jpeg, .jpg, .png"
                   onChange={handleImageLocalChange}
                   id="fileInput"
                   style={{ display: "none" }}

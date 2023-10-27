@@ -1,4 +1,5 @@
 // _app.tsx
+import { defaultOptionsGift } from "@/animation";
 import "@/styles/globals.scss";
 import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";
@@ -7,16 +8,6 @@ import { useEffect, useState } from "react";
 import Lottie from "react-lottie";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import * as loaderAnimation from "../../public/azul.json";
-
-const defaultOptions = {
-  loop: true,
-  autoplay: true,
-  animationData: loaderAnimation,
-  rendererSettings: {
-    preserveAspectRatio: "xMidYMid slice",
-  },
-};
 
 export default function App({
   Component,
@@ -52,7 +43,7 @@ export default function App({
       {loading && (
         <div id="globalLoader">
           {/*@ts-ignore*/}
-          <Lottie options={defaultOptions} height={300} width={300} />
+          <Lottie options={defaultOptionsGift} height={300} width={300} />
         </div>
       )}
       <>

@@ -7,6 +7,8 @@ export default function Document() {
   return (
     <Html lang="en">
       <AnyHead />
+      <title>Dei de presente</title>
+      <link rel="icon" href="/presente.png" />
       <body>
         <Main />
         <AnyNextScript />

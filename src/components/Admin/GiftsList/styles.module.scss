@@ -56,8 +56,9 @@
   gap: 33px;
 
   img {
-    max-width: 201.255px;
-    max-height: 192.87px;
+    width: 201.255px;
+    height: 192.87px;
+    object-fit: cover;
   }
 
   p {

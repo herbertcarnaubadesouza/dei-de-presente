@@ -14,10 +14,21 @@ export default function Event() {
   };
 
   const handleChoose = () => {
+    localStorage.clear();
     if (activeIndex === null) {
       alert("Antes de prosseguir, selecione um tema para seu site!");
     } else {
-      router.push("/admin/customize");
+      const imageMap: { [key: string]: string } = {
+        "login1.png": "party",
+        "login2.png": "birthday",
+        "login3.png": "wedding",
+      };
+
+      const selectedImage = ["login1.png", "login2.png", "login3.png"][
+        activeIndex
+      ];
+      const eventParam = imageMap[selectedImage];
+      router.push(`/admin/customize?event=${eventParam}`);
     }
   };
 
