@@ -28,7 +28,9 @@ export default function Event() {
         activeIndex
       ];
       const eventParam = imageMap[selectedImage];
-      router.push(`/admin/customize?event=${eventParam}`);
+
+      // Use o eventParam para construir a URL
+      router.push(`/admin/customize/${eventParam}?event=${eventParam}`);
     }
   };
 

@@ -63,9 +63,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         const docRef = await db.collection('Website').add({ slug, ...otherFields });
 
         const imageFields = [
-            'bannerUrl', 'fotoCasalUrl', 'fotoMosaico1Url', 'fotoMosaico2Url',
+            'bannerUrl', 'fotoEventoUrl', 'fotoMosaico1Url', 'fotoMosaico2Url',
             'fotoMosaico3Url', 'fotoMosaico4Url', 'fotoMosaico5Url', 'fotoMosaico6Url',
-            'fotoLocalUrl'
+            'fotoMosaico6Url', 'fotoMosaico6Url', 'fotoMosaico6Url', 'fotoMosaico6Url',
+            'fotoMosaico6Url', 'fotoMosaico6Url', 'fotoLocalUrl'
         ];
 
         const updatedUrls: { [key: string]: string } = {};

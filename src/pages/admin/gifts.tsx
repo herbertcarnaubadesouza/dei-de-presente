@@ -70,6 +70,7 @@ export default function Gifts() {
           setShowSidebar={setShowSidebarEdit}
           onGiftAdded={handleGiftAdded}
           selectedGiftId={selectedGiftId}
+          userId={session.data?.id}
         />
 
         <div

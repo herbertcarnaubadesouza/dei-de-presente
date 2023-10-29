@@ -1,59 +1,427 @@
 import Link from "next/link";
-import router from "next/router";
 import { useEffect, useState } from "react";
+import GiftsList from "./GiftsList";
 import styles from "./styles.module.scss";
 
-const gifts = Array(20).fill({
-  title: "forma de bolo",
-  price: "R$ 68,90",
-  img: "/defaultMarried.png",
-});
+interface NighClubInterface {
+  nomeEvento: string;
+  mensagemCurta: string;
+  dataEvento: string;
+  sobreEvento: string;
+  fotosEventoText: string;
+  horaEvento: string;
+  nomeRua: string;
+  complemento: string;
+  numeroRua: string;
+  cep: string;
+  bannerUrl: string | null;
+  fotoEventoUrl: string | null;
+  fotoMosaico1Url: string | null;
+  fotoMosaico2Url: string | null;
+  fotoMosaico3Url: string | null;
+  fotoMosaico4Url: string | null;
+  fotoMosaico5Url: string | null;
+  fotoMosaico6Url: string | null;
+  fotoMosaico7Url: string | null;
+  fotoMosaico8Url: string | null;
+  fotoMosaico9Url: string | null;
+  fotoMosaico10Url: string | null;
+  fotoMosaico11Url: string | null;
+  fotoMosaico12Url: string | null;
+  fotoLocalUrl: string | null;
+}
 
-export default function NightClub() {
+export default function NightClub({
+  nomeEvento,
+  mensagemCurta,
+  dataEvento,
+  sobreEvento,
+  fotosEventoText,
+  horaEvento,
+  nomeRua,
+  complemento,
+  numeroRua,
+  cep,
+  bannerUrl,
+  fotoEventoUrl,
+  fotoMosaico1Url,
+  fotoMosaico2Url,
+  fotoMosaico3Url,
+  fotoMosaico4Url,
+  fotoMosaico5Url,
+  fotoMosaico6Url,
+  fotoMosaico7Url,
+  fotoMosaico8Url,
+  fotoMosaico9Url,
+  fotoMosaico10Url,
+  fotoMosaico11Url,
+  fotoMosaico12Url,
+  fotoLocalUrl,
+}: NighClubInterface) {
+  const initialStateBanner =
+    typeof window !== "undefined"
+      ? bannerUrl || localStorage.getItem("fotoBanner") || null
+      : null;
+
+  const initialStateFotoEvento =
+    typeof window !== "undefined"
+      ? fotoEventoUrl || localStorage.getItem("fotoEventoUrl") || null
+      : null;
+
+  const initialStateFotoLocalUrl =
+    typeof window !== "undefined"
+      ? fotoLocalUrl || localStorage.getItem("fotoLocalUrl") || null
+      : null;
+
+  const initialStateMosaico1 =
+    typeof window !== "undefined"
+      ? fotoMosaico1Url || localStorage.getItem("fotoMosaico1Url") || null
+      : null;
+
+  const initialStateMosaico2 =
+    typeof window !== "undefined"
+      ? fotoMosaico2Url || localStorage.getItem("fotoMosaico2Url") || null
+      : null;
+
+  const initialStateMosaico3 =
+    typeof window !== "undefined"
+      ? fotoMosaico3Url || localStorage.getItem("fotoMosaico3Url") || null
+      : null;
+
+  const initialStateMosaico4 =
+    typeof window !== "undefined"
+      ? fotoMosaico4Url || localStorage.getItem("fotoMosaico4Url") || null
+      : null;
+
+  const initialStateMosaico5 =
+    typeof window !== "undefined"
+      ? fotoMosaico5Url || localStorage.getItem("fotoMosaico5Url") || null
+      : null;
+
+  const initialStateMosaico6 =
+    typeof window !== "undefined"
+      ? fotoMosaico6Url || localStorage.getItem("fotoMosaico6Url") || null
+      : null;
+
+  const initialStateMosaico7 =
+    typeof window !== "undefined"
+      ? fotoMosaico7Url || localStorage.getItem("fotoMosaico7Url") || null
+      : null;
+
+  const initialStateMosaico8 =
+    typeof window !== "undefined"
+      ? fotoMosaico8Url || localStorage.getItem("fotoMosaico8Url") || null
+      : null;
+
+  const initialStateMosaico9 =
+    typeof window !== "undefined"
+      ? fotoMosaico9Url || localStorage.getItem("fotoMosaico9Url") || null
+      : null;
+
+  const initialStateMosaico10 =
+    typeof window !== "undefined"
+      ? fotoMosaico10Url || localStorage.getItem("fotoMosaico10Url") || null
+      : null;
+
+  const initialStateMosaico11 =
+    typeof window !== "undefined"
+      ? fotoMosaico11Url || localStorage.getItem("fotoMosaico11Url") || null
+      : null;
+
+  const initialStateMosaico12 =
+    typeof window !== "undefined"
+      ? fotoMosaico12Url || localStorage.getItem("fotoMosaico12Url") || null
+      : null;
+
   const [currentPage, setCurrentPage] = useState(1);
   const giftsPerPage = 12;
 
-  const totalPages = Math.ceil(gifts.length / giftsPerPage);
   const indexOfLastGift = currentPage * giftsPerPage;
   const indexOfFirstGift = indexOfLastGift - giftsPerPage;
   const [mapUrl, setMapUrl] = useState("");
-  const currentGifts = gifts.slice(indexOfFirstGift, indexOfLastGift);
-  const [timeLeft, setTimeLeft] = useState({
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
-  });
+  const [internalBannerUrl, setInternalBannerUrl] = useState<string | null>(
+    initialStateBanner
+  );
+
+  const [internalFotoEventoUrl, setInternalFotoEventoUrl] = useState<
+    string | null
+  >(initialStateFotoEvento);
+
+  const [internalFotoLocalUrl, setInternalFotoLocalUrl] = useState<
+    string | null
+  >(initialStateFotoLocalUrl);
+
+  const [internalMosaico1lUrl, setInternalMosaico1Url] = useState<
+    string | null
+  >(initialStateMosaico1);
+  const [internalMosaico2lUrl, setInternalMosaico2Url] = useState<
+    string | null
+  >(initialStateMosaico2);
+
+  const [internalMosaico3lUrl, setInternalMosaico3Url] = useState<
+    string | null
+  >(initialStateMosaico3);
+
+  const [internalMosaico4lUrl, setInternalMosaico4Url] = useState<
+    string | null
+  >(initialStateMosaico4);
+
+  const [internalMosaico5lUrl, setInternalMosaico5Url] = useState<
+    string | null
+  >(initialStateMosaico5);
+
+  const [internalMosaico6lUrl, setInternalMosaico6Url] = useState<
+    string | null
+  >(initialStateMosaico6);
+
+  const [internalMosaico7lUrl, setInternalMosaico7Url] = useState<
+    string | null
+  >(initialStateMosaico7);
+
+  const [internalMosaico8lUrl, setInternalMosaico8Url] = useState<
+    string | null
+  >(initialStateMosaico8);
+
+  const [internalMosaico9lUrl, setInternalMosaico9Url] = useState<
+    string | null
+  >(initialStateMosaico9);
+
+  const [internalMosaico10lUrl, setInternalMosaico10Url] = useState<
+    string | null
+  >(initialStateMosaico10);
+
+  const [internalMosaico11lUrl, setInternalMosaico11Url] = useState<
+    string | null
+  >(initialStateMosaico11);
+
+  const [internalMosaico12lUrl, setInternalMosaico12Url] = useState<
+    string | null
+  >(initialStateMosaico12);
+
+  const [days, setDays] = useState(0);
+  const [hours, setHours] = useState(0);
+  const [minutes, setMinutes] = useState(0);
+  const [seconds, setSeconds] = useState(0);
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    date.setDate(date.getDate() + 1);
+
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = date.getFullYear();
+
+    return `${day}/${month}/${year}`;
+  };
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      const targetDate = new Date("2023-12-31T23:59:59").getTime();
-      const now = new Date().getTime();
-      const difference = targetDate - now;
-
-      if (difference <= 0) {
-        // Quando a data alvo for alcançada, limpe o intervalo
-        clearInterval(interval);
-        return;
+    if (!bannerUrl) {
+      const storedBannerUrl = localStorage.getItem("fotoBanner");
+      if (storedBannerUrl) {
+        setInternalBannerUrl(`/temp/${storedBannerUrl}`);
+      } else {
+        setInternalBannerUrl(`/banner-website-night-club.webp`);
       }
+    } else {
+      setInternalBannerUrl(bannerUrl);
+    }
 
-      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-      const hours = Math.floor(
-        (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    if (!fotoEventoUrl) {
+      const storedEventoUrl = localStorage.getItem("fotoEventoUrl");
+      if (storedEventoUrl) {
+        setInternalFotoEventoUrl(`/temp/${storedEventoUrl}`);
+      } else {
+        setInternalFotoEventoUrl(`/background-alcool.png`);
+      }
+    } else {
+      setInternalFotoEventoUrl(fotoEventoUrl);
+    }
+
+    if (!fotoMosaico1Url) {
+      const storedMosaico1Url = localStorage.getItem("fotoMosaico1Url");
+      if (storedMosaico1Url) {
+        setInternalMosaico1Url(`/temp/${storedMosaico1Url}`);
+      }
+    } else {
+      setInternalMosaico1Url(fotoMosaico1Url);
+    }
+
+    if (!fotoMosaico2Url) {
+      const storedMosaico2Url = localStorage.getItem("fotoMosaico2Url");
+      if (storedMosaico2Url) {
+        setInternalMosaico2Url(`/temp/${storedMosaico2Url}`);
+      }
+    } else {
+      setInternalMosaico2Url(fotoMosaico2Url);
+    }
+
+    if (!fotoMosaico3Url) {
+      const storedMosaico3Url = localStorage.getItem("fotoMosaico3Url");
+      if (storedMosaico3Url) {
+        setInternalMosaico3Url(`/temp/${storedMosaico3Url}`);
+      }
+    } else {
+      setInternalMosaico3Url(fotoMosaico3Url);
+    }
+
+    if (!fotoMosaico4Url) {
+      const storedMosaico4Url = localStorage.getItem("fotoMosaico4Url");
+      if (storedMosaico4Url) {
+        setInternalMosaico4Url(`/temp/${storedMosaico4Url}`);
+      }
+    } else {
+      setInternalMosaico4Url(fotoMosaico4Url);
+    }
+
+    if (!fotoMosaico5Url) {
+      const storedMosaico5Url = localStorage.getItem("fotoMosaico5Url");
+      if (storedMosaico5Url) {
+        setInternalMosaico5Url(`/temp/${storedMosaico5Url}`);
+      }
+    } else {
+      setInternalMosaico5Url(fotoMosaico5Url);
+    }
+
+    if (!fotoMosaico6Url) {
+      const fotoMosaico6Url = localStorage.getItem("fotoMosaico6Url");
+      if (fotoMosaico6Url) {
+        setInternalMosaico6Url(`/temp/${fotoMosaico6Url}`);
+      }
+    } else {
+      setInternalMosaico6Url(fotoMosaico6Url);
+    }
+
+    if (!fotoMosaico7Url) {
+      const fotoMosaico7Url = localStorage.getItem("fotoMosaico7Url");
+      if (fotoMosaico7Url) {
+        setInternalMosaico7Url(`/temp/${fotoMosaico7Url}`);
+      }
+    } else {
+      setInternalMosaico7Url(fotoMosaico7Url);
+    }
+
+    if (!fotoMosaico8Url) {
+      const fotoMosaico8Url = localStorage.getItem("fotoMosaico8Url");
+      if (fotoMosaico8Url) {
+        setInternalMosaico8Url(`/temp/${fotoMosaico8Url}`);
+      }
+    } else {
+      setInternalMosaico8Url(fotoMosaico8Url);
+    }
+
+    if (!fotoMosaico9Url) {
+      const fotoMosaico9Url = localStorage.getItem("fotoMosaico9Url");
+      if (fotoMosaico9Url) {
+        setInternalMosaico9Url(`/temp/${fotoMosaico9Url}`);
+      }
+    } else {
+      setInternalMosaico9Url(fotoMosaico9Url);
+    }
+
+    if (!fotoMosaico10Url) {
+      const fotoMosaico10Url = localStorage.getItem("fotoMosaico10Url");
+      if (fotoMosaico10Url) {
+        setInternalMosaico10Url(`/temp/${fotoMosaico10Url}`);
+      }
+    } else {
+      setInternalMosaico10Url(fotoMosaico10Url);
+    }
+
+    if (!fotoMosaico11Url) {
+      const fotoMosaico11Url = localStorage.getItem("fotoMosaico11Url");
+      if (fotoMosaico11Url) {
+        setInternalMosaico11Url(`/temp/${fotoMosaico11Url}`);
+      }
+    } else {
+      setInternalMosaico11Url(fotoMosaico11Url);
+    }
+
+    if (!fotoMosaico12Url) {
+      const fotoMosaico12Url = localStorage.getItem("fotoMosaico12Url");
+      if (fotoMosaico12Url) {
+        setInternalMosaico12Url(`/temp/${fotoMosaico12Url}`);
+      }
+    } else {
+      setInternalMosaico12Url(fotoMosaico12Url);
+    }
+
+    if (!fotoLocalUrl) {
+      const fotoLocalUrl = localStorage.getItem("fotoLocalUrl");
+      if (fotoLocalUrl) {
+        setInternalFotoLocalUrl(`/temp/${fotoLocalUrl}`);
+      } else {
+        setInternalFotoLocalUrl(`/night-club-confirmation-background.webp`);
+      }
+    } else {
+      setInternalFotoLocalUrl(fotoLocalUrl);
+    }
+  }, [
+    bannerUrl,
+    fotoEventoUrl,
+    fotoMosaico1Url,
+    fotoMosaico2Url,
+    fotoMosaico3Url,
+    fotoMosaico4Url,
+    fotoMosaico5Url,
+    fotoMosaico6Url,
+    fotoMosaico7Url,
+    fotoMosaico8Url,
+    fotoMosaico9Url,
+    fotoMosaico10Url,
+    fotoMosaico11Url,
+    fotoMosaico12Url,
+    fotoLocalUrl,
+  ]);
+
+  useEffect(() => {
+    let targetDate: any;
+
+    if (dataEvento) {
+      targetDate = new Date(`${dataEvento}T00:00:00`).getTime();
+    } else {
+      targetDate = new Date("December 31, 2023 00:00:00").getTime();
+    }
+    const interval = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      setDays(Math.floor(distance / (1000 * 60 * 60 * 24)));
+      setHours(
+        Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
       );
-      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-      setTimeLeft({ days, hours, minutes, seconds });
+      setMinutes(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)));
+      setSeconds(Math.floor((distance % (1000 * 60)) / 1000));
     }, 1000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [dataEvento, horaEvento]);
+
+  useEffect(() => {
+    let fullAddress;
+
+    if (nomeRua && numeroRua && cep) {
+      fullAddress = `${nomeRua}, ${numeroRua}, ${cep}`;
+    } else {
+      fullAddress = "avenida paulista, cep 01310-930";
+    }
+
+    const encodedAddress = encodeURIComponent(fullAddress);
+    const newUrl = `https://www.google.com/maps?q=${encodedAddress}&output=embed`;
+    setMapUrl(newUrl);
+  }, [nomeRua, numeroRua, cep]);
 
   return (
     <>
       <main className={styles.nightClubContent}>
-        <section className={styles.banner} id="home">
+        <section
+          className={styles.banner}
+          style={
+            internalBannerUrl
+              ? { backgroundImage: `url(${internalBannerUrl})` }
+              : {}
+          }
+          id="home"
+        >
           <div className={styles.headerWebsite}>
             <img src="/logoPresente.svg" />
             <ul className={styles.menu}>
@@ -65,12 +433,10 @@ export default function NightClub() {
           </div>
           <div className={styles.middleContent}>
             <span>prepare-se para a experiência</span>
-            <h1>A melhor festa de todas</h1>
+            <h1>{nomeEvento || "A melhor festa de todas"}</h1>
             <p>
-              Lorem ipsum dolor sit amet consectetur. Amet ullamcorper quam
-              maecenas ac placerat porttitor porttitor mi. Ipsum volutpat proin
-              quisque urna tortor et. Praesent porttitor aliquam a tristique
-              tortor et eget. Potenti eu maecenas diam aenean nec.{" "}
+              {mensagemCurta ||
+                "Lorem ipsum dolor sit amet consectetur. Amet ullamcorper quam maecenas ac placerat porttitor porttitor mi. Ipsum volutpat proin quisque urna tortor et. Praesent porttitor aliquam a tristique tortor et eget. Potenti eu maecenas diam aenean nec. Lorem ipsum dolor sit amet consectetur."}
             </p>
             <button>confirmar presença</button>
           </div>
@@ -81,33 +447,39 @@ export default function NightClub() {
 
             <div className={styles.rowDateBlock}>
               <div className={styles.cardHour}>
-                <span>{timeLeft.days}</span>
+                <span>{days}</span>
                 <p>dias</p>
               </div>
               <div className={styles.cardHour}>
-                <span>{timeLeft.hours}</span>
+                <span>{hours}</span>
                 <p>horas</p>
               </div>
               <div className={styles.cardHour}>
-                <span>{timeLeft.minutes}</span>
+                <span>{minutes}</span>
                 <p>minutos</p>
               </div>
               <div className={styles.cardHour}>
-                <span>{timeLeft.seconds}</span>
+                <span>{seconds}</span>
                 <p>segundos</p>
               </div>
             </div>
           </div>
         </section>
-        <section className={styles.bannerAlcool} id="sobre">
+        <section
+          className={styles.bannerAlcool}
+          style={
+            internalFotoEventoUrl
+              ? { backgroundImage: `url(${internalFotoEventoUrl})` }
+              : {}
+          }
+          id="sobre"
+        >
           <div className={styles.textContent}>
             <span>sobre</span>
-            <h2>Sobre a grande festa da vez</h2>
+            <h2>{"Sobre o evento"}</h2>
             <p>
-              Lorem ipsum dolor sit amet consectetur. Amet ullamcorper quam
-              maecenas ac placerat porttitor porttitor mi. Ipsum volutpat proin
-              quisque urna tortor et. Praesent porttitor aliquam a tristique
-              tortor et eget. Potenti eu maecenas diam aenean nec.{" "}
+              {sobreEvento ||
+                "Lorem ipsum dolor sit amet consectetur. Amet ullamcorper quam maecenas ac placerat porttitor porttitor mi. Ipsum volutpat proin quisque urna tortor et. Praesent porttitor aliquam a tristique tortor et eget. Potenti eu maecenas diam aenean nec."}
             </p>
             <button>confirmar presença</button>
           </div>
@@ -117,7 +489,7 @@ export default function NightClub() {
             <span>local</span>
             <h2>Um lugar pra ficar na memória</h2>
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14412.243674757572!2d-49.2850157!3d-25.4362268!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94dce38abdce30c1%3A0x8f70fe44b648dabf!2s%2B55%20Bar!5e0!3m2!1spt-BR!2sbr!4v1698233868404!5m2!1spt-BR!2sbr"
+              src={mapUrl}
               width="600"
               height="450"
               loading="lazy"
@@ -127,7 +499,10 @@ export default function NightClub() {
                 <img src="/calendarBranco.svg" />
                 <div className={styles.dataHora}>
                   <p>Data e horário</p>
-                  <span>24/10/2023 às 16:00h</span>
+                  <span>
+                    {dataEvento ? formatDate(dataEvento) : "24/10/2023"} às{" "}
+                    {horaEvento || "16:00h"}
+                  </span>
                 </div>
               </div>
               <div className={styles.mapsFooterBlock}>
@@ -135,8 +510,9 @@ export default function NightClub() {
                 <div className={styles.dataHora}>
                   <p>Endereço</p>
                   <span>
-                    Rua das laranjeiras, Lote 1420/1520 chácara Recanto dos
-                    sabiás, Brasília - DF
+                    {nomeRua && complemento && numeroRua
+                      ? `${nomeRua}, ${complemento} ${numeroRua}, ${cep}`
+                      : "Rua das laranjeiras, Lote 1420/1520 chácara Recanto dos sabiás, Brasília - DF"}
                   </span>
                 </div>
               </div>
@@ -150,24 +526,116 @@ export default function NightClub() {
           </div>
           <div className={styles.mosaicoGrid}>
             <div className={styles.row1}>
-              <img className={styles.photo1} src="/night-club-1.webp" />
-              <img className={styles.photo2} src="/night-club-2.webp" />
-              <img className={styles.photo3} src="/night-club-3.webp" />
-              <img className={styles.photo4} src="/night-club-4.webp" />
-              <img className={styles.photo5} src="/night-club-5.webp" />
-              <img className={styles.photo6} src="/night-club-6.webp" />
+              <img
+                className={styles.photo1}
+                src={
+                  internalMosaico1lUrl
+                    ? internalMosaico1lUrl
+                    : "/night-club-1.webp"
+                }
+              />
+              <img
+                className={styles.photo2}
+                src={
+                  internalMosaico2lUrl
+                    ? internalMosaico2lUrl
+                    : "/night-club-2.webp"
+                }
+              />
+              <img
+                className={styles.photo3}
+                src={
+                  internalMosaico3lUrl
+                    ? internalMosaico3lUrl
+                    : "/night-club-3.webp"
+                }
+              />
+              <img
+                className={styles.photo4}
+                src={
+                  internalMosaico4lUrl
+                    ? internalMosaico4lUrl
+                    : "/night-club-4.webp"
+                }
+              />
+              <img
+                className={styles.photo5}
+                src={
+                  internalMosaico5lUrl
+                    ? internalMosaico5lUrl
+                    : "/night-club-5.webp"
+                }
+              />
+              <img
+                className={styles.photo6}
+                src={
+                  internalMosaico6lUrl
+                    ? internalMosaico6lUrl
+                    : "/night-club-6.webp"
+                }
+              />
             </div>
             <div className={styles.row1}>
-              <img className={styles.photo7} src="/night-club-7.webp" />
-              <img className={styles.photo8} src="/night-club-8.webp" />
-              <img className={styles.photo9} src="/night-club-9.webp" />
-              <img className={styles.photo10} src="/night-club-10.webp" />
-              <img className={styles.photo11} src="/night-club-11.webp" />
-              <img className={styles.photo12} src="/night-club-12.webp" />
+              <img
+                className={styles.photo7}
+                src={
+                  internalMosaico7lUrl
+                    ? internalMosaico7lUrl
+                    : "/night-club-7.webp"
+                }
+              />
+              <img
+                className={styles.photo8}
+                src={
+                  internalMosaico8lUrl
+                    ? internalMosaico8lUrl
+                    : "/night-club-8.webp"
+                }
+              />
+              <img
+                className={styles.photo9}
+                src={
+                  internalMosaico9lUrl
+                    ? internalMosaico9lUrl
+                    : "/night-club-9.webp"
+                }
+              />
+              <img
+                className={styles.photo10}
+                src={
+                  internalMosaico10lUrl
+                    ? internalMosaico10lUrl
+                    : "/night-club-10.webp"
+                }
+              />
+              <img
+                className={styles.photo11}
+                src={
+                  internalMosaico11lUrl
+                    ? internalMosaico11lUrl
+                    : "/night-club-11.webp"
+                }
+              />
+              <img
+                className={styles.photo12}
+                src={
+                  internalMosaico12lUrl
+                    ? internalMosaico12lUrl
+                    : "/night-club-1.webp"
+                }
+              />
             </div>
           </div>
         </section>
-        <section className={styles.formSectionCasamento} id="confirmar">
+        <section
+          className={styles.formSectionEvento}
+          style={
+            internalFotoLocalUrl
+              ? { backgroundImage: `url(${internalFotoLocalUrl})` }
+              : {}
+          }
+          id="confirmar"
+        >
           <div className={styles.formContainer}>
             <div className={styles.formDivisorBlock}>
               <p>Confirmação de presença</p>
@@ -181,7 +649,7 @@ export default function NightClub() {
                 <input placeholder="Escreva aqui seu nome..." type="text" />
               </div>
               <div className={styles.formInputBlock}>
-                <label>Você irá ao casamento?</label>
+                <label>Você irá ao Evento?</label>
                 <select>
                   <option value="" disabled selected>
                     Selecione uma opção...
@@ -204,66 +672,8 @@ export default function NightClub() {
             </form>
           </div>
         </section>
-        <section className={styles.giftsSection}>
-          <div className={styles.divisorGiftsSection}>
-            <p>presentes</p>
-          </div>
-          <div className={styles.titleGiftsSection}>
-            <h2>Vai salvar o que dessa vez?</h2>
-          </div>
-          <div className={styles.gifts}>
-            <div className={styles.giftsListContainer}>
-              {gifts.map((gift, index) => (
-                <div key={index} className={styles.tableGift}>
-                  <div className={styles.card}>
-                    <img className={styles.logo} src={gift.img} alt="logo" />
-                    <p>{gift.title}</p>
-                    <span>
-                      {parseFloat(
-                        (gift.price / 0.925).toString()
-                      ).toLocaleString("pt-BR", {
-                        style: "currency",
-                        currency: "BRL",
-                      })}
-                    </span>
-                    <button onClick={() => router.push(`/checkout/${gift.id}`)}>
-                      comprar
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className={styles.pagination}>
-              {currentPage > 1 && (
-                <img
-                  /*onClick={prevPage}*/
-                  className={styles.logo}
-                  src="/leftArrowCasamento.svg"
-                  alt="logo"
-                />
-              )}
-              {[...Array(totalPages).keys()].map((page) => (
-                <span
-                  key={page + 1}
-                  /*onClick={() => goToPage(page + 1)}*/
-                  className={currentPage === page + 1 ? styles.active : ""}
-                >
-                  {page + 1}
-                </span>
-              ))}
-
-              {indexOfLastGift < gifts.length && (
-                <img
-                  className={styles.logo}
-                  src="/rightArrowCasamento.svg"
-                  alt="logo"
-                />
-              )}
-            </div>
-          </div>
-        </section>
-        <section className={styles.footerCasamento}>
+        <GiftsList />
+        <section className={styles.footerEvento}>
           <div className={styles.divisorFooter}>
             <hr />
           </div>

@@ -43,6 +43,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
         const userRef = db.collection("Users").doc(userId);
         const userSnapshot = await userRef.get();
+        const newGiftId = uuidv4();
 
         let websiteSlug: string = "";
 
@@ -69,7 +70,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
             // Você pode criar uma estrutura para o "gift", dependendo de como deseja armazená-lo.
             const newGift = {
-                id: uuidv4(),
+                id: newGiftId,
                 name: giftName,
                 price: giftValue,
                 imageUrl: uploadedImageUrl,
@@ -82,7 +83,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         }
 
         const giftRef = await db.collection("Gifts").add({
-            id: uuidv4(),
+            id: newGiftId,
             name: giftName,
             price: giftValue,
             imageUrl: uploadedImageUrl,

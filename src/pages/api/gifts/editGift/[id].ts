@@ -47,6 +47,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
                 const updatedGifts = websiteData.gifts.map((gift: any) => {
                     if (gift.id === id) {
+                        console.log("Gift found, updating...", { ...gift, ...updatedData }); // Debug
                         return { ...gift, ...updatedData };
                     }
                     return gift;

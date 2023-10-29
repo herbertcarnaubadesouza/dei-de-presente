@@ -1,5 +1,6 @@
 // pages/[slug].tsx
 import NotFound from "@/components/404";
+import NightClubWebsite from "@/components/Web/Night Club";
 import WeddingWebsite, { WeddingInterface } from "@/components/Web/Wedding";
 import { GetServerSideProps } from "next";
 
@@ -9,25 +10,31 @@ export default function WebsitePage(
   const {
     nomeRua,
     mensagemCurta,
-    horaCasamento,
-    fotosCasalText,
-    dataCasamento,
+    horaEvento,
+    fotosEventoText,
+    dataEvento,
     nextHandlerIndex,
     numeroRua,
-    nomeCasal,
+    nomeEvento,
     complemento,
     event,
-    sobreCasal,
+    sobreEvento,
     slug,
     fotoMosaico1Url,
     fotoLocalUrl,
-    fotoCasalUrl,
+    fotoEventoUrl,
     bannerUrl,
     fotoMosaico6Url,
     fotoMosaico5Url,
     fotoMosaico3Url,
     fotoMosaico4Url,
     fotoMosaico2Url,
+    fotoMosaico7Url,
+    fotoMosaico8Url,
+    fotoMosaico9Url,
+    fotoMosaico10Url,
+    fotoMosaico11Url,
+    fotoMosaico12Url,
     cep,
     gifts,
   } = props;
@@ -38,31 +45,71 @@ export default function WebsitePage(
 
   return (
     <>
-      <WeddingWebsite
-        nomeRua={nomeRua}
-        mensagemCurta={mensagemCurta}
-        horaCasamento={horaCasamento}
-        fotosCasalText={fotosCasalText}
-        dataCasamento={dataCasamento}
-        nextHandlerIndex={nextHandlerIndex}
-        numeroRua={numeroRua}
-        nomeCasal={nomeCasal}
-        complemento={complemento}
-        event={event}
-        sobreCasal={sobreCasal}
-        slug={slug}
-        fotoMosaico1Url={fotoMosaico1Url}
-        fotoLocalUrl={fotoLocalUrl}
-        fotoCasalUrl={fotoCasalUrl}
-        bannerUrl={bannerUrl}
-        fotoMosaico6Url={fotoMosaico6Url}
-        fotoMosaico5Url={fotoMosaico5Url}
-        fotoMosaico3Url={fotoMosaico3Url}
-        fotoMosaico4Url={fotoMosaico4Url}
-        fotoMosaico2Url={fotoMosaico2Url}
-        cep={cep}
-        gifts={gifts}
-      />
+      {event === "wedding" ? (
+        <WeddingWebsite
+          nomeRua={nomeRua}
+          mensagemCurta={mensagemCurta}
+          horaEvento={horaEvento}
+          fotosEventoText={fotosEventoText}
+          dataEvento={dataEvento}
+          nextHandlerIndex={nextHandlerIndex}
+          numeroRua={numeroRua}
+          nomeEvento={nomeEvento}
+          complemento={complemento}
+          event={event}
+          sobreEvento={sobreEvento}
+          slug={slug}
+          fotoMosaico1Url={fotoMosaico1Url}
+          fotoLocalUrl={fotoLocalUrl}
+          fotoEventoUrl={fotoEventoUrl}
+          bannerUrl={bannerUrl}
+          fotoMosaico6Url={fotoMosaico6Url}
+          fotoMosaico5Url={fotoMosaico5Url}
+          fotoMosaico3Url={fotoMosaico3Url}
+          fotoMosaico4Url={fotoMosaico4Url}
+          fotoMosaico2Url={fotoMosaico2Url}
+          cep={cep}
+          gifts={gifts}
+          fotoMosaico7Url={fotoMosaico7Url}
+          fotoMosaico8Url={fotoMosaico8Url}
+          fotoMosaico9Url={fotoMosaico9Url}
+          fotoMosaico10Url={fotoMosaico10Url}
+          fotoMosaico11Url={fotoMosaico11Url}
+          fotoMosaico12Url={fotoMosaico12Url}
+        />
+      ) : (
+        <NightClubWebsite
+          nomeRua={nomeRua}
+          mensagemCurta={mensagemCurta}
+          horaEvento={horaEvento}
+          fotosEventoText={fotosEventoText}
+          dataEvento={dataEvento}
+          nextHandlerIndex={nextHandlerIndex}
+          numeroRua={numeroRua}
+          nomeEvento={nomeEvento}
+          complemento={complemento}
+          event={event}
+          sobreEvento={sobreEvento}
+          slug={slug}
+          fotoMosaico1Url={fotoMosaico1Url}
+          fotoLocalUrl={fotoLocalUrl}
+          fotoEventoUrl={fotoEventoUrl}
+          bannerUrl={bannerUrl}
+          fotoMosaico6Url={fotoMosaico6Url}
+          fotoMosaico5Url={fotoMosaico5Url}
+          fotoMosaico3Url={fotoMosaico3Url}
+          fotoMosaico4Url={fotoMosaico4Url}
+          fotoMosaico2Url={fotoMosaico2Url}
+          cep={cep}
+          gifts={gifts}
+          fotoMosaico7Url={fotoMosaico7Url}
+          fotoMosaico8Url={fotoMosaico8Url}
+          fotoMosaico9Url={fotoMosaico9Url}
+          fotoMosaico10Url={fotoMosaico10Url}
+          fotoMosaico11Url={fotoMosaico11Url}
+          fotoMosaico12Url={fotoMosaico12Url}
+        />
+      )}
     </>
   );
 }

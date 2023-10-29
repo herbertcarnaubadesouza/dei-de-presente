@@ -1,6 +1,6 @@
 import Link from "next/link";
-import router from "next/router";
 import { useEffect, useState } from "react";
+import GiftsListFromSavedWebsite from "./GiftsFromSavedWebsite";
 import styles from "./styles.module.scss";
 
 export interface Gift {
@@ -15,24 +15,30 @@ export interface WeddingInterface {
   nomeRua: string;
   cep: string;
   mensagemCurta: string;
-  horaCasamento: string;
-  fotosCasalText: string;
-  dataCasamento: string;
+  horaEvento: string;
+  fotosEventoText: string;
+  dataEvento: string;
   nextHandlerIndex: number;
   numeroRua: string;
-  nomeCasal: string;
+  nomeEvento: string;
   complemento: string;
   event: string;
-  sobreCasal: string;
+  sobreEvento: string;
   slug: string;
   fotoMosaico1Url: string;
   fotoLocalUrl: string;
-  fotoCasalUrl: string;
+  fotoEventoUrl: string;
   bannerUrl: string;
-  fotoMosaico6Url: string;
   fotoMosaico5Url: string;
+  fotoMosaico6Url: string;
   fotoMosaico3Url: string;
   fotoMosaico4Url: string;
+  fotoMosaico7Url: string;
+  fotoMosaico8Url: string;
+  fotoMosaico9Url: string;
+  fotoMosaico10Url: string;
+  fotoMosaico11Url: string;
+  fotoMosaico12Url: string;
   fotoMosaico2Url: string;
   gifts: Gift[];
 }
@@ -40,19 +46,19 @@ export interface WeddingInterface {
 export default function WeddingWebsite({
   nomeRua,
   mensagemCurta,
-  horaCasamento,
-  fotosCasalText,
-  dataCasamento,
+  horaEvento,
+  fotosEventoText,
+  dataEvento,
   nextHandlerIndex,
   numeroRua,
-  nomeCasal,
+  nomeEvento,
   complemento,
   event,
-  sobreCasal,
+  sobreEvento,
   slug,
   fotoMosaico1Url,
   fotoLocalUrl,
-  fotoCasalUrl,
+  fotoEventoUrl,
   bannerUrl,
   fotoMosaico6Url,
   fotoMosaico5Url,
@@ -90,8 +96,8 @@ export default function WeddingWebsite({
   useEffect(() => {
     let targetDate: any;
 
-    if (dataCasamento) {
-      targetDate = new Date(`${dataCasamento}T00:00:00`).getTime();
+    if (dataEvento) {
+      targetDate = new Date(`${dataEvento}T00:00:00`).getTime();
     } else {
       targetDate = new Date("December 31, 2023 00:00:00").getTime();
     }
@@ -108,7 +114,7 @@ export default function WeddingWebsite({
       setSeconds(Math.floor((distance % (1000 * 60)) / 1000));
     }, 1000);
     return () => clearInterval(interval);
-  }, [dataCasamento]);
+  }, [dataEvento]);
 
   const smoothScroll = (targetId: any) => {
     const target = document.getElementById(targetId);
@@ -154,7 +160,7 @@ export default function WeddingWebsite({
                 <hr />
               </div>
               <div className={styles.titleBlock}>
-                <h1>{nomeCasal}</h1>
+                <h1>{nomeEvento}</h1>
               </div>
               <div className={styles.descriptionEvent}>
                 <p>{mensagemCurta}</p>
@@ -197,19 +203,19 @@ export default function WeddingWebsite({
           </div>
           <div className={styles.historyContent}>
             <div className={styles.leftSideHistoryContent}>
-              <h3>{nomeCasal}</h3>
-              <p>{sobreCasal}</p>
+              <h3>{nomeEvento}</h3>
+              <p>{sobreEvento}</p>
               <button>confirmar presença</button>
             </div>
             <div className={styles.rightSideHistoryContent}>
               <div className={styles.firstMoldura}>
-                <img src={fotoCasalUrl} />
+                <img src={fotoEventoUrl} />
               </div>
               <div className={`${styles.firstMoldura} ${styles.secondMoldura}`}>
-                <img src={fotoCasalUrl} />
+                <img src={fotoEventoUrl} />
               </div>
               <div className={`${styles.firstMoldura} ${styles.thirdMoldura}`}>
-                <img src={fotoCasalUrl} />
+                <img src={fotoEventoUrl} />
               </div>
             </div>
           </div>
@@ -224,7 +230,7 @@ export default function WeddingWebsite({
               </div>
               <div className={styles.titleSectionFotos}>
                 <h2>Um pouco do nosso amor em fotos</h2>
-                <p>{fotosCasalText}</p>
+                <p>{fotosEventoText}</p>
               </div>
             </div>
           </div>
@@ -265,7 +271,7 @@ export default function WeddingWebsite({
                 <div className={styles.dataHora}>
                   <p>data e horário</p>
                   <span>
-                    {formatDate(dataCasamento)} às {horaCasamento}
+                    {formatDate(dataEvento)} às {horaEvento}
                   </span>
                 </div>
               </div>
@@ -283,7 +289,7 @@ export default function WeddingWebsite({
         </section>
 
         <section
-          className={styles.formSectionCasamento}
+          className={styles.formSectionEvento}
           id="confirmacao"
           style={{ backgroundImage: `url(${fotoLocalUrl})` }}
         >
@@ -325,73 +331,8 @@ export default function WeddingWebsite({
             </form>
           </div>
         </section>
-
-        <section className={styles.giftsSection}>
-          <div className={styles.divisorGiftsSection}>
-            <hr />
-            <p>lista de presentes</p>
-            <hr />
-          </div>
-          <div className={styles.titleGiftsSection}>
-            <h2>hora de surpreender os noivos</h2>
-          </div>
-          <div className={styles.gifts}>
-            <div className={styles.giftsListContainer}>
-              {currentGifts.map((gift, index) => (
-                <div key={index} className={styles.tableGift}>
-                  <div className={styles.card}>
-                    <img
-                      className={styles.logo}
-                      src={gift.imageUrl}
-                      alt="logo"
-                    />
-                    <p>{gift.name}</p>
-                    <span>
-                      {parseFloat(
-                        (gift.price / 0.925).toString()
-                      ).toLocaleString("pt-BR", {
-                        style: "currency",
-                        currency: "BRL",
-                      })}
-                    </span>
-                    <button onClick={() => router.push(`/checkout/${gift.id}`)}>
-                      comprar
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className={styles.pagination}>
-              {currentPage > 1 && (
-                <img
-                  /*onClick={prevPage}*/
-                  className={styles.logo}
-                  src="/leftArrowCasamento.svg"
-                  alt="logo"
-                />
-              )}
-              {[...Array(totalPages).keys()].map((page) => (
-                <span
-                  key={page + 1}
-                  /*onClick={() => goToPage(page + 1)}*/
-                  className={currentPage === page + 1 ? styles.active : ""}
-                >
-                  {page + 1}
-                </span>
-              ))}
-
-              {indexOfLastGift < gifts.length && (
-                <img
-                  className={styles.logo}
-                  src="/rightArrowCasamento.svg"
-                  alt="logo"
-                />
-              )}
-            </div>
-          </div>
-        </section>
-        <section className={styles.footerCasamento}>
+        <GiftsListFromSavedWebsite gifts={gifts} />
+        <section className={styles.footerEvento}>
           <div className={styles.divisorFooter}>
             <hr />
           </div>

@@ -75,7 +75,7 @@ export default function Header() {
           <img className={styles.logo} src="/Pencil.svg" alt="logo" />
         </Link>
         {slug ? (
-          <Link href={`/${slug}`}>Editar site criado</Link>
+          <Link href={`/admin/edit/${slug}`}>Editar site criado</Link>
         ) : (
           <Link href="/admin/event">Personalizar um site</Link>
         )}

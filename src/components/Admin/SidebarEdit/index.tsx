@@ -11,6 +11,7 @@ interface SidebarEditProps {
   setShowSidebar: React.Dispatch<React.SetStateAction<boolean>>;
   onGiftAdded: () => void;
   selectedGiftId: string | null;
+  userId: string | undefined;
 }
 
 interface GiftData {
@@ -24,6 +25,7 @@ const SidebarEdit = ({
   setShowSidebar,
   onGiftAdded,
   selectedGiftId,
+  userId,
 }: SidebarEditProps) => {
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [giftName, setGiftName] = useState<string | null>(null);
@@ -138,7 +140,7 @@ const SidebarEdit = ({
       const fetchGiftById = async () => {
         try {
           const response = await axios.get<GiftData>(
-            `/api/gifts/getGiftById/${selectedGiftId}`
+            `/api/gifts/getGiftById/${selectedGiftId}?userId=${userId}`
           );
           const giftData = response.data;
 

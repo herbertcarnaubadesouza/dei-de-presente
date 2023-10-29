@@ -4,18 +4,18 @@ import GiftsList from "./GiftsList";
 import styles from "./styles.module.scss";
 
 interface WeddingInterface {
-  nomeCasal: string;
+  nomeEvento: string;
   mensagemCurta: string;
-  dataCasamento: string;
-  sobreCasal: string;
-  fotosCasalText: string;
-  horaCasamento: string;
+  dataEvento: string;
+  sobreEvento: string;
+  fotosEventoText: string;
+  horaEvento: string;
   nomeRua: string;
   complemento: string;
   numeroRua: string;
   cep: string;
   bannerUrl: string | null;
-  fotoCasalUrl: string | null;
+  fotoEventoUrl: string | null;
   fotoMosaico1Url: string | null;
   fotoMosaico2Url: string | null;
   fotoMosaico3Url: string | null;
@@ -31,18 +31,18 @@ const gifts = Array(50).fill({
 });
 
 export default function WeddingTemplate({
-  nomeCasal,
+  nomeEvento,
   mensagemCurta,
-  dataCasamento,
-  sobreCasal,
-  fotosCasalText,
-  horaCasamento,
+  dataEvento,
+  sobreEvento,
+  fotosEventoText,
+  horaEvento,
   nomeRua,
   complemento,
   numeroRua,
   cep,
   bannerUrl,
-  fotoCasalUrl,
+  fotoEventoUrl,
   fotoMosaico1Url,
   fotoMosaico2Url,
   fotoMosaico3Url,
@@ -58,36 +58,36 @@ export default function WeddingTemplate({
 
   const initialStateLocalr =
     typeof window !== "undefined"
-      ? fotoLocalUrl || localStorage.getItem("fotoLocal") || null
+      ? fotoLocalUrl || localStorage.getItem("fotoLocalUrl") || null
       : null;
 
-  const initialStateFotoCasal =
+  const initialStateFotoEvento =
     typeof window !== "undefined"
-      ? fotoCasalUrl || localStorage.getItem("fotoCasal") || null
+      ? fotoEventoUrl || localStorage.getItem("fotoEventoUrl") || null
       : null;
   const initialStateMosaico1 =
     typeof window !== "undefined"
-      ? fotoMosaico1Url || localStorage.getItem("fotoCasal1") || null
+      ? fotoMosaico1Url || localStorage.getItem("fotoEvento1") || null
       : null;
   const initialStateMosaico2 =
     typeof window !== "undefined"
-      ? fotoMosaico2Url || localStorage.getItem("fotoCasal2") || null
+      ? fotoMosaico2Url || localStorage.getItem("fotoEvento2") || null
       : null;
   const initialStateMosaico3 =
     typeof window !== "undefined"
-      ? fotoMosaico3Url || localStorage.getItem("fotoCasal3") || null
+      ? fotoMosaico3Url || localStorage.getItem("fotoEvento3") || null
       : null;
   const initialStateMosaico4 =
     typeof window !== "undefined"
-      ? fotoMosaico4Url || localStorage.getItem("fotoCasal4") || null
+      ? fotoMosaico4Url || localStorage.getItem("fotoEvento4") || null
       : null;
   const initialStateMosaico5 =
     typeof window !== "undefined"
-      ? fotoMosaico5Url || localStorage.getItem("fotoCasal5") || null
+      ? fotoMosaico5Url || localStorage.getItem("fotoEvento5") || null
       : null;
   const initialStateMosaico6 =
     typeof window !== "undefined"
-      ? fotoMosaico6Url || localStorage.getItem("fotoCasal6") || null
+      ? fotoMosaico6Url || localStorage.getItem("fotoEvento6") || null
       : null;
 
   const [days, setDays] = useState(0);
@@ -99,9 +99,9 @@ export default function WeddingTemplate({
     initialStateBanner
   );
 
-  const [internalFotoCasalUrl, setInternalFotoCasalUrl] = useState<
+  const [internalFotoEventoUrl, setInternalFotoEventoUrl] = useState<
     string | null
-  >(initialStateFotoCasal);
+  >(initialStateFotoEvento);
 
   const [internalFotoLocalUrl, setInternalFotoLocalUrl] = useState<
     string | null
@@ -177,17 +177,17 @@ export default function WeddingTemplate({
       setInternalBannerUrl(bannerUrl);
     }
 
-    if (!fotoCasalUrl) {
-      const storedCasalUrl = localStorage.getItem("fotoCasal");
-      if (storedCasalUrl) {
-        setInternalFotoCasalUrl(`/temp/${storedCasalUrl}`);
+    if (!fotoEventoUrl) {
+      const storedEventoUrl = localStorage.getItem("fotoEvento");
+      if (storedEventoUrl) {
+        setInternalFotoEventoUrl(`/temp/${storedEventoUrl}`);
       }
     } else {
-      setInternalFotoCasalUrl(fotoCasalUrl);
+      setInternalFotoEventoUrl(fotoEventoUrl);
     }
 
     if (!fotoMosaico1Url) {
-      const storedMosaico1Url = localStorage.getItem("fotosCasal1");
+      const storedMosaico1Url = localStorage.getItem("fotosEvento1");
       if (storedMosaico1Url) {
         setInternalMosaico1Url(`/temp/${storedMosaico1Url}`);
       }
@@ -196,7 +196,7 @@ export default function WeddingTemplate({
     }
 
     if (!fotoMosaico2Url) {
-      const storedMosaico2Url = localStorage.getItem("fotosCasal2");
+      const storedMosaico2Url = localStorage.getItem("fotosEvento2");
       if (storedMosaico2Url) {
         setInternalMosaico2Url(`/temp/${storedMosaico2Url}`);
       }
@@ -205,7 +205,7 @@ export default function WeddingTemplate({
     }
 
     if (!fotoMosaico3Url) {
-      const storedMosaico3Url = localStorage.getItem("fotosCasal3");
+      const storedMosaico3Url = localStorage.getItem("fotosEvento3");
       if (storedMosaico3Url) {
         setInternalMosaico3Url(`/temp/${storedMosaico3Url}`);
       }
@@ -214,7 +214,7 @@ export default function WeddingTemplate({
     }
 
     if (!fotoMosaico4Url) {
-      const storedMosaico4Url = localStorage.getItem("fotosCasal4");
+      const storedMosaico4Url = localStorage.getItem("fotosEvento4");
       if (storedMosaico4Url) {
         setInternalMosaico4Url(`/temp/${storedMosaico4Url}`);
       }
@@ -223,7 +223,7 @@ export default function WeddingTemplate({
     }
 
     if (!fotoMosaico5Url) {
-      const storedMosaico5Url = localStorage.getItem("fotosCasal5");
+      const storedMosaico5Url = localStorage.getItem("fotosEvento5");
       if (storedMosaico5Url) {
         setInternalMosaico5Url(`/temp/${storedMosaico5Url}`);
       }
@@ -232,7 +232,7 @@ export default function WeddingTemplate({
     }
 
     if (!fotoMosaico6Url) {
-      const fotoMosaico6Url = localStorage.getItem("fotosCasal6");
+      const fotoMosaico6Url = localStorage.getItem("fotosEvento6");
       if (fotoMosaico6Url) {
         setInternalMosaico6Url(`/temp/${fotoMosaico6Url}`);
       }
@@ -250,7 +250,7 @@ export default function WeddingTemplate({
     }
   }, [
     bannerUrl,
-    fotoCasalUrl,
+    fotoEventoUrl,
     fotoMosaico1Url,
     fotoMosaico2Url,
     fotoMosaico3Url,
@@ -263,8 +263,8 @@ export default function WeddingTemplate({
   useEffect(() => {
     let targetDate: any;
 
-    if (dataCasamento) {
-      targetDate = new Date(`${dataCasamento}T00:00:00`).getTime();
+    if (dataEvento) {
+      targetDate = new Date(`${dataEvento}T00:00:00`).getTime();
     } else {
       targetDate = new Date("December 31, 2023 00:00:00").getTime();
     }
@@ -282,7 +282,7 @@ export default function WeddingTemplate({
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [dataCasamento]);
+  }, [dataEvento]);
 
   useEffect(() => {
     let fullAddress;
@@ -327,7 +327,7 @@ export default function WeddingTemplate({
                 <hr />
               </div>
               <div className={styles.titleBlock}>
-                <h1>{nomeCasal || "Laura & Leonardo"}</h1>
+                <h1>{nomeEvento || "Laura & Leonardo"}</h1>
               </div>
               <div className={styles.descriptionEvent}>
                 <p>
@@ -373,9 +373,9 @@ export default function WeddingTemplate({
           </div>
           <div className={styles.historyContent}>
             <div className={styles.leftSideHistoryContent}>
-              <h3>{nomeCasal || "Laura & Leonardo"}</h3>
+              <h3>{nomeEvento || "Laura & Leonardo"}</h3>
               <p>
-                {sobreCasal ||
+                {sobreEvento ||
                   "Lorem ipsum dolor sit amet consectetur. Amet ullamcorper quam maecenas ac placerat porttitor porttitor mi. Ipsum volutpat proin quisque urna tortor et. Praesent porttitor aliquam a tristique tortor et eget. Potenti eu maecenas diam aenean nec. Lorem ipsum dolor sit amet consectetur. Amet ullamcorper quam maecenas ac placerat porttitor porttitor mi. Ipsum volutpat proin quisque urna tortor et. Praesent porttitor aliquam a tristique tortor et eget. Potenti eu maecenas diam aenean nec."}
               </p>
               <button>confirmar presença</button>
@@ -384,8 +384,8 @@ export default function WeddingTemplate({
               <div className={styles.firstMoldura}>
                 <img
                   src={
-                    internalFotoCasalUrl
-                      ? internalFotoCasalUrl
+                    internalFotoEventoUrl
+                      ? internalFotoEventoUrl
                       : "/defaultMarried.png"
                   }
                 />
@@ -393,8 +393,8 @@ export default function WeddingTemplate({
               <div className={`${styles.firstMoldura} ${styles.secondMoldura}`}>
                 <img
                   src={
-                    internalFotoCasalUrl
-                      ? internalFotoCasalUrl
+                    internalFotoEventoUrl
+                      ? internalFotoEventoUrl
                       : "/defaultMarried.png"
                   }
                 />
@@ -402,8 +402,8 @@ export default function WeddingTemplate({
               <div className={`${styles.firstMoldura} ${styles.thirdMoldura}`}>
                 <img
                   src={
-                    internalFotoCasalUrl
-                      ? internalFotoCasalUrl
+                    internalFotoEventoUrl
+                      ? internalFotoEventoUrl
                       : "/defaultMarried.png"
                   }
                 />
@@ -421,7 +421,7 @@ export default function WeddingTemplate({
             <div className={styles.titleSectionFotos}>
               <h2>Um pouco do nosso amor em fotos</h2>
               <p>
-                {fotosCasalText ||
+                {fotosEventoText ||
                   "Lorem ipsum dolor sit amet consectetur. Amet ullamcorper quam maecenas ac placerat porttitor porttitor mi. Ipsum volutpat proin quisque urna tortor et. Praesent porttitor aliquam a tristique tortor et eget. Potenti eu maecenas diam aenean nec."}
               </p>
             </div>
@@ -499,8 +499,8 @@ export default function WeddingTemplate({
                 <div className={styles.dataHora}>
                   <p>data e horário</p>
                   <span>
-                    {dataCasamento ? formatDate(dataCasamento) : "24/10/2023"}{" "}
-                    às {horaCasamento || "16:00h"}
+                    {dataEvento ? formatDate(dataEvento) : "24/10/2023"} às{" "}
+                    {horaEvento || "16:00h"}
                   </span>
                 </div>
               </div>
@@ -524,7 +524,7 @@ export default function WeddingTemplate({
           style={
             internalFotoLocalUrl
               ? { backgroundImage: `url(${internalFotoLocalUrl})` }
-              : {}
+              : { backgroundImage: "url(/casamentoBackground.png)" }
           }
         >
           <div className={styles.formContainer}>
@@ -570,7 +570,7 @@ export default function WeddingTemplate({
           </div>
         </section>
         <GiftsList />
-        <section className={styles.footerCasamento}>
+        <section className={styles.footerEvento}>
           <div className={styles.divisorFooter}>
             <hr />
           </div>
