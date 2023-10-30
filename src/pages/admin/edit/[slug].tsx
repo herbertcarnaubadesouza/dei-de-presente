@@ -1,7 +1,8 @@
 // pages/[slug].tsx
 import NotFound from "@/components/404";
 import EditNightClub from "@/components/Admin/Edit/EditNightClub";
-import WeddingWebsite, { WeddingInterface } from "@/components/Web/Wedding";
+import EditWedding from "@/components/Admin/Edit/EditWedding";
+import { WeddingInterface } from "@/components/Web/Wedding";
 import { GetServerSideProps } from "next";
 
 export default function WebsitePage(
@@ -46,7 +47,7 @@ export default function WebsitePage(
   return (
     <>
       {event === "wedding" ? (
-        <WeddingWebsite
+        <EditWedding
           nomeRua={nomeRua}
           mensagemCurta={mensagemCurta}
           horaEvento={horaEvento}
@@ -78,7 +79,37 @@ export default function WebsitePage(
           fotoMosaico12Url={fotoMosaico12Url}
         />
       ) : (
-        <EditNightClub />
+        <EditNightClub
+          nomeRua={nomeRua}
+          mensagemCurta={mensagemCurta}
+          horaEvento={horaEvento}
+          fotosEventoText={fotosEventoText}
+          dataEvento={dataEvento}
+          nextHandlerIndex={nextHandlerIndex}
+          numeroRua={numeroRua}
+          nomeEvento={nomeEvento}
+          complemento={complemento}
+          event={event}
+          sobreEvento={sobreEvento}
+          slug={slug}
+          fotoMosaico1Url={fotoMosaico1Url}
+          fotoLocalUrl={fotoLocalUrl}
+          fotoEventoUrl={fotoEventoUrl}
+          bannerUrl={bannerUrl}
+          fotoMosaico6Url={fotoMosaico6Url}
+          fotoMosaico5Url={fotoMosaico5Url}
+          fotoMosaico3Url={fotoMosaico3Url}
+          fotoMosaico4Url={fotoMosaico4Url}
+          fotoMosaico2Url={fotoMosaico2Url}
+          cep={cep}
+          gifts={gifts}
+          fotoMosaico7Url={fotoMosaico7Url}
+          fotoMosaico8Url={fotoMosaico8Url}
+          fotoMosaico9Url={fotoMosaico9Url}
+          fotoMosaico10Url={fotoMosaico10Url}
+          fotoMosaico11Url={fotoMosaico11Url}
+          fotoMosaico12Url={fotoMosaico12Url}
+        />
       )}
     </>
   );

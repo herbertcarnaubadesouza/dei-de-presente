@@ -137,7 +137,11 @@ export default function WeddingWebsite({
         <section
           className={styles.banner}
           id="home"
-          style={{ backgroundImage: `url(${bannerUrl})` }}
+          style={
+            bannerUrl
+              ? { backgroundImage: `url(${bannerUrl})` }
+              : { backgroundImage: `url(/casamentoBanner.png)` }
+          }
         >
           <div className={styles.overlay}>
             <div className={styles.headerWebsite}>
@@ -160,10 +164,13 @@ export default function WeddingWebsite({
                 <hr />
               </div>
               <div className={styles.titleBlock}>
-                <h1>{nomeEvento}</h1>
+                <h1>{nomeEvento || "Laura & Leonardo"}</h1>
               </div>
               <div className={styles.descriptionEvent}>
-                <p>{mensagemCurta}</p>
+                <p>
+                  {mensagemCurta ||
+                    "Lorem ipsum dolor sit amet consectetur. Amet ullamcorper quam maecenas ac placerat porttitor porttitor mi. Ipsum volutpat proin quisque urna tortor et. Praesent porttitor aliquam a tristique tortor et eget. Potenti eu maecenas diam aenean nec. Lorem ipsum dolor sit amet consectetur."}
+                </p>
               </div>
             </div>
             <div className={styles.counterBlock}>
@@ -203,19 +210,28 @@ export default function WeddingWebsite({
           </div>
           <div className={styles.historyContent}>
             <div className={styles.leftSideHistoryContent}>
-              <h3>{nomeEvento}</h3>
-              <p>{sobreEvento}</p>
+              <h3>{nomeEvento || "Laura & Leonardo"}</h3>
+              <p>
+                {sobreEvento ||
+                  "Lorem ipsum dolor sit amet consectetur. Amet ullamcorper quam maecenas ac placerat porttitor porttitor mi. Ipsum volutpat proin quisque urna tortor et. Praesent porttitor aliquam a tristique tortor et eget."}
+              </p>
               <button>confirmar presença</button>
             </div>
             <div className={styles.rightSideHistoryContent}>
               <div className={styles.firstMoldura}>
-                <img src={fotoEventoUrl} />
+                <img
+                  src={fotoEventoUrl ? fotoEventoUrl : "/defaultMarried.png"}
+                />
               </div>
               <div className={`${styles.firstMoldura} ${styles.secondMoldura}`}>
-                <img src={fotoEventoUrl} />
+                <img
+                  src={fotoEventoUrl ? fotoEventoUrl : "/defaultMarried.png"}
+                />
               </div>
               <div className={`${styles.firstMoldura} ${styles.thirdMoldura}`}>
-                <img src={fotoEventoUrl} />
+                <img
+                  src={fotoEventoUrl ? fotoEventoUrl : "/defaultMarried.png"}
+                />
               </div>
             </div>
           </div>
@@ -230,7 +246,10 @@ export default function WeddingWebsite({
               </div>
               <div className={styles.titleSectionFotos}>
                 <h2>Um pouco do nosso amor em fotos</h2>
-                <p>{fotosEventoText}</p>
+                <p>
+                  {fotosEventoText ||
+                    "Lorem ipsum dolor sit amet consectetur. Amet ullamcorper quam maecenas ac placerat porttitor porttitor mi. Ipsum volutpat proin quisque urna tortor et. Praesent porttitor aliquam a tristique tortor et eget."}
+                </p>
               </div>
             </div>
           </div>
@@ -238,18 +257,30 @@ export default function WeddingWebsite({
 
         <section className={styles.mosaico} id="fotoscasal">
           <div className={styles.firstMosaico}>
-            <img src={fotoMosaico1Url} />
+            <img
+              src={fotoMosaico1Url ? fotoMosaico1Url : "/mosaicoImage2.png"}
+            />
           </div>
           <div className={styles.secondMosaico}>
-            <img src={fotoMosaico2Url} />
-            <img src={fotoMosaico3Url} />
+            <img
+              src={fotoMosaico2Url ? fotoMosaico2Url : "/mosaicoImage3.png"}
+            />
+            <img
+              src={fotoMosaico3Url ? fotoMosaico3Url : "/mosaicoImage4.png"}
+            />
           </div>
           <div className={styles.thirdMosaico}>
-            <img src={fotoMosaico4Url} />
-            <img src={fotoMosaico5Url} />
+            <img
+              src={fotoMosaico4Url ? fotoMosaico4Url : "/mosaicoImage1.png"}
+            />
+            <img
+              src={fotoMosaico5Url ? fotoMosaico5Url : "/mosaicoImage4.png"}
+            />
           </div>
           <div className={styles.lastMosaico}>
-            <img src={fotoMosaico6Url} />
+            <img
+              src={fotoMosaico6Url ? fotoMosaico6Url : "/mosaicoImage3.png"}
+            />
           </div>
         </section>
 
@@ -271,7 +302,8 @@ export default function WeddingWebsite({
                 <div className={styles.dataHora}>
                   <p>data e horário</p>
                   <span>
-                    {formatDate(dataEvento)} às {horaEvento}
+                    {dataEvento ? formatDate(dataEvento) : "24/10/2023"} às{" "}
+                    {horaEvento || "16:00h"}
                   </span>
                 </div>
               </div>
@@ -280,7 +312,9 @@ export default function WeddingWebsite({
                 <div className={styles.dataHora}>
                   <p>Endereço</p>
                   <span>
-                    {`${nomeRua}, ${complemento} ${numeroRua}, ${cep}`}
+                    {nomeRua && complemento && numeroRua
+                      ? `${nomeRua}, ${complemento} ${numeroRua}, ${cep}`
+                      : "Rua das laranjeiras, Lote 1420/1520 chácara Recanto dos sabiás, Brasília - DF"}
                   </span>
                 </div>
               </div>
@@ -289,9 +323,15 @@ export default function WeddingWebsite({
         </section>
 
         <section
-          className={styles.formSectionEvento}
+          className={styles.formSectionCasamento}
           id="confirmacao"
-          style={{ backgroundImage: `url(${fotoLocalUrl})` }}
+          style={
+            fotoLocalUrl
+              ? { backgroundImage: `url(${fotoLocalUrl})` }
+              : {
+                  backgroundImage: `url(/casamentoBackground.png)`,
+                }
+          }
         >
           <div className={styles.formContainer}>
             <div className={styles.formDivisorBlock}>

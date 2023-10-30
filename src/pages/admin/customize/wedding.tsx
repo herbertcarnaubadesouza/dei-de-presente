@@ -16,18 +16,18 @@ export default function CustomizeWedding() {
   const [isRightSideVisible, setIsRightSideVisible] = useState(true);
   const [activeAccordion, setActiveAccordion] = useState<string | null>("Home");
   const [slug, setSlug] = useState("");
-  const [nomeCasal, setNomeCasal] = useState("");
+  const [nomeEvento, setNomeEvento] = useState("");
   const [mensagemCurta, setMensagemCurta] = useState("");
-  const [dataCasamento, setDataCasamento] = useState("");
-  const [horaCasamento, setHoraCasamento] = useState("");
-  const [sobreCasal, setSobreCasal] = useState("");
-  const [fotosCasalText, setFotosCasalText] = useState("");
+  const [dataEvento, setDataEvento] = useState("");
+  const [horaEvento, setHoraEvento] = useState("");
+  const [sobreEvento, setSobreEvento] = useState("");
+  const [fotosEventoText, setFotosEventoText] = useState("");
   const [nomeRua, setNomeRua] = useState("");
   const [complemento, setComplementoRua] = useState("");
   const [numeroRua, setNumeroRua] = useState("");
   const [nextHandlerIndex, setNextHandlerIndex] = useState(1);
   const [bannerUrl, setBannerUrl] = useState<string | null>(null);
-  const [fotoCasalUrl, setFotoCasalUrl] = useState<string | null>(null);
+  const [fotoEventoUrl, setFotoEventoUrl] = useState<string | null>(null);
   const [fotoMosaico1Url, setFotoMosaico1Url] = useState<string | null>(null);
   const [fotoMosaico2Url, setFotoMosaico2Url] = useState<string | null>(null);
   const [fotoMosaico3Url, setFotoMosaico3Url] = useState<string | null>(null);
@@ -151,8 +151,8 @@ export default function CustomizeWedding() {
   };
 
   const handleDeleteImage = async (index: number) => {
-    const fileName = localStorage.getItem(`fotosCasal${index + 1}`);
-    localStorage.removeItem(`fotosCasal${index + 1}`);
+    const fileName = localStorage.getItem(`fotosEvento${index + 1}`);
+    localStorage.removeItem(`fotosEvento${index + 1}`);
 
     if (fileName) {
       try {
@@ -164,7 +164,7 @@ export default function CustomizeWedding() {
     }
   };
 
-  const handleImageFotoCasalChange = async (e: any) => {
+  const handleImageFotoEventoChange = async (e: any) => {
     const file = e.target.files[0];
 
     if (!file) {
@@ -182,15 +182,15 @@ export default function CustomizeWedding() {
       });
 
       if (response.data.file) {
-        localStorage.setItem("fotoCasal", response.data.file);
-        setFotoCasalUrl(`/temp/${response.data.file}`);
+        localStorage.setItem("fotoEvento", response.data.file);
+        setFotoEventoUrl(`/temp/${response.data.file}`);
       }
     } catch (err) {
       console.error("Ocorreu um erro durante o upload:", err);
     }
   };
 
-  const handleImageCasalGeneric = async (e: any) => {
+  const handleImageEventoGeneric = async (e: any) => {
     const file = e.target.files[0];
 
     if (!file) {
@@ -199,22 +199,22 @@ export default function CustomizeWedding() {
 
     switch (nextHandlerIndex) {
       case 1:
-        await handleImageFotosCasal1(file);
+        await handleImageFotosEvento1(file);
         break;
       case 2:
-        await handleImageFotosCasal2(file);
+        await handleImageFotosEvento2(file);
         break;
       case 3:
-        await handleImageFotosCasal3(file);
+        await handleImageFotosEvento3(file);
         break;
       case 4:
-        await handleImageFotosCasal4(file);
+        await handleImageFotosEvento4(file);
         break;
       case 5:
-        await handleImageFotosCasal5(file);
+        await handleImageFotosEvento5(file);
         break;
       case 6:
-        await handleImageFotosCasal6(file);
+        await handleImageFotosEvento6(file);
         break;
       default:
         break;
@@ -223,7 +223,7 @@ export default function CustomizeWedding() {
     setNextHandlerIndex(nextHandlerIndex + 1);
   };
 
-  const handleImageFotosCasal1 = async (file: File) => {
+  const handleImageFotosEvento1 = async (file: File) => {
     if (!file) {
       return;
     }
@@ -239,7 +239,7 @@ export default function CustomizeWedding() {
       });
 
       if (response.data.file) {
-        localStorage.setItem("fotosCasal1", response.data.file);
+        localStorage.setItem("fotosEvento1", response.data.file);
         setFotoMosaico1Url(`/temp/${response.data.file}`);
       }
     } catch (err) {
@@ -247,7 +247,7 @@ export default function CustomizeWedding() {
     }
   };
 
-  const handleImageFotosCasal2 = async (file: File) => {
+  const handleImageFotosEvento2 = async (file: File) => {
     if (!file) {
       return;
     }
@@ -263,7 +263,7 @@ export default function CustomizeWedding() {
       });
 
       if (response.data.file) {
-        localStorage.setItem("fotosCasal2", response.data.file);
+        localStorage.setItem("fotosEvento2", response.data.file);
         setFotoMosaico2Url(`/temp/${response.data.file}`);
       }
     } catch (err) {
@@ -271,7 +271,7 @@ export default function CustomizeWedding() {
     }
   };
 
-  const handleImageFotosCasal3 = async (file: File) => {
+  const handleImageFotosEvento3 = async (file: File) => {
     if (!file) {
       return;
     }
@@ -287,14 +287,14 @@ export default function CustomizeWedding() {
       });
 
       if (response.data.file) {
-        localStorage.setItem("fotosCasal3", response.data.file);
+        localStorage.setItem("fotosEvento3", response.data.file);
         setFotoMosaico3Url(`/temp/${response.data.file}`);
       }
     } catch (err) {
       console.error("Ocorreu um erro durante o upload:", err);
     }
   };
-  const handleImageFotosCasal4 = async (file: File) => {
+  const handleImageFotosEvento4 = async (file: File) => {
     if (!file) {
       return;
     }
@@ -310,14 +310,14 @@ export default function CustomizeWedding() {
       });
 
       if (response.data.file) {
-        localStorage.setItem("fotosCasal4", response.data.file);
+        localStorage.setItem("fotosEvento4", response.data.file);
         setFotoMosaico4Url(`/temp/${response.data.file}`);
       }
     } catch (err) {
       console.error("Ocorreu um erro durante o upload:", err);
     }
   };
-  const handleImageFotosCasal5 = async (file: File) => {
+  const handleImageFotosEvento5 = async (file: File) => {
     if (!file) {
       return;
     }
@@ -333,7 +333,7 @@ export default function CustomizeWedding() {
       });
 
       if (response.data.file) {
-        localStorage.setItem("fotosCasal5", response.data.file);
+        localStorage.setItem("fotosEvento5", response.data.file);
         setFotoMosaico5Url(`/temp/${response.data.file}`);
       }
     } catch (err) {
@@ -341,7 +341,7 @@ export default function CustomizeWedding() {
     }
   };
 
-  const handleImageFotosCasal6 = async (file: File) => {
+  const handleImageFotosEvento6 = async (file: File) => {
     if (!file) {
       return;
     }
@@ -357,7 +357,7 @@ export default function CustomizeWedding() {
       });
 
       if (response.data.file) {
-        localStorage.setItem("fotosCasal6", response.data.file);
+        localStorage.setItem("fotosEvento6", response.data.file);
         setFotoMosaico6Url(`/temp/${response.data.file}`);
       }
     } catch (err) {
@@ -390,29 +390,29 @@ export default function CustomizeWedding() {
   }, []);
 
   useEffect(() => {
-    const savedNomeCasal = localStorage.getItem("nomeCasal");
-    if (savedNomeCasal) {
-      setNomeCasal(savedNomeCasal);
+    const savedNomeEvento = localStorage.getItem("nomeEvento");
+    if (savedNomeEvento) {
+      setNomeEvento(savedNomeEvento);
     }
     const savedMensagemCurta = localStorage.getItem("mensagemCurta");
     if (savedMensagemCurta) {
       setMensagemCurta(savedMensagemCurta);
     }
-    const savedDataCasamento = localStorage.getItem("dataCasamento");
-    if (savedDataCasamento) {
-      setDataCasamento(savedDataCasamento);
+    const savedDataEvento = localStorage.getItem("dataEvento");
+    if (savedDataEvento) {
+      setDataEvento(savedDataEvento);
     }
-    const savedHoraCasamento = localStorage.getItem("horaCasamento");
-    if (savedHoraCasamento) {
-      setHoraCasamento(savedHoraCasamento);
+    const savedHoraEvento = localStorage.getItem("horaEvento");
+    if (savedHoraEvento) {
+      setHoraEvento(savedHoraEvento);
     }
-    const savedSobreCasal = localStorage.getItem("sobreCasal");
-    if (savedSobreCasal) {
-      setSobreCasal(savedSobreCasal);
+    const savedSobreEvento = localStorage.getItem("sobreEvento");
+    if (savedSobreEvento) {
+      setSobreEvento(savedSobreEvento);
     }
-    const savedFotosCasalText = localStorage.getItem("fotosCasalText");
-    if (savedFotosCasalText) {
-      setFotosCasalText(savedFotosCasalText);
+    const savedFotosEventoText = localStorage.getItem("fotosEventoText");
+    if (savedFotosEventoText) {
+      setFotosEventoText(savedFotosEventoText);
     }
     const savedNomeRua = localStorage.getItem("nomeDaRua");
     if (savedNomeRua) {
@@ -437,24 +437,24 @@ export default function CustomizeWedding() {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("nomeCasal", nomeCasal);
+    localStorage.setItem("nomeEvento", nomeEvento);
     localStorage.setItem("slug", slug);
     localStorage.setItem("mensagemCurta", mensagemCurta);
-    localStorage.setItem("dataCasamento", dataCasamento);
-    localStorage.setItem("horaCasamento", horaCasamento);
-    localStorage.setItem("sobreCasal", sobreCasal);
-    localStorage.setItem("fotosCasalText", fotosCasalText);
+    localStorage.setItem("dataEvento", dataEvento);
+    localStorage.setItem("horaEvento", horaEvento);
+    localStorage.setItem("sobreEvento", sobreEvento);
+    localStorage.setItem("fotosEventoText", fotosEventoText);
     localStorage.setItem("nomeDaRua", nomeRua);
     localStorage.setItem("complemento", complemento);
     localStorage.setItem("numeroDaRua", numeroRua);
     localStorage.setItem("cep", cep);
   }, [
-    nomeCasal,
+    nomeEvento,
     mensagemCurta,
-    dataCasamento,
-    horaCasamento,
-    sobreCasal,
-    fotosCasalText,
+    dataEvento,
+    horaEvento,
+    sobreEvento,
+    fotosEventoText,
     nomeRua,
     numeroRua,
     cep,
@@ -462,9 +462,9 @@ export default function CustomizeWedding() {
     slug,
   ]);
 
-  const handleNomeCasalChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleNomeEventoChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    setNomeCasal(value);
+    setNomeEvento(value);
   };
   const handleSlugChange = (e: ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value;
@@ -477,21 +477,21 @@ export default function CustomizeWedding() {
     const value = e.target.value;
     setMensagemCurta(value);
   };
-  const handleDataCasamentoChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleDataEventoChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    setDataCasamento(value);
+    setDataEvento(value);
   };
-  const handleHoraCasamentoChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleHoraEventoChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    setHoraCasamento(value);
+    setHoraEvento(value);
   };
-  const handleSobreCasalChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+  const handleSobreEventoChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
-    setSobreCasal(value);
+    setSobreEvento(value);
   };
-  const handleFotosCasalTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+  const handleFotosEventoTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
-    setFotosCasalText(value);
+    setFotosEventoText(value);
   };
   const handleNomeDaRuaChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -512,19 +512,19 @@ export default function CustomizeWedding() {
 
     const fields = {
       userId,
-      nomeCasal,
+      nomeEvento,
       slug,
       mensagemCurta,
-      dataCasamento,
-      horaCasamento,
-      sobreCasal,
-      fotosCasalText,
+      dataEvento,
+      horaEvento,
+      sobreEvento,
+      fotosEventoText,
       nomeRua,
       complemento,
       numeroRua,
       nextHandlerIndex,
       bannerUrl,
-      fotoCasalUrl,
+      fotoEventoUrl,
       fotoMosaico1Url,
       fotoMosaico2Url,
       fotoMosaico3Url,
@@ -536,36 +536,11 @@ export default function CustomizeWedding() {
       cep,
     };
 
-    for (const [key, value] of Object.entries(fields)) {
-      if (!value) {
-        let errorMessage = "Todos os campos devem ser preenchidos";
-
-        switch (key) {
-          case "fotoMosaico1Url":
-          case "fotoMosaico2Url":
-          case "fotoMosaico3Url":
-          case "fotoMosaico4Url":
-          case "fotoMosaico5Url":
-          case "fotoMosaico6Url":
-            errorMessage = "Insira 6 imagens do casal";
-            break;
-          case "fotoLocalUrl":
-            errorMessage = "Insira uma foto do local";
-            break;
-          case "bannerUrl":
-            errorMessage = "Insira uma foto para a capa do site";
-            break;
-          case "fotoCasalUrl":
-            errorMessage = "Insira uma do casal para o site";
-            break;
-        }
-
-        toast.error(errorMessage, {
-          icon: <XCircle size={32} color="#ff3838" />,
-        });
-
-        return;
-      }
+    if (!fields.slug) {
+      toast.error("O nome do site é obrigatório!", {
+        icon: <XCircle size={32} color="#ff3838" />,
+      });
+      return;
     }
     setLoading(true);
 
@@ -664,18 +639,18 @@ export default function CustomizeWedding() {
           }`}
         >
           <MarriedTemplate
-            nomeCasal={nomeCasal}
-            dataCasamento={dataCasamento}
-            horaCasamento={horaCasamento}
+            nomeEvento={nomeEvento}
+            dataEvento={dataEvento}
+            horaEvento={horaEvento}
             mensagemCurta={mensagemCurta}
-            sobreCasal={sobreCasal}
-            fotosCasalText={fotosCasalText}
+            sobreEvento={sobreEvento}
+            fotosEventoText={fotosEventoText}
             nomeRua={nomeRua}
             complemento={complemento}
             numeroRua={numeroRua}
             cep={cep}
             bannerUrl={bannerUrl}
-            fotoCasalUrl={fotoCasalUrl}
+            fotoEventoUrl={fotoEventoUrl}
             fotoMosaico1Url={fotoMosaico1Url}
             fotoMosaico2Url={fotoMosaico2Url}
             fotoMosaico3Url={fotoMosaico3Url}
@@ -723,8 +698,8 @@ export default function CustomizeWedding() {
                 <input
                   placeholder="LAURA & LEONARDO"
                   type="text"
-                  value={nomeCasal}
-                  onChange={handleNomeCasalChange}
+                  value={nomeEvento}
+                  onChange={handleNomeEventoChange}
                 />
               </div>
               <div className={styles.inputAccordion}>
@@ -739,17 +714,17 @@ export default function CustomizeWedding() {
                 <label>Data do casamento</label>
                 <input
                   type="date"
-                  value={dataCasamento}
+                  value={dataEvento}
                   min={nextDay}
-                  onChange={handleDataCasamentoChange}
+                  onChange={handleDataEventoChange}
                 />
               </div>
               <div className={styles.inputAccordion}>
                 <label>Hora do casamento</label>
                 <input
                   type="time"
-                  value={horaCasamento}
-                  onChange={handleHoraCasamentoChange}
+                  value={horaEvento}
+                  onChange={handleHoraEventoChange}
                 />
               </div>
               <div className={styles.inputAccordion}>
@@ -815,8 +790,8 @@ export default function CustomizeWedding() {
                 <label>Texto sobre o casal</label>
                 <textarea
                   placeholder="Noivos, convidados e amigos, sejam todos bem-vindos a um lugar onde sonhos se tornam realidade. Nossa plataforma de presentes de casamento é o seu guia para uma jornada inesquecível rumo ao altar."
-                  value={sobreCasal}
-                  onChange={handleSobreCasalChange}
+                  value={sobreEvento}
+                  onChange={handleSobreEventoChange}
                 />
               </div>
               <div className={styles.inputAccordion}>
@@ -830,7 +805,7 @@ export default function CustomizeWedding() {
                 <input
                   type="file"
                   accept=".jpeg, .jpg, .png"
-                  onChange={handleImageFotoCasalChange}
+                  onChange={handleImageFotoEventoChange}
                   id="fileInput"
                   style={{ display: "none" }}
                 />
@@ -865,24 +840,24 @@ export default function CustomizeWedding() {
             </div>
           )}
           <div
-            className={getAccordionClass(activeAccordion === "FotosCasal")}
-            onClick={() => toggleAccordion("FotosCasal")}
+            className={getAccordionClass(activeAccordion === "FotosEvento")}
+            onClick={() => toggleAccordion("FotosEvento")}
           >
             <p>Fotos do casal</p>
-            {activeAccordion === "FotosCasal" ? (
+            {activeAccordion === "FotosEvento" ? (
               <img src="/arrowUp.svg" />
             ) : (
               <img src="/arrowDown.svg" />
             )}
           </div>
-          {activeAccordion === "FotosCasal" && (
+          {activeAccordion === "FotosEvento" && (
             <div className={styles.accordionContent}>
               <div className={styles.inputAccordion}>
                 <label>Mensagem curta</label>
                 <textarea
                   placeholder="Noivos, convidados e amigos, sejam todos bem-vindos a um lugar onde sonhos se tornam realidade. Nossa plataforma de presentes de casamento é o seu guia para uma jornada inesquecível rumo ao altar."
-                  value={fotosCasalText}
-                  onChange={handleFotosCasalTextChange}
+                  value={fotosEventoText}
+                  onChange={handleFotosEventoTextChange}
                 />
               </div>
               <div className={styles.PrintContainer}>
@@ -893,7 +868,7 @@ export default function CustomizeWedding() {
                 <input
                   type="file"
                   accept=".jpeg, .jpg, .png"
-                  onChange={handleImageCasalGeneric}
+                  onChange={handleImageEventoGeneric}
                   id="fileInput"
                   style={{ display: "none" }}
                 />
@@ -928,7 +903,7 @@ export default function CustomizeWedding() {
               <div className={styles.gridFotos}>
                 {[1, 2, 3, 4, 5, 6].map((item, index) => {
                   const fileNameFromLocalStorage = localStorage.getItem(
-                    `fotosCasal${item}`
+                    `fotosEvento${item}`
                   );
                   const imageSource = fileNameFromLocalStorage
                     ? `/temp/${fileNameFromLocalStorage}`
@@ -949,19 +924,17 @@ export default function CustomizeWedding() {
             </div>
           )}
           <div
-            className={getAccordionClass(
-              activeAccordion === "LocalDoCasamento"
-            )}
-            onClick={() => toggleAccordion("LocalDoCasamento")}
+            className={getAccordionClass(activeAccordion === "LocalDoEvento")}
+            onClick={() => toggleAccordion("LocalDoEvento")}
           >
             <p>Local do casamento</p>
-            {activeAccordion === "LocalDoCasamento" ? (
+            {activeAccordion === "LocalDoEvento" ? (
               <img src="/arrowUp.svg" />
             ) : (
               <img src="/arrowDown.svg" />
             )}
           </div>
-          {activeAccordion === "LocalDoCasamento" && (
+          {activeAccordion === "LocalDoEvento" && (
             <div className={styles.accordionContent}>
               <div className={styles.inputAccordion}>
                 <label>Nome da rua</label>

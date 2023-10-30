@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { useState } from "react";
 import styles from "./styles.module.scss";
 
@@ -15,6 +16,15 @@ export default function GiftsListFromSavedWebsite({ gifts }: any) {
   const prevPage = () => setCurrentPage(currentPage - 1);
 
   const goToPage = (page: any) => setCurrentPage(page);
+
+  const router = useRouter();
+
+  const handleBuyClick = (giftId: string) => {
+    router.push({
+      pathname: `/checkout/${giftId}`,
+      query: { giftId },
+    });
+  };
 
   return (
     <>
@@ -37,12 +47,17 @@ export default function GiftsListFromSavedWebsite({ gifts }: any) {
                   />
                   <p>{gift.name}</p>
                   <span>
-                    {parseFloat(gift.price).toLocaleString("pt-BR", {
-                      style: "currency",
-                      currency: "BRL",
-                    })}
+                    {gift &&
+                      parseFloat(
+                        (gift.price / 0.925).toString()
+                      ).toLocaleString("pt-BR", {
+                        style: "currency",
+                        currency: "BRL",
+                      })}
                   </span>
-                  <button>comprar</button>
+                  <button onClick={() => handleBuyClick(gift.id)}>
+                    comprar
+                  </button>
                 </div>
               </div>
             ))}

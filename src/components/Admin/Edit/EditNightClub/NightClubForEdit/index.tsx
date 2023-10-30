@@ -311,7 +311,7 @@ export default function NightClubForEdit({
           className={styles.formSectionEvento}
           style={
             fotoLocalUrl
-              ? { backgroundImage: `url(${fotoMosaico1Url})` }
+              ? { backgroundImage: `url(${fotoLocalUrl})` }
               : {
                   backgroundImage: `url(/night-club-confirmation-background.webp)`,
                 }

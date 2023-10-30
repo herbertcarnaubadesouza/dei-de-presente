@@ -10,39 +10,148 @@ import { toast } from "react-toastify";
 import styles from "../../../../styles/Customize.module.scss";
 import NightClubForEdit from "./NightClubForEdit";
 
-export default function EditNightClub() {
+export interface Gift {
+  id: string;
+  imageUrl: string;
+  name: string;
+  price: number;
+  userId: string;
+}
+
+export interface NightClubInterface {
+  nomeRua: string;
+  slug: string;
+  cep: string;
+  mensagemCurta: string;
+  horaEvento: string;
+  fotosEventoText: string;
+  dataEvento: string;
+  nextHandlerIndex: number;
+  numeroRua: string;
+  nomeEvento: string;
+  complemento: string;
+  event: string;
+  sobreEvento: string;
+  fotoMosaico1Url: string;
+  fotoLocalUrl: string;
+  fotoEventoUrl: string;
+  bannerUrl: string;
+  fotoMosaico6Url: string;
+  fotoMosaico5Url: string;
+  fotoMosaico3Url: string;
+  fotoMosaico4Url: string;
+  fotoMosaico2Url: string;
+  fotoMosaico7Url: string;
+  fotoMosaico8Url: string;
+  fotoMosaico9Url: string;
+  fotoMosaico10Url: string;
+  fotoMosaico11Url: string;
+  fotoMosaico12Url: string;
+  gifts: Gift[];
+}
+
+export default function EditNightClub({
+  nomeEvento: propNomeEvento,
+  mensagemCurta: propMensagemCurta,
+  dataEvento: propDataEvento,
+  sobreEvento: propSobreEvento,
+  horaEvento: propHoraEvento,
+  nomeRua: propNomeRua,
+  complemento: propComplemento,
+  numeroRua: propNumeroRua,
+  cep: propCep,
+  bannerUrl: propBannerUrl,
+  fotoEventoUrl: propFotoEventoUrl,
+  fotoMosaico1Url: propFotoMosaico1Url,
+  fotoMosaico2Url: propFotoMosaico2Url,
+  fotoMosaico3Url: propFotoMosaico3Url,
+  fotoMosaico4Url: propFotoMosaico4Url,
+  fotoMosaico5Url: propFotoMosaico5Url,
+  fotoMosaico6Url: propFotoMosaico6Url,
+  fotoMosaico7Url: propFotoMosaico7Url,
+  fotoMosaico8Url: propFotoMosaico8Url,
+  fotoMosaico9Url: propFotoMosaico9Url,
+  fotoMosaico10Url: propFotoMosaico10Url,
+  fotoMosaico11Url: propFotoMosaico11Url,
+  fotoMosaico12Url: propFotoMosaico12Url,
+  fotoLocalUrl: propFotoLocalUrl,
+  gifts: propGifts,
+  slug: propSlug,
+}: NightClubInterface) {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isFileSelected, setIsFileSelected] = useState(false);
   const [isRightSideVisible, setIsRightSideVisible] = useState(true);
   const [activeAccordion, setActiveAccordion] = useState<string | null>("Home");
-  const [slug, setSlug] = useState("");
-  const [nomeEvento, setNomeEvento] = useState("");
-  const [mensagemCurta, setMensagemCurta] = useState("");
-  const [dataEvento, setDataEvento] = useState("");
-  const [horaEvento, setHoraEvento] = useState("");
-  const [sobreEvento, setSobreEvento] = useState("");
-  const [fotosEventoText, setFotosEventoText] = useState("");
-  const [nomeRua, setNomeRua] = useState("");
-  const [complemento, setComplementoRua] = useState("");
-  const [numeroRua, setNumeroRua] = useState("");
+  const [nomeEvento, setNomeEvento] = useState(propNomeEvento);
+  const [mensagemCurta, setMensagemCurta] = useState(propMensagemCurta);
+  const [dataEvento, setDataEvento] = useState(propDataEvento);
+  const [horaEvento, setHoraEvento] = useState(propHoraEvento);
+  const [sobreEvento, setSobreEvento] = useState(propSobreEvento);
+  const [fotosEventoText, setFotosEventoText] = useState(propSobreEvento);
+  const [nomeRua, setNomeRua] = useState(propNomeRua);
+  const [complemento, setComplementoRua] = useState(propComplemento);
+  const [numeroRua, setNumeroRua] = useState(propNumeroRua);
   const [nextHandlerIndex, setNextHandlerIndex] = useState(1);
 
-  const [bannerUrl, setBannerUrl] = useState<string | null>(null);
-  const [fotoEventoUrl, setFotoEventoUrl] = useState<string | null>(null);
-  const [fotoMosaico1Url, setFotoMosaico1Url] = useState<string | null>(null);
-  const [fotoMosaico2Url, setFotoMosaico2Url] = useState<string | null>(null);
-  const [fotoMosaico3Url, setFotoMosaico3Url] = useState<string | null>(null);
-  const [fotoMosaico4Url, setFotoMosaico4Url] = useState<string | null>(null);
-  const [fotoMosaico5Url, setFotoMosaico5Url] = useState<string | null>(null);
-  const [fotoMosaico6Url, setFotoMosaico6Url] = useState<string | null>(null);
-  const [fotoMosaico7Url, setFotoMosaico7Url] = useState<string | null>(null);
-  const [fotoMosaico8Url, setFotoMosaico8Url] = useState<string | null>(null);
-  const [fotoMosaico9Url, setFotoMosaico9Url] = useState<string | null>(null);
-  const [fotoMosaico10Url, setFotoMosaico10Url] = useState<string | null>(null);
-  const [fotoMosaico11Url, setFotoMosaico11Url] = useState<string | null>(null);
-  const [fotoMosaico12Url, setFotoMosaico12Url] = useState<string | null>(null);
-  const [fotoLocalUrl, setFotoLocalUrl] = useState<string | null>(null);
-  const [cep, setCep] = useState("");
+  const [bannerUrl, setBannerUrl] = useState<string | null>(propBannerUrl);
+  const [fotoEventoUrl, setFotoEventoUrl] = useState<string | null>(
+    propFotoEventoUrl
+  );
+  const [fotoMosaico1Url, setFotoMosaico1Url] = useState<string | null>(
+    propFotoMosaico1Url
+  );
+  const [fotoMosaico2Url, setFotoMosaico2Url] = useState<string | null>(
+    propFotoMosaico2Url
+  );
+  const [fotoMosaico3Url, setFotoMosaico3Url] = useState<string | null>(
+    propFotoMosaico3Url
+  );
+  const [fotoMosaico4Url, setFotoMosaico4Url] = useState<string | null>(
+    propFotoMosaico4Url
+  );
+  const [fotoMosaico5Url, setFotoMosaico5Url] = useState<string | null>(
+    propFotoMosaico5Url
+  );
+  const [fotoMosaico6Url, setFotoMosaico6Url] = useState<string | null>(
+    propFotoMosaico6Url
+  );
+  const [fotoMosaico7Url, setFotoMosaico7Url] = useState<string | null>(
+    propFotoMosaico7Url
+  );
+  const [fotoMosaico8Url, setFotoMosaico8Url] = useState<string | null>(
+    propFotoMosaico8Url
+  );
+  const [fotoMosaico9Url, setFotoMosaico9Url] = useState<string | null>(
+    propFotoMosaico9Url
+  );
+  const [fotoMosaico10Url, setFotoMosaico10Url] = useState<string | null>(
+    propFotoMosaico10Url
+  );
+  const [fotoMosaico11Url, setFotoMosaico11Url] = useState<string | null>(
+    propFotoMosaico11Url
+  );
+  const [fotoMosaico12Url, setFotoMosaico12Url] = useState<string | null>(
+    propFotoMosaico12Url
+  );
+  const [fotoLocalUrl, setFotoLocalUrl] = useState<string | null>(
+    propFotoLocalUrl
+  );
+  const allFotoMosaicoUrls = [
+    fotoMosaico1Url,
+    fotoMosaico2Url,
+    fotoMosaico3Url,
+    fotoMosaico4Url,
+    fotoMosaico5Url,
+    fotoMosaico6Url,
+    fotoMosaico7Url,
+    fotoMosaico8Url,
+    fotoMosaico9Url,
+    fotoMosaico10Url,
+    fotoMosaico11Url,
+    fotoMosaico12Url,
+  ];
+
+  const [cep, setCep] = useState(propCep);
   const [loading, setLoading] = useState(false);
 
   const session = useSession();
@@ -85,7 +194,6 @@ export default function EditNightClub() {
 
   const handleClearFileFotoEventoUrl = () => {
     setFotoEventoUrl(null);
-    localStorage.removeItem("fotoEventoUrl");
 
     const fileInput = document.getElementById("fileInput") as HTMLInputElement;
     if (fileInput) {
@@ -98,8 +206,6 @@ export default function EditNightClub() {
   const handleClearFileFotoLocalUrl = () => {
     setFotoLocalUrl(null);
 
-    localStorage.removeItem("fotoLocalUrl");
-
     const fileInput = document.getElementById("fileInput") as HTMLInputElement;
     if (fileInput) {
       fileInput.value = "";
@@ -110,8 +216,6 @@ export default function EditNightClub() {
 
   const handleClearFileBanner = () => {
     setBannerUrl(null);
-
-    localStorage.removeItem("fotoBanner");
 
     const fileInput = document.getElementById("fileInput") as HTMLInputElement;
     if (fileInput) {
@@ -150,7 +254,6 @@ export default function EditNightClub() {
       });
 
       if (response.data.file) {
-        localStorage.setItem("fotoBanner", response.data.file);
         setBannerUrl(`/temp/${response.data.file}`);
       }
     } catch (err) {
@@ -176,7 +279,6 @@ export default function EditNightClub() {
       });
 
       if (response.data.file) {
-        localStorage.setItem("fotoLocalUrl", response.data.file);
         setFotoLocalUrl(`/temp/${response.data.file}`);
       }
     } catch (err) {
@@ -185,16 +287,26 @@ export default function EditNightClub() {
   };
 
   const handleDeleteImage = async (index: number) => {
-    const fileName = localStorage.getItem(`fotoMosaico${index + 1}Url`);
-    localStorage.removeItem(`fotoMosaico${index + 1}Url`);
+    const setFotoMosaicoUrlFunctions: {
+      [key: number]: React.Dispatch<React.SetStateAction<string | null>>;
+    } = {
+      0: setFotoMosaico1Url,
+      1: setFotoMosaico2Url,
+      2: setFotoMosaico3Url,
+      3: setFotoMosaico4Url,
+      4: setFotoMosaico5Url,
+      5: setFotoMosaico6Url,
+      6: setFotoMosaico7Url,
+      7: setFotoMosaico8Url,
+      8: setFotoMosaico9Url,
+      9: setFotoMosaico10Url,
+      10: setFotoMosaico11Url,
+      11: setFotoMosaico12Url,
+    };
 
-    if (fileName) {
-      try {
-        await axios.post("/api/upload/delete", { fileName });
-        window.location.reload();
-      } catch (err) {
-        console.error("Erro ao deletar o arquivo", err);
-      }
+    const setStateFunc = setFotoMosaicoUrlFunctions[index];
+    if (setStateFunc) {
+      setStateFunc(null);
     }
   };
 
@@ -216,7 +328,6 @@ export default function EditNightClub() {
       });
 
       if (response.data.file) {
-        localStorage.setItem("fotoEventoUrl", response.data.file);
         setFotoEventoUrl(`/temp/${response.data.file}`);
       }
     } catch (err) {
@@ -291,7 +402,6 @@ export default function EditNightClub() {
       });
 
       if (response.data.file) {
-        localStorage.setItem("fotoMosaico1Url", response.data.file);
         setFotoMosaico1Url(`/temp/${response.data.file}`);
       }
     } catch (err) {
@@ -315,7 +425,6 @@ export default function EditNightClub() {
       });
 
       if (response.data.file) {
-        localStorage.setItem("fotoMosaico2Url", response.data.file);
         setFotoMosaico2Url(`/temp/${response.data.file}`);
       }
     } catch (err) {
@@ -339,7 +448,6 @@ export default function EditNightClub() {
       });
 
       if (response.data.file) {
-        localStorage.setItem("fotoMosaico3Url", response.data.file);
         setFotoMosaico3Url(`/temp/${response.data.file}`);
       }
     } catch (err) {
@@ -362,7 +470,6 @@ export default function EditNightClub() {
       });
 
       if (response.data.file) {
-        localStorage.setItem("fotoMosaico4Url", response.data.file);
         setFotoMosaico4Url(`/temp/${response.data.file}`);
       }
     } catch (err) {
@@ -385,7 +492,6 @@ export default function EditNightClub() {
       });
 
       if (response.data.file) {
-        localStorage.setItem("fotoMosaico5Url", response.data.file);
         setFotoMosaico5Url(`/temp/${response.data.file}`);
       }
     } catch (err) {
@@ -409,7 +515,6 @@ export default function EditNightClub() {
       });
 
       if (response.data.file) {
-        localStorage.setItem("fotoMosaico6Url", response.data.file);
         setFotoMosaico6Url(`/temp/${response.data.file}`);
       }
     } catch (err) {
@@ -432,7 +537,6 @@ export default function EditNightClub() {
       });
 
       if (response.data.file) {
-        localStorage.setItem("fotoMosaico7Url", response.data.file);
         setFotoMosaico7Url(`/temp/${response.data.file}`);
       }
     } catch (err) {
@@ -455,7 +559,6 @@ export default function EditNightClub() {
       });
 
       if (response.data.file) {
-        localStorage.setItem("fotoMosaico8Url", response.data.file);
         setFotoMosaico8Url(`/temp/${response.data.file}`);
       }
     } catch (err) {
@@ -478,7 +581,6 @@ export default function EditNightClub() {
       });
 
       if (response.data.file) {
-        localStorage.setItem("fotoMosaico9Url", response.data.file);
         setFotoMosaico9Url(`/temp/${response.data.file}`);
       }
     } catch (err) {
@@ -501,7 +603,6 @@ export default function EditNightClub() {
       });
 
       if (response.data.file) {
-        localStorage.setItem("fotoMosaico10Url", response.data.file);
         setFotoMosaico10Url(`/temp/${response.data.file}`);
       }
     } catch (err) {
@@ -524,7 +625,6 @@ export default function EditNightClub() {
       });
 
       if (response.data.file) {
-        localStorage.setItem("fotoMosaico11Url", response.data.file);
         setFotoMosaico11Url(`/temp/${response.data.file}`);
       }
     } catch (err) {
@@ -547,7 +647,6 @@ export default function EditNightClub() {
       });
 
       if (response.data.file) {
-        localStorage.setItem("fotoMosaico12Url", response.data.file);
         setFotoMosaico12Url(`/temp/${response.data.file}`);
       }
     } catch (err) {
@@ -586,102 +685,12 @@ export default function EditNightClub() {
       window.removeEventListener("hashchange", checkHash);
     };
   }, []);
-  useEffect(() => {
-    if (bannerUrl) {
-      setBannerUrl(localStorage.getItem("fotoBanner"));
-    }
-    if (fotoEventoUrl) {
-      setFotoEventoUrl(localStorage.getItem("fotoEventoUrl"));
-    }
-    if (fotoLocalUrl) {
-      setFotoLocalUrl(localStorage.getItem("fotoLocalUrl"));
-    }
-  }, []);
-
-  useEffect(() => {
-    const savedNomeEvento = localStorage.getItem("nomeEvento");
-    if (savedNomeEvento) {
-      setNomeEvento(savedNomeEvento);
-    }
-    const savedMensagemCurta = localStorage.getItem("mensagemCurta");
-    if (savedMensagemCurta) {
-      setMensagemCurta(savedMensagemCurta);
-    }
-    const savedDataEvento = localStorage.getItem("dataEvento");
-    if (savedDataEvento) {
-      setDataEvento(savedDataEvento);
-    }
-    const savedHoraEvento = localStorage.getItem("horaEvento");
-    if (savedHoraEvento) {
-      setHoraEvento(savedHoraEvento);
-    }
-    const savedSobreEvento = localStorage.getItem("sobreEvento");
-    if (savedSobreEvento) {
-      setSobreEvento(savedSobreEvento);
-    }
-    const savedFotosEventoText = localStorage.getItem("fotosEventoText");
-    if (savedFotosEventoText) {
-      setFotosEventoText(savedFotosEventoText);
-    }
-    const savedNomeRua = localStorage.getItem("nomeDaRua");
-    if (savedNomeRua) {
-      setNomeRua(savedNomeRua);
-    }
-    const savedNumeroRua = localStorage.getItem("numeroDaRua");
-    if (savedNumeroRua) {
-      setNumeroRua(savedNumeroRua);
-    }
-    const savedComplemento = localStorage.getItem("complemento");
-    if (savedComplemento) {
-      setComplementoRua(savedComplemento);
-    }
-    const savedCep = localStorage.getItem("cep");
-    if (savedCep) {
-      setCep(savedCep);
-    }
-    const savedSlug = localStorage.getItem("slug");
-    if (savedSlug) {
-      setSlug(savedSlug);
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem("nomeEvento", nomeEvento);
-    localStorage.setItem("slug", slug);
-    localStorage.setItem("mensagemCurta", mensagemCurta);
-    localStorage.setItem("dataEvento", dataEvento);
-    localStorage.setItem("horaEvento", horaEvento);
-    localStorage.setItem("sobreEvento", sobreEvento);
-    localStorage.setItem("fotosEventoText", fotosEventoText);
-    localStorage.setItem("nomeDaRua", nomeRua);
-    localStorage.setItem("complemento", complemento);
-    localStorage.setItem("numeroDaRua", numeroRua);
-    localStorage.setItem("cep", cep);
-  }, [
-    nomeEvento,
-    mensagemCurta,
-    dataEvento,
-    horaEvento,
-    sobreEvento,
-    fotosEventoText,
-    nomeRua,
-    numeroRua,
-    cep,
-    complemento,
-    slug,
-  ]);
 
   const handleNomeEventoChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setNomeEvento(value);
   };
-  const handleSlugChange = (e: ChangeEvent<HTMLInputElement>) => {
-    let value = e.target.value;
-    value = value.toLowerCase();
-    value = value.replace(/\s+/g, "");
-    value = value.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-    setSlug(value);
-  };
+
   const handleMensagemCurtaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
     setMensagemCurta(value);
@@ -722,7 +731,6 @@ export default function EditNightClub() {
     const fields = {
       userId,
       nomeEvento,
-      slug,
       mensagemCurta,
       dataEvento,
       horaEvento,
@@ -751,55 +759,35 @@ export default function EditNightClub() {
       cep,
     };
 
-    if (!fields.slug) {
-      toast.error("O nome do site é obrigatório!", {
-        icon: <XCircle size={32} color="#ff3838" />,
-      });
-      return;
-    }
     setLoading(true);
 
     const payload = {
       ...fields,
     };
 
-    const res = await fetch("/api/websites/saveWebsite", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload),
-    });
+    const res = await axios.put(
+      `/api/websites/editWebsite/${propSlug}`,
+      payload
+    );
 
-    const data = await res.json();
+    const data = await res.data;
 
-    if (res.ok) {
+    if (res.status === 200) {
       toast.success("Seu site foi criado com sucesso!", {
         icon: "🎉",
       });
     } else {
-      if (data.error === "slug_already_exists") {
-        toast.error(
-          `O nome do site ${fields.slug} já está sendo usado. Por favor, escolha outro.`,
-          {
-            icon: <XCircle size={32} color="#ff3838" />,
-          }
-        );
-        setLoading(false);
-        return;
-      } else {
-        toast.error(data.message || "Um erro ocorreu", {
-          icon: <XCircle size={32} color="#ff3838" />,
-        });
-        setLoading(false);
-        return;
-      }
+      toast.error(data.message || "Um erro ocorreu", {
+        icon: <XCircle size={32} color="#ff3838" />,
+      });
+      setLoading(false);
+      return;
     }
 
     setLoading(false);
     router.push({
       pathname: "/admin/congratulations",
-      query: { slug: fields.slug },
+      query: { slug: propSlug },
     });
   };
 
@@ -866,23 +854,23 @@ export default function EditNightClub() {
             cep={cep}
             nextHandlerIndex={0}
             event={""}
-            slug={""}
-            fotoMosaico1Url={""}
-            fotoLocalUrl={""}
-            fotoEventoUrl={""}
-            bannerUrl={""}
-            fotoMosaico6Url={""}
-            fotoMosaico5Url={""}
-            fotoMosaico3Url={""}
-            fotoMosaico4Url={""}
-            fotoMosaico2Url={""}
-            fotoMosaico7Url={""}
-            fotoMosaico8Url={""}
-            fotoMosaico9Url={""}
-            fotoMosaico10Url={""}
-            fotoMosaico11Url={""}
-            fotoMosaico12Url={""}
-            gifts={[]}
+            slug={propSlug}
+            fotoMosaico1Url={fotoMosaico1Url as string}
+            fotoLocalUrl={fotoLocalUrl as string}
+            fotoEventoUrl={fotoEventoUrl as string}
+            bannerUrl={bannerUrl as string}
+            fotoMosaico6Url={fotoMosaico6Url as string}
+            fotoMosaico5Url={fotoMosaico5Url as string}
+            fotoMosaico3Url={fotoMosaico3Url as string}
+            fotoMosaico4Url={fotoMosaico4Url as string}
+            fotoMosaico2Url={fotoMosaico2Url as string}
+            fotoMosaico7Url={fotoMosaico7Url as string}
+            fotoMosaico8Url={fotoMosaico8Url as string}
+            fotoMosaico9Url={fotoMosaico9Url as string}
+            fotoMosaico10Url={fotoMosaico10Url as string}
+            fotoMosaico11Url={fotoMosaico11Url as string}
+            fotoMosaico12Url={fotoMosaico12Url as string}
+            gifts={propGifts}
           />
         </div>
         <div
@@ -907,17 +895,6 @@ export default function EditNightClub() {
           </div>
           {activeAccordion === "Home" && (
             <div className={styles.accordionContent}>
-              <div className={styles.inputAccordion}>
-                <label>
-                  Nome do seu site (www.deidepresente.com/nomedosite)
-                </label>
-                <input
-                  placeholder="Exemplo: festacountry"
-                  type="text"
-                  value={slug}
-                  onChange={handleSlugChange}
-                />
-              </div>
               <div className={styles.inputAccordion}>
                 <label>Nome do evento</label>
                 <input
@@ -1111,16 +1088,13 @@ export default function EditNightClub() {
                 />
               </div>
               <div className={styles.gridFotos}>
-                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((item, index) => {
-                  const fileNameFromLocalStorage = localStorage.getItem(
-                    `fotoMosaico${item}Url`
-                  );
-                  const imageSource = fileNameFromLocalStorage
-                    ? `/temp/${fileNameFromLocalStorage}`
-                    : "/night-club-3.webp";
+                {allFotoMosaicoUrls.map((imageSource, index) => {
                   return (
                     <div key={index} className={styles.gridImage}>
-                      <img src={imageSource} alt={`Image ${index}`} />
+                      <img
+                        src={imageSource || "/night-club-3.webp"}
+                        alt={`Image ${index + 1}`}
+                      />
                       <div
                         className={styles.trashIcon}
                         onClick={() => handleDeleteImage(index)}

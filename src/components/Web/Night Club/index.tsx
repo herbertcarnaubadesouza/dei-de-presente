@@ -132,6 +132,8 @@ export default function NightClubWebsite({
     setMapUrl(newUrl);
   }, [nomeRua, numeroRua, cep]);
 
+  console.log(bannerUrl);
+
   return (
     <>
       <main className={styles.nightClubContent}>
@@ -168,7 +170,6 @@ export default function NightClubWebsite({
         <section className={styles.sobre} id="date">
           <div className={styles.hourCounterWrap}>
             <h2>contado os minutos para o grande dia</h2>
-
             <div className={styles.rowDateBlock}>
               <div className={styles.cardHour}>
                 <span>{days}</span>
@@ -311,7 +312,7 @@ export default function NightClubWebsite({
           className={styles.formSectionEvento}
           style={
             fotoLocalUrl
-              ? { backgroundImage: `url(${fotoMosaico1Url})` }
+              ? { backgroundImage: `url(${fotoLocalUrl})` }
               : {
                   backgroundImage: `url(/night-club-confirmation-background.webp)`,
                 }
