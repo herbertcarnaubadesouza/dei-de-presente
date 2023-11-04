@@ -11,15 +11,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 return res.status(400).json({ error: 'File name is required' });
             }
 
-            // Caminho para a pasta temp onde os arquivos estão armazenados
+
             const filePath = path.join(process.cwd(), 'public', 'temp', fileName);
 
-            // Verificar se o arquivo realmente existe
+
             if (!fs.existsSync(filePath)) {
                 return res.status(404).json({ error: 'File not found' });
             }
 
-            // Excluir o arquivo
             fs.unlinkSync(filePath);
 
             return res.status(200).json({ message: 'File deleted successfully' });
