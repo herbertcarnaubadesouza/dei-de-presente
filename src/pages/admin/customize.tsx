@@ -683,6 +683,7 @@ export default function Customize() {
             fotoMosaico5Url={fotoMosaico5Url}
             fotoMosaico6Url={fotoMosaico6Url}
             fotoLocalUrl={fotoLocalUrl}
+            filledIndices={[]}
           />
         </div>
         <div
