@@ -54,7 +54,7 @@ export default function Dashboard() {
         <Header />
         <div className={styles.presentesRecebidos}>
           <div className={styles.textSection}>
-            <p>Olá, {capitalizeFirstLetter(session.data?.user?.name || "")}</p>
+            <p>Olá, {capitalizeFirstLetter(session.data?.user?.name || "")}!</p>
             <span>
               Abaixo você vai encontrar algumas estatísticas e opções de
               personalização do seu site
@@ -100,16 +100,7 @@ export default function Dashboard() {
                 </div>
                 <span>Pessoas confirmadas</span>
               </div>
-              <p>156</p>
-            </div>
-            <div className={styles.containerPresentes}>
-              <div className={styles.firstPresentes}>
-                <div className={styles.containerLogo}>
-                  <img className={styles.logo} src="/Eye.svg" alt="logo" />
-                </div>
-                <span>Visitas</span>
-              </div>
-              <p>1.235</p>
+              <p>Total: 156 pessoas</p>
             </div>
           </div>
         </div>

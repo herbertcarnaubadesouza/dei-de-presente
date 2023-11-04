@@ -37,6 +37,7 @@ export default function CustomizeWedding() {
   const [fotoLocalUrl, setFotoLocalUrl] = useState<string | null>(null);
   const [cep, setCep] = useState("");
   const [loading, setLoading] = useState(false);
+  const [filledIndices, setFilledIndices] = useState(new Array(6).fill(false));
 
   const session = useSession();
 
@@ -151,16 +152,32 @@ export default function CustomizeWedding() {
   };
 
   const handleDeleteImage = async (index: number) => {
+    const setFotoMosaicoUrlFunctions: {
+      [key: number]: React.Dispatch<React.SetStateAction<string | null>>;
+    } = {
+      0: setFotoMosaico1Url,
+      1: setFotoMosaico2Url,
+      2: setFotoMosaico3Url,
+      3: setFotoMosaico4Url,
+      4: setFotoMosaico5Url,
+      5: setFotoMosaico6Url,
+    };
+
     const fileName = localStorage.getItem(`fotosEvento${index + 1}`);
     localStorage.removeItem(`fotosEvento${index + 1}`);
 
-    if (fileName) {
-      try {
-        await axios.post("/api/upload/delete", { fileName });
-        window.location.reload();
-      } catch (err) {
-        console.error("Erro ao deletar o arquivo", err);
+    // if (fileName) {s
+    try {
+      const setStateFunc = setFotoMosaicoUrlFunctions[index];
+      if (setStateFunc) {
+        setStateFunc(null);
+        const newFilledIndices = [...filledIndices];
+        newFilledIndices[index] = false;
+        setFilledIndices(newFilledIndices);
       }
+      await axios.post("/api/upload/delete", { fileName });
+    } catch (err) {
+      console.error("Erro ao deletar o arquivo", err);
     }
   };
 
@@ -188,39 +205,6 @@ export default function CustomizeWedding() {
     } catch (err) {
       console.error("Ocorreu um erro durante o upload:", err);
     }
-  };
-
-  const handleImageEventoGeneric = async (e: any) => {
-    const file = e.target.files[0];
-
-    if (!file) {
-      return;
-    }
-
-    switch (nextHandlerIndex) {
-      case 1:
-        await handleImageFotosEvento1(file);
-        break;
-      case 2:
-        await handleImageFotosEvento2(file);
-        break;
-      case 3:
-        await handleImageFotosEvento3(file);
-        break;
-      case 4:
-        await handleImageFotosEvento4(file);
-        break;
-      case 5:
-        await handleImageFotosEvento5(file);
-        break;
-      case 6:
-        await handleImageFotosEvento6(file);
-        break;
-      default:
-        break;
-    }
-
-    setNextHandlerIndex(nextHandlerIndex + 1);
   };
 
   const handleImageFotosEvento1 = async (file: File) => {
@@ -371,6 +355,15 @@ export default function CustomizeWedding() {
 
       if (hash === "#historia") {
         const element = document.querySelector("#historia");
+
+        if (element) {
+          element.scrollIntoView({
+            behavior: "smooth",
+          });
+        }
+      }
+      if (hash === "#fotosevento") {
+        const element = document.querySelector("#fotosevento");
 
         if (element) {
           element.scrollIntoView({
@@ -596,6 +589,37 @@ export default function CustomizeWedding() {
     }
   }, [loading]);
 
+  const allHandlers = [
+    handleImageFotosEvento1,
+    handleImageFotosEvento2,
+    handleImageFotosEvento3,
+    handleImageFotosEvento4,
+    handleImageFotosEvento5,
+    handleImageFotosEvento6,
+  ];
+
+  const handleImageEventoGeneric = async (e: any) => {
+    const file = e.target.files[0];
+    console.log("Índices preenchidos antes:", filledIndices);
+
+    if (!file) {
+      return;
+    }
+
+    const nextUnfilledIndex = filledIndices.findIndex((isFilled) => !isFilled);
+
+    if (nextUnfilledIndex === -1) return;
+
+    const handlerFunction = allHandlers[nextUnfilledIndex];
+
+    if (handlerFunction) {
+      await handlerFunction(file);
+      const newFilledIndices = [...filledIndices];
+      newFilledIndices[nextUnfilledIndex] = true;
+      setFilledIndices(newFilledIndices);
+    }
+  };
+
   return (
     <>
       {loading && (
@@ -658,6 +682,7 @@ export default function CustomizeWedding() {
             fotoMosaico5Url={fotoMosaico5Url}
             fotoMosaico6Url={fotoMosaico6Url}
             fotoLocalUrl={fotoLocalUrl}
+            filledIndices={filledIndices}
           />
         </div>
         <div

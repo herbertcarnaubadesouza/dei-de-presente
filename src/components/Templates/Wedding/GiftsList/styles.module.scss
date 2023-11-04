@@ -54,6 +54,10 @@
   flex-wrap: wrap;
   gap: 22px;
   justify-content: space-between;
+
+  @media only screen and (max-width: 768px) {
+    padding-inline: 20px;
+  }
 }
 
 .card {

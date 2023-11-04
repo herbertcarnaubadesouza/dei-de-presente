@@ -82,6 +82,7 @@ export default function NightClubWebsite({
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
+  const [acompanhantes, setAcompanhantes] = useState(0);
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -92,6 +93,16 @@ export default function NightClubWebsite({
     const year = date.getFullYear();
 
     return `${day}/${month}/${year}`;
+  };
+
+  const decrementar = () => {
+    if (acompanhantes > 0) {
+      setAcompanhantes(acompanhantes - 1);
+    }
+  };
+
+  const incrementar = () => {
+    setAcompanhantes(acompanhantes + 1);
   };
 
   useEffect(() => {
@@ -344,9 +355,13 @@ export default function NightClubWebsite({
               <div className={styles.acompanhantesInputBlock}>
                 <label>Quantos acompanhantes:</label>
                 <div className={styles.decrement}>
-                  <button type="button" /*onClick={decrementar}*/>-</button>
-                  <input type="number" value="2" readOnly />
-                  <button type="button" /* onClick={incrementar} */>+</button>
+                  <button type="button" onClick={decrementar}>
+                    -
+                  </button>
+                  <input type="number" value={acompanhantes} readOnly />
+                  <button type="button" onClick={incrementar}>
+                    +
+                  </button>
                 </div>
               </div>
               <button className={styles.submitButton} type="submit">

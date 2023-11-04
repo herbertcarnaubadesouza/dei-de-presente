@@ -7,6 +7,9 @@
     rgba(27, 19, 31, 1),
     rgba(27, 19, 31, 0)
   );
+  @media only screen and (max-width: 768px) {
+    padding-top: 45px;
+  }
 }
 
 .banner {
@@ -15,6 +18,10 @@
   background-repeat: no-repeat;
   background-size: cover;
   z-index: -1;
+
+  @media only screen and (max-width: 768px) {
+    margin-bottom: -5px;
+  }
 }
 
 .menu {
@@ -24,6 +31,10 @@
   display: flex;
   gap: 23.4px;
   align-items: center;
+
+  @media only screen and (max-width: 768px) {
+    display: none;
+  }
 
   li {
     cursor: pointer;
@@ -61,6 +72,15 @@
   align-items: center;
   justify-content: space-between;
   padding-inline: 194px;
+
+  @media only screen and (max-width: 768px) {
+    padding-left: 2px;
+    padding-top: 10px;
+    img {
+      width: 91.245px;
+      height: 62px;
+    }
+  }
 }
 
 .middleContent {
@@ -68,6 +88,12 @@
   padding-top: 180px;
   padding-bottom: 280px;
   margin-left: max(0px, (100% - 1440px)/2);
+
+  @media only screen and (max-width: 768px) {
+    padding-inline: 18px;
+    padding-top: 101px;
+    padding-bottom: 200px;
+  }
 
   span {
     color: #ffd479;
@@ -77,6 +103,10 @@
     font-style: normal;
     font-weight: 600;
     text-transform: uppercase;
+
+    @media only screen and (max-width: 768px) {
+      font-size: 14px;
+    }
   }
 
   h1 {
@@ -89,6 +119,10 @@
     text-transform: uppercase;
     margin-bottom: 48px;
     margin-top: 30px;
+
+    @media only screen and (max-width: 768px) {
+      font-size: 32px;
+    }
   }
 
   p {
@@ -100,6 +134,11 @@
     font-style: normal;
     font-weight: 400;
     line-height: 33.6px;
+
+    @media only screen and (max-width: 768px) {
+      font-size: 16px;
+      line-height: 24px;
+    }
   }
 
   button {
@@ -115,6 +154,12 @@
     font-weight: 600;
     text-transform: uppercase;
     cursor: pointer;
+
+    @media only screen and (max-width: 768px) {
+      margin-top: 52px;
+      padding: 18px;
+      width: 100%;
+    }
   }
 }
 
@@ -158,6 +203,13 @@
   display: flex;
   gap: 100px;
 
+  @media only screen and (max-width: 768px) {
+    padding-inline: 20px;
+    flex-direction: column;
+    gap: 45px;
+    margin-bottom: -1px;
+  }
+
   h2 {
     color: var(--white, #fff);
     font-family: "Montserrat";
@@ -166,6 +218,13 @@
     font-weight: 600;
     line-height: 40px;
     text-transform: uppercase;
+
+    @media only screen and (max-width: 768px) {
+      font-size: 18px;
+      text-align: center;
+      line-height: 25.139px;
+      margin-top: 10px;
+    }
   }
 }
 
@@ -173,6 +232,10 @@
   display: flex;
   gap: 30px;
   padding-block: 140px;
+
+  @media only screen and (max-width: 768px) {
+    padding-block: 0px;
+  }
 }
 
 .cardHour {
@@ -185,6 +248,16 @@
   border-radius: 3.802px;
   background: rgba(255, 255, 255, 0.1);
 
+  @media only screen and (max-width: 768px) {
+    width: 72.273px;
+    padding: 15px;
+    gap: 5px;
+  }
+
+  @media only screen and (max-width: 414px) {
+    width: 65.273px;
+  }
+
   span {
     color: #ffd479;
     font-family: "Montserrat";
@@ -192,6 +265,10 @@
     font-style: normal;
     font-weight: 700;
     text-transform: uppercase;
+
+    @media only screen and (max-width: 768px) {
+      font-size: 27.273px;
+    }
   }
 
   p {
@@ -201,6 +278,10 @@
     font-style: normal;
     font-weight: 700;
     text-transform: uppercase;
+
+    @media only screen and (max-width: 768px) {
+      font-size: 10px;
+    }
   }
 }
 
@@ -210,6 +291,10 @@
   background-repeat: no-repeat;
   background-size: cover;
   z-index: -1;
+
+  @media only screen and (max-width: 768px) {
+    display: none;
+  }
 }
 
 .textContent {
@@ -222,6 +307,12 @@
   padding-block: 82px;
   z-index: 10 !important;
 
+  @media only screen and (max-width: 768px) {
+    padding-inline: 20px;
+    padding-top: 0px;
+    gap: 30px;
+  }
+
   span {
     color: #ffd479;
     font-family: "Montserrat";
@@ -230,6 +321,10 @@
     font-weight: 600;
     text-transform: uppercase;
     z-index: 10;
+
+    @media only screen and (max-width: 768px) {
+      font-size: 14px;
+    }
   }
 
   h2 {
@@ -241,6 +336,11 @@
     width: 430px;
     line-height: 40px;
     text-transform: uppercase;
+
+    @media only screen and (max-width: 768px) {
+      font-size: 32px;
+      line-height: 44.8px;
+    }
   }
 
   p {
@@ -253,6 +353,11 @@
     font-weight: 400;
     line-height: 33.6px;
     z-index: 10;
+
+    @media only screen and (max-width: 768px) {
+      font-size: 16px;
+      line-height: 24px;
+    }
   }
 
   button {
@@ -268,6 +373,12 @@
     text-transform: uppercase;
     cursor: pointer;
     z-index: 10;
+
+    @media only screen and (max-width: 768px) {
+      padding: 18px;
+      margin-top: 30px;
+      width: 100%;
+    }
   }
 }
 
@@ -285,6 +396,10 @@
     height: 528px;
     background: linear-gradient(to top, rgb(27 19 31), rgba(64, 41, 76, 0));
     z-index: 1;
+
+    @media only screen and (max-width: 768px) {
+      position: relative;
+    }
   }
 }
 
@@ -297,6 +412,12 @@
   flex-direction: column;
   gap: 64px;
 
+  @media only screen and (max-width: 768px) {
+    padding-inline: 20px;
+    padding-top: 0px;
+    gap: 25px;
+  }
+
   span {
     color: #ffd479;
     font-family: "Montserrat";
@@ -305,6 +426,10 @@
     font-weight: 600;
     text-transform: uppercase;
     z-index: 10;
+
+    @media only screen and (max-width: 768px) {
+      font-size: 14px;
+    }
   }
 
   h2 {
@@ -316,16 +441,29 @@
     line-height: 40px;
     text-transform: uppercase;
     width: 501px;
+
+    @media only screen and (max-width: 768px) {
+      font-size: 32px;
+      width: 361px;
+    }
   }
 
   iframe {
     width: 100%;
+
+    @media only screen and (max-width: 768px) {
+      height: 353px;
+    }
   }
 
   .mapsFooter {
     display: flex;
     align-items: flex-start;
     gap: 50px;
+
+    @media only screen and (max-width: 768px) {
+      flex-direction: column;
+    }
   }
 
   .mapsFooterBlock {
@@ -346,6 +484,10 @@
       font-style: normal;
       font-weight: 700;
       line-height: normal;
+
+      @media only screen and (max-width: 768px) {
+        font-size: 18px;
+      }
     }
 
     span {
@@ -354,6 +496,12 @@
       font-style: normal;
       font-weight: 400;
       line-height: 25px;
+
+      @media only screen and (max-width: 768px) {
+        font-size: 16px;
+        opacity: 0.6;
+        line-height: 25px;
+      }
     }
   }
 }
@@ -363,11 +511,20 @@
   padding-top: 82px;
   padding-bottom: 182px;
 
+  @media only screen and (max-width: 768px) {
+    padding-top: 0px;
+  }
+
   .mosaicoContent {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 64px;
+
+    @media only screen and (max-width: 768px) {
+      align-items: flex-start;
+      gap: 25px;
+    }
 
     span {
       color: #ffd479;
@@ -380,6 +537,14 @@
       z-index: 10;
       text-align: center;
       display: flex;
+
+      @media only screen and (max-width: 768px) {
+        font-size: 14px;
+        text-align: left;
+        padding-inline: 20px;
+        margin-right: auto;
+        margin-inline: 0px;
+      }
     }
 
     h2 {
@@ -394,6 +559,13 @@
       margin-inline: auto;
       text-align: center;
       margin-bottom: 100px;
+      @media only screen and (max-width: 768px) {
+        width: 100%;
+        font-size: 28px;
+        text-align: left;
+        padding-inline: 20px;
+        margin-bottom: 58px;
+      }
     }
   }
 }
@@ -421,6 +593,11 @@
   max-width: 790px;
   height: 919px;
   margin-inline: auto;
+
+  @media only screen and (max-width: 768px) {
+    padding-inline: 25px;
+    height: 684px;
+  }
 }
 
 .formDivisorBlock {
@@ -429,6 +606,10 @@
   justify-content: center;
   gap: 24px;
   padding-top: 109px;
+
+  @media only screen and (max-width: 768px) {
+    padding-top: 64px;
+  }
 
   hr {
     border: none;
@@ -445,6 +626,10 @@
     font-style: normal;
     font-weight: 600;
     text-transform: uppercase;
+
+    @media only screen and (max-width: 768px) {
+      font-size: 14px;
+    }
   }
 }
 
@@ -456,6 +641,11 @@
   margin-top: 48px;
   margin-bottom: 60px;
 
+  @media only screen and (max-width: 768px) {
+    margin-top: 25px;
+    margin-bottom: 43px;
+  }
+
   h2 {
     color: #0e1418;
     font-family: "Montserrat";
@@ -464,6 +654,10 @@
     font-weight: 600;
     text-align: center;
     text-transform: uppercase;
+
+    @media only screen and (max-width: 768px) {
+      font-size: 28px;
+    }
   }
 }
 
@@ -490,12 +684,21 @@
       padding-left: 10px;
       font-size: 18px;
       color: #637381;
+
+      @media only screen and (max-width: 768px) {
+        font-size: 14px;
+      }
     }
   }
 
   .acompanhantesInputBlock {
     display: flex;
     justify-content: space-between;
+
+    @media only screen and (max-width: 768px) {
+      flex-direction: column;
+      gap: 10px;
+    }
 
     .decrement {
       display: flex;
@@ -524,6 +727,10 @@
         padding: 10px 0px;
         color: #637381;
         font-size: 18px;
+
+        @media only screen and (max-width: 768px) {
+          padding-left: 0px !important;
+        }
       }
     }
   }
@@ -542,6 +749,10 @@
   font-weight: 600;
   margin-top: 70px;
   cursor: pointer;
+
+  @media only screen and (max-width: 768px) {
+    margin-top: 64px;
+  }
 }
 
 .giftsSection {
@@ -563,6 +774,11 @@
     font-style: normal;
     font-weight: 600;
     text-transform: uppercase;
+
+    @media only screen and (max-width: 768px) {
+      font-size: 14px;
+      line-height: 54.038px;
+    }
   }
 }
 
@@ -601,6 +817,10 @@
   flex-wrap: wrap;
   gap: 22px;
   justify-content: space-between;
+
+  @media only screen and (max-width: 768px) {
+    padding-inline: 20px;
+  }
 }
 
 .card {
@@ -674,6 +894,10 @@
   padding-bottom: 100px;
   padding-inline: 194px;
   background: #1b131f;
+
+  @media only screen and (max-width: 768px) {
+    display: none;
+  }
 }
 
 .divisorFooter {
@@ -738,6 +962,10 @@
   background-size: cover;
   z-index: -1;
   padding-block: 200px;
+
+  @media only screen and (max-width: 768px) {
+    padding-inline: 20px;
+  }
 }
 
 .photo1 {
@@ -798,4 +1026,80 @@
   width: 220px;
   object-fit: cover;
   height: 320px;
+}
+
+.bannerAlcoolMobile {
+  background: #1a121e;
+  img {
+    width: 100%;
+    height: 700px;
+    object-fit: cover;
+    object-position: right;
+  }
+
+  @media only screen and (min-width: 768px) {
+    display: none;
+  }
+}
+
+.mosaicoGrid {
+  @media only screen and (max-width: 768px) {
+    display: none;
+  }
+}
+
+.mosaicoGridMobile {
+  padding-inline: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  .row2Mobile,
+  .row1Mobile {
+    display: flex;
+    gap: 11px;
+  }
+  .photo1Mobile {
+    width: 106px;
+    object-fit: cover;
+    height: 154px;
+  }
+  .photo2Mobile {
+    width: 100%;
+    object-fit: cover;
+    height: 154px;
+  }
+  @media only screen and (min-width: 768px) {
+    display: none;
+  }
+}
+
+.footerEventoMobile {
+  background: #17141c;
+  padding-bottom: 65px;
+
+  .footerBlockMobile {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 31px;
+  }
+
+  .rightSideFooterMobile {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    padding-right: 20px;
+    font-size: 14px;
+    opacity: 0.6;
+  }
+
+  img {
+    width: 98.604px;
+    height: 67px;
+    object-fit: cover;
+  }
+
+  @media only screen and (min-width: 768px) {
+    display: none;
+  }
 }

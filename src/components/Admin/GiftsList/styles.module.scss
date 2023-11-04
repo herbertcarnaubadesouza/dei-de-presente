@@ -41,6 +41,12 @@
   display: flex;
   flex-wrap: wrap;
   gap: 22px;
+  justify-content: space-between;
+
+  @media only screen and (max-width: 768px) {
+    padding-inline: 20px;
+    gap: 16px;
+  }
 }
 
 .card {
@@ -55,10 +61,23 @@
   width: 245.979px;
   gap: 33px;
 
+  @media only screen and (max-width: 768px) {
+    width: 168px;
+    height: 275px;
+    gap: 15px;
+    padding-inline: 18px;
+  }
+
   img {
     width: 201.255px;
     height: 192.87px;
     object-fit: cover;
+
+    @media only screen and (max-width: 768px) {
+      width: 131.87px;
+      min-height: 126.375px;
+      object-fit: cover;
+    }
   }
 
   p {
@@ -67,6 +86,12 @@
     font-size: 13.976px;
     font-style: normal;
     font-weight: 400;
+
+    @media only screen and (max-width: 768px) {
+      width: 131.87px;
+      height: 126.375px;
+      font-size: 14px;
+    }
   }
 
   span {
@@ -74,6 +99,10 @@
     font-size: 16.771px;
     font-style: normal;
     font-weight: 600;
+
+    @media only screen and (max-width: 768px) {
+      font-size: 14px;
+    }
   }
 
   button {
@@ -86,6 +115,14 @@
     text-transform: uppercase;
     padding-block: 13px;
     cursor: pointer;
+
+    @media only screen and (max-width: 768px) {
+      padding-block: 5px;
+      text-align: left;
+      display: flex;
+      justify-content: center;
+      border-radius: 40.293px;
+    }
   }
 }
 

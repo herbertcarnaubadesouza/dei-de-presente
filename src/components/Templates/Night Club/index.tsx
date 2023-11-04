@@ -135,6 +135,7 @@ export default function NightClub({
 
   const [currentPage, setCurrentPage] = useState(1);
   const giftsPerPage = 12;
+  const [acompanhantes, setAcompanhantes] = useState(0);
 
   const indexOfLastGift = currentPage * giftsPerPage;
   const indexOfFirstGift = indexOfLastGift - giftsPerPage;
@@ -373,6 +374,16 @@ export default function NightClub({
     fotoLocalUrl,
   ]);
 
+  const decrementar = () => {
+    if (acompanhantes > 0) {
+      setAcompanhantes(acompanhantes - 1);
+    }
+  };
+
+  const incrementar = () => {
+    setAcompanhantes(acompanhantes + 1);
+  };
+
   useEffect(() => {
     let targetDate: any;
 
@@ -484,6 +495,28 @@ export default function NightClub({
             <button>confirmar presença</button>
           </div>
         </section>
+
+        {/*MOBILE*/}
+
+        <section className={styles.bannerAlcoolMobile}>
+          <img
+            src={
+              internalFotoEventoUrl
+                ? internalFotoEventoUrl
+                : "/background-alcool.png"
+            }
+          />
+          <div className={styles.textContent}>
+            <span>sobre</span>
+            <h2>{"Sobre o evento"}</h2>
+            <p>
+              {sobreEvento ||
+                "Lorem ipsum dolor sit amet consectetur. Amet ullamcorper quam maecenas ac placerat porttitor porttitor mi. Ipsum volutpat proin quisque urna tortor et. Praesent porttitor aliquam a tristique tortor et eget. Potenti eu maecenas diam aenean nec."}
+            </p>
+            <button>confirmar presença</button>
+          </div>
+        </section>
+
         <section className={styles.local} id="local">
           <div className={styles.localContent}>
             <span>local</span>
@@ -525,7 +558,7 @@ export default function NightClub({
             <h2>Uma lembrança das últimas vezes</h2>
           </div>
           <div className={styles.mosaicoGrid}>
-            <div className={styles.row1}>
+            <div className={styles.row1Mobile}>
               <img
                 className={styles.photo1}
                 src={
@@ -540,14 +573,6 @@ export default function NightClub({
                   internalMosaico2lUrl
                     ? internalMosaico2lUrl
                     : "/night-club-2.webp"
-                }
-              />
-              <img
-                className={styles.photo3}
-                src={
-                  internalMosaico3lUrl
-                    ? internalMosaico3lUrl
-                    : "/night-club-3.webp"
                 }
               />
               <img
@@ -624,6 +649,124 @@ export default function NightClub({
                     : "/night-club-1.webp"
                 }
               />
+              <img
+                className={styles.photo3}
+                src={
+                  internalMosaico3lUrl
+                    ? internalMosaico3lUrl
+                    : "/night-club-3.webp"
+                }
+              />
+            </div>
+          </div>
+          <div className={styles.mosaicoGridMobile}>
+            <div className={styles.row1Mobile}>
+              <img
+                className={styles.photo1Mobile}
+                src={
+                  internalMosaico1lUrl
+                    ? internalMosaico1lUrl
+                    : "/night-club-1.webp"
+                }
+              />
+              <img
+                className={styles.photo2Mobile}
+                src={
+                  internalMosaico2lUrl
+                    ? internalMosaico2lUrl
+                    : "/night-club-2.webp"
+                }
+              />
+            </div>
+            <div className={styles.row2Mobile}>
+              <img
+                className={styles.photo2Mobile}
+                src={
+                  internalMosaico3lUrl
+                    ? internalMosaico3lUrl
+                    : "/night-club-3.webp"
+                }
+              />
+              <img
+                className={styles.photo1Mobile}
+                src={
+                  internalMosaico4lUrl
+                    ? internalMosaico4lUrl
+                    : "/night-club-4.webp"
+                }
+              />
+            </div>
+            <div className={styles.row1Mobile}>
+              <img
+                className={styles.photo1Mobile}
+                src={
+                  internalMosaico5lUrl
+                    ? internalMosaico5lUrl
+                    : "/night-club-5.webp"
+                }
+              />
+              <img
+                className={styles.photo2Mobile}
+                src={
+                  internalMosaico6lUrl
+                    ? internalMosaico6lUrl
+                    : "/night-club-6.webp"
+                }
+              />
+            </div>
+            <div className={styles.row2Mobile}>
+              <img
+                className={styles.photo2Mobile}
+                src={
+                  internalMosaico7lUrl
+                    ? internalMosaico7lUrl
+                    : "/night-club-7.webp"
+                }
+              />
+              <img
+                className={styles.photo1Mobile}
+                src={
+                  internalMosaico8lUrl
+                    ? internalMosaico8lUrl
+                    : "/night-club-8.webp"
+                }
+              />
+            </div>
+            <div className={styles.row1Mobile}>
+              <img
+                className={styles.photo1Mobile}
+                src={
+                  internalMosaico9lUrl
+                    ? internalMosaico9lUrl
+                    : "/night-club-9.webp"
+                }
+              />
+              <img
+                className={styles.photo2Mobile}
+                src={
+                  internalMosaico10lUrl
+                    ? internalMosaico10lUrl
+                    : "/night-club-10.webp"
+                }
+              />
+            </div>
+            <div className={styles.row2Mobile}>
+              <img
+                className={styles.photo2Mobile}
+                src={
+                  internalMosaico11lUrl
+                    ? internalMosaico11lUrl
+                    : "/night-club-11.webp"
+                }
+              />
+              <img
+                className={styles.photo1Mobile}
+                src={
+                  internalMosaico12lUrl
+                    ? internalMosaico12lUrl
+                    : "/night-club-1.webp"
+                }
+              />
             </div>
           </div>
         </section>
@@ -661,9 +804,13 @@ export default function NightClub({
               <div className={styles.acompanhantesInputBlock}>
                 <label>Quantos acompanhantes:</label>
                 <div className={styles.decrement}>
-                  <button type="button" /*onClick={decrementar}*/>-</button>
+                  <button type="button" onClick={decrementar}>
+                    -
+                  </button>
                   <input type="number" value="2" readOnly />
-                  <button type="button" /* onClick={incrementar} */>+</button>
+                  <button type="button" onClick={incrementar}>
+                    +
+                  </button>
                 </div>
               </div>
               <button className={styles.submitButton} type="submit">
@@ -688,6 +835,18 @@ export default function NightClub({
             <div className={styles.rightSideFooter}>
               <Link href="">Termos de serviço </Link>
               <Link href="">Política de privacidade</Link>
+            </div>
+          </div>
+        </section>
+        <section className={styles.footerEventoMobile}>
+          <div className={styles.divisorFooter}>
+            <hr />
+          </div>
+          <div className={styles.footerBlockMobile}>
+            <img src="/logoPresente.svg" />
+            <div className={styles.rightSideFooterMobile}>
+              <Link href="">© 2023 Deidepresente.</Link>
+              <Link href="">Todos os direitos reservados</Link>
             </div>
           </div>
         </section>

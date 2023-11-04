@@ -2,14 +2,14 @@ import { defaultOptions } from "@/animation";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { XCircle } from "phosphor-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Lottie from "react-lottie";
 import { toast } from "react-toastify";
 import styles from "./styles.module.scss";
 
 const Sidebar = ({ showSidebar, setShowSidebar, onGiftAdded }: any) => {
   const [imageFile, setImageFile] = useState<File | null>(null);
-  const [giftName, setGiftName] = useState<string | null>(null);
+  const [giftName, setGiftName] = useState<string>("");
   const [giftValue, setGiftValue] = useState<number | null>(null);
   const [formattedGiftValue, setFormattedGiftValue] = useState<string>("");
   const [isFileSelected, setIsFileSelected] = useState<boolean>(false);
@@ -17,9 +17,17 @@ const Sidebar = ({ showSidebar, setShowSidebar, onGiftAdded }: any) => {
 
   const session = useSession();
 
+  useEffect(() => {
+    setIsFileSelected(false);
+    setImageFile(null);
+    setGiftName("");
+    setFormattedGiftValue("");
+    setIsLoading(false);
+  }, [showSidebar, setShowSidebar, onGiftAdded]);
+
   const clearStates = () => {
     setImageFile(null);
-    setGiftName(null);
+    setGiftName("");
     setGiftValue(null);
     setIsFileSelected(false);
     setIsLoading(false);
@@ -46,6 +54,7 @@ const Sidebar = ({ showSidebar, setShowSidebar, onGiftAdded }: any) => {
       toast.error("Preencha todos os campos, por favor!", {
         icon: <XCircle size={32} color="#ff3838" />,
       });
+      setIsLoading(false);
       return;
     }
 
@@ -151,6 +160,7 @@ const Sidebar = ({ showSidebar, setShowSidebar, onGiftAdded }: any) => {
             <input
               placeholder="Forma de bolo"
               type="text"
+              value={giftName}
               onChange={(e) => setGiftName(e.target.value)}
             />
           </div>

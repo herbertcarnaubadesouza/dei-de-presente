@@ -23,6 +23,7 @@ interface WeddingInterface {
   fotoMosaico5Url: string | null;
   fotoMosaico6Url: string | null;
   fotoLocalUrl: string | null;
+  filledIndices: any[];
 }
 
 const gifts = Array(50).fill({
@@ -50,6 +51,7 @@ export default function WeddingTemplate({
   fotoMosaico5Url,
   fotoMosaico6Url,
   fotoLocalUrl,
+  filledIndices,
 }: WeddingInterface) {
   const initialStateBanner =
     typeof window !== "undefined"
@@ -65,6 +67,8 @@ export default function WeddingTemplate({
     typeof window !== "undefined"
       ? fotoEventoUrl || localStorage.getItem("fotoEventoUrl") || null
       : null;
+
+  console.log(fotoMosaico1Url);
   const initialStateMosaico1 =
     typeof window !== "undefined"
       ? fotoMosaico1Url || localStorage.getItem("fotoEvento1") || null
@@ -168,6 +172,14 @@ export default function WeddingTemplate({
   };
 
   useEffect(() => {
+    console.log(
+      fotoMosaico1Url,
+      fotoMosaico2Url,
+      fotoMosaico3Url,
+      fotoMosaico4Url,
+      fotoMosaico5Url,
+      fotoMosaico6Url
+    );
     if (!bannerUrl) {
       const storedBannerUrl = localStorage.getItem("fotoBanner");
       if (storedBannerUrl) {
@@ -190,6 +202,8 @@ export default function WeddingTemplate({
       const storedMosaico1Url = localStorage.getItem("fotosEvento1");
       if (storedMosaico1Url) {
         setInternalMosaico1Url(`/temp/${storedMosaico1Url}`);
+      } else {
+        setInternalMosaico1Url("");
       }
     } else {
       setInternalMosaico1Url(fotoMosaico1Url);
@@ -258,6 +272,7 @@ export default function WeddingTemplate({
     fotoMosaico5Url,
     fotoMosaico6Url,
     fotoLocalUrl,
+    filledIndices,
   ]);
 
   useEffect(() => {
@@ -297,6 +312,8 @@ export default function WeddingTemplate({
     const newUrl = `https://www.google.com/maps?q=${encodedAddress}&output=embed`;
     setMapUrl(newUrl);
   }, [nomeRua, numeroRua, cep]);
+
+  console.log(initialStateMosaico1);
 
   return (
     <>
@@ -428,12 +445,12 @@ export default function WeddingTemplate({
           </div>
         </section>
 
-        <section className={styles.mosaico} id="fotoscasal">
+        <section className={styles.mosaico} id="fotosevento">
           <div className={styles.firstMosaico}>
             <img
               src={
-                internalMosaico1lUrl
-                  ? internalMosaico1lUrl
+                (fotoMosaico1Url as string)
+                  ? (fotoMosaico1Url as string)
                   : "/mosaicoImage2.png"
               }
             />
@@ -441,15 +458,15 @@ export default function WeddingTemplate({
           <div className={styles.secondMosaico}>
             <img
               src={
-                internalMosaico2lUrl
-                  ? internalMosaico2lUrl
+                (fotoMosaico2Url as string)
+                  ? (fotoMosaico2Url as string)
                   : "/mosaicoImage3.png"
               }
             />
             <img
               src={
-                internalMosaico3lUrl
-                  ? internalMosaico3lUrl
+                (fotoMosaico3Url as string)
+                  ? (fotoMosaico3Url as string)
                   : "/mosaicoImage4.png"
               }
             />
@@ -457,15 +474,15 @@ export default function WeddingTemplate({
           <div className={styles.thirdMosaico}>
             <img
               src={
-                internalMosaico4lUrl
-                  ? internalMosaico4lUrl
+                (fotoMosaico4Url as string)
+                  ? (fotoMosaico4Url as string)
                   : "/mosaicoImage1.png"
               }
             />
             <img
               src={
-                internalMosaico5lUrl
-                  ? internalMosaico5lUrl
+                (fotoMosaico5Url as string)
+                  ? (fotoMosaico5Url as string)
                   : "/mosaicoImage4.png"
               }
             />
@@ -473,8 +490,8 @@ export default function WeddingTemplate({
           <div className={styles.lastMosaico}>
             <img
               src={
-                internalMosaico6lUrl
-                  ? internalMosaico6lUrl
+                (fotoMosaico6Url as string)
+                  ? (fotoMosaico6Url as string)
                   : "/mosaicoImage3.png"
               }
             />

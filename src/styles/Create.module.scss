@@ -33,6 +33,10 @@
       background-image: url("/login1.png");
     }
   }
+
+  @media only screen and (max-width: 768px) {
+    display: none;
+  }
 }
 
 .LoginContainer {
@@ -45,6 +49,11 @@
 
   @media only screen and (min-width: 1440px) {
     margin-left: max(0px, (100% - 2500px)/2);
+  }
+
+  @media only screen and (max-width: 768px) {
+    align-items: flex-start;
+    margin-top: 34px;
   }
 }
 
@@ -177,7 +186,7 @@
 
 @media (max-width: 768px) {
   .Container {
-    flex-direction: column-reverse;
+    flex-direction: column;
   }
   .ImageContainer {
     width: 100%;
@@ -192,10 +201,28 @@
 
       input {
         width: 85%;
+
+        @media only screen and (max-width: 768px) {
+          width: 100%;
+        }
       }
     }
     .button {
       width: 85%;
+      @media only screen and (max-width: 768px) {
+        width: 100%;
+      }
     }
+  }
+}
+
+.logoMobilelogin {
+  margin-top: 34px;
+  width: 100px;
+  height: 73px;
+  object-fit: cover;
+
+  @media only screen and (min-width: 768px) {
+    display: none;
   }
 }

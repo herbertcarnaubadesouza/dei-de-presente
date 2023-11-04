@@ -7,7 +7,15 @@
   max-width: 1440px;
   margin-inline: auto;
   padding-inline: 187px;
-  padding-top: 64px;
+  padding-top: 170px;
+
+  @media only screen and (min-width: 768px) {
+    padding-top: 280px;
+  }
+
+  @media only screen and (max-width: 768px) {
+    padding-inline: 20px;
+  }
 }
 
 .textSection {
@@ -16,12 +24,20 @@
   gap: 24px;
   max-width: 422px;
   padding-bottom: 40px;
+
+  @media only screen and (max-width: 768px) {
+    padding-bottom: 30px;
+  }
   p {
     color: #222;
     font-family: "Outfit";
     font-size: 26px;
     font-style: normal;
     font-weight: 500;
+
+    @media only screen and (max-width: 768px) {
+      font-size: 20px;
+    }
   }
 
   span {
@@ -31,6 +47,10 @@
     font-style: normal;
     font-weight: 400;
     opacity: 0.6;
+
+    @media only screen and (max-width: 768px) {
+      font-size: 14px;
+    }
   }
 }
 
@@ -49,6 +69,10 @@
       color: #222;
       font-size: 20px;
       font-style: normal;
+
+      @media only screen and (max-width: 768px) {
+        font-size: 9.923px;
+      }
     }
   }
 }
@@ -59,8 +83,13 @@
   display: flex;
   flex-direction: column;
   gap: 40px;
-  max-width: 332px;
   width: 100%;
+
+  @media only screen and (max-width: 768px) {
+    gap: 8px;
+    padding: 15px;
+    height: 97.249px;
+  }
 
   p {
     color: #222;
@@ -68,6 +97,14 @@
     font-size: 38.571px;
     font-style: normal;
     font-weight: 400;
+
+    @media only screen and (max-width: 768px) {
+      font-size: 18.138px;
+    }
+
+    @media only screen and (max-width: 414px) {
+      font-size: 15.138px;
+    }
   }
 }
 
@@ -75,6 +112,14 @@
   padding: 6px;
   border-radius: 9px;
   background: #09a9b5;
+
+  @media only screen and (max-width: 768px) {
+    img {
+      width: 19.847px;
+      height: 19.847px;
+      object-fit: cover;
+    }
+  }
 }
 
 .presentesRecebidosText {
@@ -87,11 +132,19 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 62px;
+  @media only screen and (max-width: 768px) {
+    padding-inline: 20px;
+    margin-top: 70px;
+    margin-bottom: 42px;
+  }
   p {
     color: #222;
     font-size: 26px;
     font-style: normal;
     font-weight: 500;
+    @media only screen and (max-width: 768px) {
+      font-size: 20px;
+    }
   }
 
   button {
@@ -101,6 +154,10 @@
     padding: 15.284px 53.493px;
     color: white;
     cursor: pointer;
+
+    @media only screen and (max-width: 768px) {
+      padding: 15.284px 22.493px;
+    }
   }
 }
 
@@ -122,6 +179,12 @@
   max-width: 1440px;
   margin-inline: auto;
   padding-inline: 187px;
+
+  @media only screen and (max-width: 768px) {
+    padding-top: 180px;
+    padding-inline: 20px;
+    gap: 10px;
+  }
 
   button {
     border: none;

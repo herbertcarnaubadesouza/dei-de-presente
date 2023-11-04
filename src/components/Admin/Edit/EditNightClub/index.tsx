@@ -136,6 +136,7 @@ export default function EditNightClub({
   const [fotoLocalUrl, setFotoLocalUrl] = useState<string | null>(
     propFotoLocalUrl
   );
+  const [filledIndices, setFilledIndices] = useState(new Array(12).fill(false));
   const allFotoMosaicoUrls = [
     fotoMosaico1Url,
     fotoMosaico2Url,
@@ -307,6 +308,9 @@ export default function EditNightClub({
     const setStateFunc = setFotoMosaicoUrlFunctions[index];
     if (setStateFunc) {
       setStateFunc(null);
+      const newFilledIndices = [...filledIndices];
+      newFilledIndices[index] = false;
+      setFilledIndices(newFilledIndices);
     }
   };
 
@@ -333,57 +337,6 @@ export default function EditNightClub({
     } catch (err) {
       console.error("Ocorreu um erro durante o upload:", err);
     }
-  };
-
-  const handleImageEventoGeneric = async (e: any) => {
-    const file = e.target.files[0];
-
-    if (!file) {
-      return;
-    }
-
-    switch (nextHandlerIndex) {
-      case 1:
-        await handleImageFotosEvento1(file);
-        break;
-      case 2:
-        await handleImageFotosEvento2(file);
-        break;
-      case 3:
-        await handleImageFotosEvento3(file);
-        break;
-      case 4:
-        await handleImageFotosEvento4(file);
-        break;
-      case 5:
-        await handleImageFotosEvento5(file);
-        break;
-      case 6:
-        await handleImageFotosEvento6(file);
-        break;
-      case 7:
-        await handleImageFotosEvento7(file);
-        break;
-      case 8:
-        await handleImageFotosEvento8(file);
-        break;
-      case 9:
-        await handleImageFotosEvento9(file);
-        break;
-      case 10:
-        await handleImageFotosEvento10(file);
-        break;
-      case 11:
-        await handleImageFotosEvento11(file);
-        break;
-      case 12:
-        await handleImageFotosEvento12(file);
-        break;
-      default:
-        break;
-    }
-
-    setNextHandlerIndex(nextHandlerIndex + 1);
   };
 
   const handleImageFotosEvento1 = async (file: File) => {
@@ -799,6 +752,43 @@ export default function EditNightClub({
     }
   }, [loading]);
 
+  const allHandlers = [
+    handleImageFotosEvento1,
+    handleImageFotosEvento2,
+    handleImageFotosEvento3,
+    handleImageFotosEvento4,
+    handleImageFotosEvento5,
+    handleImageFotosEvento6,
+    handleImageFotosEvento7,
+    handleImageFotosEvento8,
+    handleImageFotosEvento9,
+    handleImageFotosEvento10,
+    handleImageFotosEvento11,
+    handleImageFotosEvento12,
+  ];
+
+  const handleImageEventoGeneric = async (e: any) => {
+    const file = e.target.files[0];
+    console.log("Índices preenchidos antes:", filledIndices);
+
+    if (!file) {
+      return;
+    }
+
+    const nextUnfilledIndex = filledIndices.findIndex((isFilled) => !isFilled);
+
+    if (nextUnfilledIndex === -1) return;
+
+    const handlerFunction = allHandlers[nextUnfilledIndex];
+
+    if (handlerFunction) {
+      await handlerFunction(file);
+      const newFilledIndices = [...filledIndices];
+      newFilledIndices[nextUnfilledIndex] = true;
+      setFilledIndices(newFilledIndices);
+    }
+  };
+
   return (
     <>
       {loading && (
@@ -808,18 +798,22 @@ export default function EditNightClub({
         </div>
       )}
       <div className={styles.headerCustomize}>
-        <p>Personalize o tema escolhido </p>
-        <img
-          src="/close.svg"
-          onClick={() => {
-            if (
-              window.confirm("Todos os dados serão apagados. Você tem certeza?")
-            ) {
-              localStorage.clear();
-              router.push("/admin/dashboard");
-            }
-          }}
-        />
+        <div className={styles.headerCustomizeDesktop}>
+          <p>Personalize o tema escolhido </p>
+          <img
+            src="/close.svg"
+            onClick={() => {
+              if (
+                window.confirm(
+                  "Todos os dados serão apagados. Você tem certeza?"
+                )
+              ) {
+                localStorage.clear();
+                router.push("/admin/dashboard");
+              }
+            }}
+          />
+        </div>
       </div>
       {isRightSideVisible ? (
         <></>

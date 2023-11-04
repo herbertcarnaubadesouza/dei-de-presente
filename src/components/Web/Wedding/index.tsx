@@ -75,12 +75,14 @@ export default function WeddingWebsite({
   const indexOfLastGift = currentPage * giftsPerPage;
   const indexOfFirstGift = indexOfLastGift - giftsPerPage;
   const [mapUrl, setMapUrl] = useState("");
+
   const currentGifts = gifts.slice(indexOfFirstGift, indexOfLastGift);
 
   const [days, setDays] = useState(0);
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
+  const [acompanhantes, setAcompanhantes] = useState(0);
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -93,6 +95,15 @@ export default function WeddingWebsite({
     return `${day}/${month}/${year}`;
   };
 
+  const decrementar = () => {
+    if (acompanhantes > 0) {
+      setAcompanhantes(acompanhantes - 1);
+    }
+  };
+
+  const incrementar = () => {
+    setAcompanhantes(acompanhantes + 1);
+  };
   useEffect(() => {
     let targetDate: any;
 
@@ -148,7 +159,7 @@ export default function WeddingWebsite({
               <img src="/logoPresente.svg" />
               <ul className={styles.menu}>
                 <li onClick={() => smoothScroll("historia")}>sobre nós</li>
-                <li onClick={() => smoothScroll("fotoscasal")}>fotos</li>
+                <li onClick={() => smoothScroll("fotosevento")}>fotos</li>
                 <li onClick={() => smoothScroll("localdocasamento")}>
                   local do casamento
                 </li>
@@ -255,7 +266,7 @@ export default function WeddingWebsite({
           </div>
         </section>
 
-        <section className={styles.mosaico} id="fotoscasal">
+        <section className={styles.mosaico} id="fotosevento">
           <div className={styles.firstMosaico}>
             <img
               src={fotoMosaico1Url ? fotoMosaico1Url : "/mosaicoImage2.png"}

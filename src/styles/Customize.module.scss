@@ -2,6 +2,10 @@
   display: flex;
   overflow: hidden;
   padding-top: 74px;
+
+  @media only screen and (max-width: 768px) {
+    padding-top: 0px;
+  }
 }
 
 .headerCustomize {
@@ -20,6 +24,40 @@
   img {
     cursor: pointer;
   }
+
+  .headerCustomizeDesktop {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+    @media only screen and (max-width: 768px) {
+      display: none;
+    }
+  }
+
+  .headerCustomizeMobile {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+    @media only screen and (min-width: 768px) {
+      display: none;
+    }
+  }
+
+  @media only screen and (max-width: 768px) {
+    padding-block: 18px;
+    p {
+      font-size: 14px;
+    }
+
+    img {
+      width: 20px;
+      height: 20px;
+    }
+  }
 }
 .continueEditing {
   background: #09a9b5;
@@ -34,6 +72,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media only screen and (max-width: 768px) {
+    padding: 10px;
+  }
 
   button {
     border-radius: 5px;
@@ -50,7 +92,7 @@
 }
 
 .leftSide {
-  zoom: 0.7;
+  zoom: 0.6;
   min-width: 1045px;
   overflow-y: auto;
   max-height: 145vh;
@@ -58,19 +100,32 @@
     zoom: 0.75;
     max-height: 150vh;
   }
+  @media screen and (max-width: 768px) {
+    min-width: 0px !important;
+    zoom: 1;
+  }
 }
 
 .rightSide {
   display: flex;
   transition: transform 0.3s ease-in-out;
   flex-direction: column;
-  min-width: 394px;
+  width: 694px;
   background: #f2f3f8;
   z-index: 999;
   box-shadow: -5px 0px 10px rgba(0, 0, 0, 0.129);
 
   @media screen and (min-width: 1441px) {
     min-width: 494px;
+  }
+
+  @media screen and (max-width: 768px) {
+    position: fixed;
+    right: 0px;
+    bottom: 0px;
+    top: 0px;
+    overflow: auto;
+    width: 100%;
   }
 }
 
@@ -191,6 +246,7 @@
   padding-top: 2rem;
   padding-bottom: 2rem;
   gap: 1rem;
+  width: 390px;
 }
 
 .Upload {
@@ -232,6 +288,7 @@
   flex-direction: row;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
+  margin-inline: auto;
 }
 
 .FileSelectedName {
@@ -240,6 +297,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  width: 250px;
 }
 
 .FileSelectedBar {
@@ -343,4 +401,8 @@
 .exitLeft {
   zoom: 0.9;
   max-height: 100vh;
+
+  @media only screen and (max-width: 768px) {
+    max-height: 140vh;
+  }
 }

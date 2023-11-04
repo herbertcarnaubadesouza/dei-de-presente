@@ -42,8 +42,10 @@ export default function App({
     <>
       {loading && (
         <div id="globalLoader">
-          {/*@ts-ignore*/}
-          <Lottie options={defaultOptionsGift} height={300} width={300} />
+          <div className="lottie-container">
+            {/*@ts-ignore*/}
+            <Lottie options={defaultOptionsGift} height={300} width={300} />
+          </div>
         </div>
       )}
       <>

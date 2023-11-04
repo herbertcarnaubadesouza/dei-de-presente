@@ -21,6 +21,7 @@ export default function Create() {
       toast.error("As senhas não coincidem", {
         icon: <XCircle size={32} color="#ff3838" />,
       });
+      setIsLoading(false);
       return;
     }
 
@@ -51,11 +52,13 @@ export default function Create() {
 
   return (
     <div className={styles.Container}>
+      <div className={styles.logoMobilelogin}>
+        <img src="/logoPreta.svg" alt="logo" />
+      </div>
       <div className={styles.LoginContainer}>
         <div className={styles.Login}>
           <p className={styles.title}>Criar conta</p>
           <p className={styles.subtitle}>Preencha abaixo para criar conta</p>
-
           <p className={styles.label}>Seu nome</p>
           <input
             className={styles.field}
@@ -63,7 +66,6 @@ export default function Create() {
             value={nome}
             onChange={(e) => setNome(e.target.value)}
           />
-
           <p className={styles.label}>Email</p>
           <input
             className={styles.field}
@@ -71,7 +73,6 @@ export default function Create() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-
           <p className={styles.label}>Senha</p>
           <input
             className={styles.field}
@@ -79,7 +80,6 @@ export default function Create() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-
           <p className={styles.label}>Confirmar Senha</p>
           <input
             className={styles.field}
@@ -87,7 +87,6 @@ export default function Create() {
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
-
           <button onClick={handleCreateAccount} className={styles.button}>
             {isLoading ? (
               /*@ts-ignore*/
@@ -98,7 +97,6 @@ export default function Create() {
           </button>
 
           <div className={styles.linha}></div>
-
           <div className={styles.sign}>
             <p className={styles.signNew}>Já possui uma conta?</p>
             <Link href="/" className={styles.create}>
@@ -107,7 +105,6 @@ export default function Create() {
           </div>
         </div>
       </div>
-
       <div className={styles.ImageContainer}>
         <img className={styles.logo} src="/logoPresente.svg" alt="logo" />
         <div className={styles.Social}>

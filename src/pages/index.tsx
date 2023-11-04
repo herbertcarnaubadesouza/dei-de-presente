@@ -47,6 +47,9 @@ export default function Login() {
           <img src="twitter.svg" alt="twitter" />
         </div>
       </div>
+      <div className={styles.logoMobilelogin}>
+        <img src="/logoPreta.svg" alt="logo" />
+      </div>
       <div className={styles.LoginContainer}>
         <div className={styles.Login}>
           <p className={styles.title}>Login</p>
