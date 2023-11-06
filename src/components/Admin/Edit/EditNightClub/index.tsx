@@ -798,23 +798,20 @@ export default function EditNightClub({
         </div>
       )}
       <div className={styles.headerCustomize}>
-        <div className={styles.headerCustomizeDesktop}>
-          <p>Personalize o tema escolhido </p>
-          <img
-            src="/close.svg"
-            onClick={() => {
-              if (
-                window.confirm(
-                  "Todos os dados serão apagados. Você tem certeza?"
-                )
-              ) {
-                localStorage.clear();
-                router.push("/admin/dashboard");
-              }
-            }}
-          />
-        </div>
+        <p>Personalize o tema escolhido </p>
+        <img
+          src="/close.svg"
+          onClick={() => {
+            if (
+              window.confirm("Todos os dados serão apagados. Você tem certeza?")
+            ) {
+              localStorage.clear();
+              router.push("/admin/dashboard");
+            }
+          }}
+        />
       </div>
+
       {isRightSideVisible ? (
         <></>
       ) : (

@@ -25,6 +25,13 @@
 
   @media only screen and (max-width: 768px) {
     padding-inline: 20px;
+
+    img {
+      width: 91.245px;
+      height: 62px;
+      object-fit: cover;
+      margin-top: 100px;
+    }
   }
 }
 
@@ -35,6 +42,10 @@
   display: flex;
   gap: 23.4px;
   align-items: center;
+
+  @media only screen and (max-width: 768px) {
+    display: none;
+  }
 
   li {
     cursor: pointer;
@@ -68,6 +79,12 @@
   padding-top: 300px;
   padding-bottom: 320px;
   padding-inline: 194px;
+
+  @media only screen and (max-width: 768px) {
+    padding-inline: 20px;
+    padding-top: 120px;
+    padding-bottom: 130px;
+  }
 }
 
 .divisorBlock {
@@ -86,6 +103,10 @@
     font-style: normal;
     font-weight: 600;
     text-transform: uppercase;
+
+    @media only screen and (max-width: 768px) {
+      font-size: 12px;
+    }
   }
 
   hr {
@@ -108,6 +129,11 @@
     max-width: 761.979px;
     font-style: normal;
     font-weight: 400;
+
+    @media only screen and (max-width: 768px) {
+      font-size: 32px;
+      margin-top: 14px;
+    }
   }
 }
 
@@ -127,6 +153,10 @@
     font-size: 24px;
     font-style: normal;
     font-weight: 400;
+
+    @media only screen and (max-width: 768px) {
+      font-size: 14px;
+    }
   }
 }
 
@@ -159,6 +189,10 @@
     font-style: normal;
     font-weight: 500;
     text-transform: uppercase;
+
+    @media only screen and (max-width: 768px) {
+      font-size: 20.187px;
+    }
   }
 
   span {
@@ -169,6 +203,10 @@
     font-style: normal;
     font-weight: 400;
     text-transform: uppercase;
+
+    @media only screen and (max-width: 768px) {
+      font-size: 12.187px;
+    }
   }
 }
 
@@ -195,6 +233,11 @@
     overflow: hidden;
     height: auto;
     z-index: 1;
+
+    @media only screen and (max-width: 768px) {
+      zoom: 0.5;
+      margin-top: 100;
+    }
   }
 
   &::after {
@@ -218,6 +261,10 @@
   text-align: center;
   padding-top: 157px;
 
+  @media only screen and (max-width: 768px) {
+    padding-top: 72px;
+  }
+
   .hrBlockHistory {
     display: flex;
     align-items: center;
@@ -235,6 +282,10 @@
       font-style: normal;
       font-weight: 600;
       text-transform: uppercase;
+
+      @media only screen and (max-width: 768px) {
+        font-size: 14px;
+      }
     }
 
     hr {
@@ -254,6 +305,10 @@
     font-weight: 600;
     text-transform: uppercase;
     margin-top: 48px;
+
+    @media only screen and (max-width: 768px) {
+      font-size: 28px;
+    }
   }
 }
 
@@ -263,6 +318,11 @@
   max-width: 1440px;
   margin-inline: auto;
   padding-inline: 194px;
+
+  @media only screen and (max-width: 768px) {
+    padding-inline: 20px;
+    flex-direction: column-reverse;
+  }
 }
 
 .leftSideHistoryContent {
@@ -279,6 +339,10 @@
     font-style: normal;
     font-weight: 500;
     text-transform: uppercase;
+
+    @media only screen and (max-width: 768px) {
+      font-size: 24px;
+    }
   }
 
   p {
@@ -288,6 +352,11 @@
     font-style: normal;
     font-weight: 400;
     opacity: 0.6;
+
+    @media only screen and (max-width: 768px) {
+      font-size: 14px;
+      line-height: 19.6px;
+    }
   }
 
   button {
@@ -302,6 +371,13 @@
     text-transform: uppercase;
     border-radius: 76px;
     border: 2px solid #cc7028;
+
+    @media only screen and (max-width: 768px) {
+      margin-bottom: 150px;
+      max-width: 100%;
+      font-size: 14px;
+      padding-block: 14px;
+    }
   }
 }
 
@@ -315,6 +391,12 @@
   width: 9800px;
   height: 1090px;
   overflow: hidden;
+
+  @media only screen and (max-width: 768px) {
+    zoom: 0.6;
+    margin-left: -35%;
+    height: 800px;
+  }
 
   .firstMoldura {
     position: relative;
@@ -358,8 +440,11 @@
 .sectionFotos {
   padding-top: 200px;
   position: relative;
-
   margin-left: max(0px, (100% - 1440px)/2);
+
+  @media only screen and (max-width: 768px) {
+    padding-top: 50px;
+  }
 
   &::before {
     margin-left: 0;
@@ -395,6 +480,10 @@
   padding-left: 194px;
   gap: 18px;
 
+  @media only screen and (max-width: 768px) {
+    display: none;
+  }
+
   p {
     color: #cc7028 !important;
     text-align: center !important;
@@ -407,6 +496,38 @@
   }
   hr {
     width: 167px;
+    height: 2px;
+    border: none;
+    background: #cc7028;
+  }
+}
+
+.sectionFotosDivisorMobile {
+  display: flex;
+  align-items: center;
+  padding-inline: 20px;
+  justify-content: space-between;
+
+  @media only screen and (min-width: 768px) {
+    display: none;
+    text-align: center;
+  }
+
+  p {
+    color: #cc7028 !important;
+    text-align: center !important;
+    font-family: "Noto Serif" !important;
+    font-size: 14px !important;
+    padding-left: 0px !important;
+    font-style: normal !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    @media only screen and (min-width: 768px) {
+      padding: 0px;
+    }
+  }
+  hr {
+    width: 107px;
     height: 2px;
     border: none;
     background: #cc7028;
@@ -428,6 +549,12 @@
     margin: 0px;
     text-transform: uppercase;
     padding-left: 194px;
+
+    @media only screen and (max-width: 768px) {
+      padding-inline: 20px;
+      text-align: center;
+      font-size: 28px;
+    }
   }
 
   p {
@@ -438,6 +565,13 @@
     font-weight: 400;
     padding-left: 194px;
     opacity: 0.6;
+
+    @media only screen and (max-width: 768px) {
+      padding-inline: 20px;
+      text-align: left;
+      font-size: 14px;
+      line-height: 19.6px;
+    }
   }
 }
 
@@ -450,6 +584,11 @@
   z-index: -1;
   overflow: hidden;
   margin-top: -8%;
+
+  @media only screen and (max-width: 768px) {
+    zoom: 0.26;
+    margin-top: 9%;
+  }
 
   img {
     object-fit: cover;
@@ -493,6 +632,10 @@
   margin-top: -5px;
   padding-bottom: 138px;
 
+  @media only screen and (max-width: 768px) {
+    padding-bottom: 70px;
+  }
+
   &::before {
     content: url("/rightFlowers2.svg");
     position: absolute;
@@ -501,6 +644,11 @@
     overflow: hidden;
     height: auto;
     z-index: 1;
+
+    @media only screen and (max-width: 768px) {
+      zoom: 0.4;
+      margin-top: 25%;
+    }
   }
 }
 
@@ -515,14 +663,25 @@
 .titleMaps {
   max-width: 836px;
   padding-left: 194px;
+
+  @media only screen and (max-width: 768px) {
+    padding-inline: 20px;
+    text-align: center;
+  }
+
   h2 {
     color: #0e1418;
     font-family: "Noto Serif";
     font-size: 56px;
     font-style: normal;
     font-weight: 600;
-    line-height: 78.4px; /* 140% */
+    line-height: 78.4px;
     text-transform: uppercase;
+
+    @media only screen and (max-width: 768px) {
+      font-size: 28px;
+      line-height: 39.2px;
+    }
   }
 }
 
@@ -531,9 +690,17 @@
   padding-inline: 194px;
   margin-inline: auto;
 
+  @media only screen and (max-width: 768px) {
+    padding-inline: 20px;
+  }
+
   iframe {
     width: 100%;
     height: 689px;
+
+    @media only screen and (max-width: 768px) {
+      height: 453px;
+    }
   }
 }
 
@@ -542,6 +709,12 @@
   align-items: flex-start;
   gap: 175px;
   padding-left: 194px;
+
+  @media only screen and (max-width: 768px) {
+    padding-inline: 20px;
+    flex-direction: column;
+    gap: 40px;
+  }
 }
 
 .mapsFooterBlock {
@@ -563,6 +736,10 @@
     font-weight: 700;
     line-height: normal;
     text-transform: uppercase;
+
+    @media only screen and (max-width: 768px) {
+      font-size: 18px;
+    }
   }
 
   span {
@@ -572,6 +749,10 @@
     font-weight: 400;
     opacity: 0.6;
     max-width: 310px;
+
+    @media only screen and (max-width: 768px) {
+      font-size: 16px;
+    }
   }
 }
 
@@ -583,6 +764,12 @@
   background-attachment: fixed;
   z-index: -1;
   padding-block: 167px;
+
+  @media only screen and (max-width: 768px) {
+    padding-top: 61px;
+    padding-bottom: 94px;
+    padding-inline: 20px;
+  }
 }
 
 .formContainer {
@@ -593,6 +780,11 @@
   max-width: 790px;
   height: 919px;
   margin-inline: auto;
+
+  @media only screen and (max-width: 768px) {
+    padding-inline: 20px;
+    height: 748px;
+  }
 }
 
 .formDivisorBlock {
@@ -602,11 +794,19 @@
   gap: 24px;
   padding-top: 109px;
 
+  @media only screen and (max-width: 768px) {
+    padding-top: 54px;
+  }
+
   hr {
     border: none;
     width: 124px;
     height: 1px;
     background: #cc7028;
+
+    @media only screen and (max-width: 768px) {
+      width: 54px;
+    }
   }
 
   p {
@@ -617,6 +817,10 @@
     font-style: normal;
     font-weight: 600;
     text-transform: uppercase;
+
+    @media only screen and (max-width: 768px) {
+      font-size: 14px;
+    }
   }
 }
 
@@ -628,6 +832,11 @@
   margin-top: 48px;
   margin-bottom: 60px;
 
+  @media only screen and (max-width: 768px) {
+    margin-top: 25px;
+    margin-bottom: 43px;
+  }
+
   h2 {
     color: #0e1418;
     font-family: "Noto Serif";
@@ -636,6 +845,10 @@
     font-weight: 600;
     text-align: center;
     text-transform: uppercase;
+
+    @media only screen and (max-width: 768px) {
+      font-size: 28px;
+    }
   }
 }
 
@@ -668,6 +881,11 @@
   .acompanhantesInputBlock {
     display: flex;
     justify-content: space-between;
+
+    @media only screen and (max-width: 768px) {
+      flex-direction: column;
+      gap: 20px;
+    }
 
     .decrement {
       display: flex;
@@ -714,11 +932,19 @@
   font-weight: 600;
   margin-top: 70px;
   cursor: pointer;
+
+  @media only screen and (max-width: 768px) {
+    margin-top: 50px;
+  }
 }
 
 .footerCasamento {
   padding-bottom: 100px;
   padding-inline: 194px;
+
+  @media only screen and (max-width: 768px) {
+    display: none;
+  }
 }
 
 .divisorFooter {
@@ -773,5 +999,43 @@
     font-weight: 400;
     line-height: normal;
     opacity: 0.6;
+  }
+}
+
+.footerEvento {
+  @media only screen and (max-width: 768px) {
+    display: none;
+  }
+}
+
+.footerEventoMobile {
+  background: #fff;
+  padding-bottom: 65px;
+  color: var(--brand-black, #0e1418);
+
+  .footerBlockMobile {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 31px;
+  }
+
+  .rightSideFooterMobile {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    padding-right: 20px;
+    font-size: 14px;
+    opacity: 0.6;
+  }
+
+  img {
+    width: 98.604px;
+    height: 67px;
+    object-fit: cover;
+  }
+
+  @media only screen and (min-width: 768px) {
+    display: none;
   }
 }

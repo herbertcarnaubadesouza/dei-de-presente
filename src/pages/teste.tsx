@@ -1,9 +1,9 @@
-import NightClub from "@/components/Templates/Night Club";
+import BirthdayTemplate from "@/components/Templates/Birthday";
 
 export default function Teste() {
   return (
     <>
-      <NightClub
+      <BirthdayTemplate
         nomeEvento={""}
         mensagemCurta={""}
         dataEvento={""}
@@ -22,13 +22,8 @@ export default function Teste() {
         fotoMosaico4Url={null}
         fotoMosaico5Url={null}
         fotoMosaico6Url={null}
-        fotoMosaico7Url={null}
-        fotoMosaico8Url={null}
-        fotoMosaico9Url={null}
-        fotoMosaico10Url={null}
-        fotoMosaico11Url={null}
-        fotoMosaico12Url={null}
         fotoLocalUrl={null}
+        filledIndices={[]}
       />
     </>
   );

@@ -220,6 +220,18 @@ export default function NightClubWebsite({
             <button>confirmar presença</button>
           </div>
         </section>
+        <section className={styles.bannerAlcoolMobile}>
+          <img src={fotoEventoUrl ? fotoEventoUrl : "/background-alcool.png"} />
+          <div className={styles.textContent}>
+            <span>sobre</span>
+            <h2>{"Sobre o evento"}</h2>
+            <p>
+              {sobreEvento ||
+                "Lorem ipsum dolor sit amet consectetur. Amet ullamcorper quam maecenas ac placerat porttitor porttitor mi. Ipsum volutpat proin quisque urna tortor et. Praesent porttitor aliquam a tristique tortor et eget. Potenti eu maecenas diam aenean nec."}
+            </p>
+            <button>confirmar presença</button>
+          </div>
+        </section>
         <section className={styles.local} id="local">
           <div className={styles.localContent}>
             <span>local</span>
@@ -318,6 +330,72 @@ export default function NightClubWebsite({
               />
             </div>
           </div>
+          <div className={styles.mosaicoGridMobile}>
+            <div className={styles.row1Mobile}>
+              <img
+                className={styles.photo1Mobile}
+                src={fotoMosaico1Url ? fotoMosaico1Url : "/night-club-1.webp"}
+              />
+              <img
+                className={styles.photo2Mobile}
+                src={fotoMosaico2Url ? fotoMosaico2Url : "/night-club-2.webp"}
+              />
+            </div>
+            <div className={styles.row2Mobile}>
+              <img
+                className={styles.photo2Mobile}
+                src={fotoMosaico3Url ? fotoMosaico3Url : "/night-club-3.webp"}
+              />
+              <img
+                className={styles.photo1Mobile}
+                src={fotoMosaico4Url ? fotoMosaico4Url : "/night-club-4.webp"}
+              />
+            </div>
+            <div className={styles.row1Mobile}>
+              <img
+                className={styles.photo1Mobile}
+                src={fotoMosaico5Url ? fotoMosaico5Url : "/night-club-5.webp"}
+              />
+              <img
+                className={styles.photo2Mobile}
+                src={fotoMosaico6Url ? fotoMosaico6Url : "/night-club-6.webp"}
+              />
+            </div>
+            <div className={styles.row2Mobile}>
+              <img
+                className={styles.photo2Mobile}
+                src={fotoMosaico7Url ? fotoMosaico7Url : "/night-club-7.webp"}
+              />
+              <img
+                className={styles.photo1Mobile}
+                src={fotoMosaico8Url ? fotoMosaico8Url : "/night-club-8.webp"}
+              />
+            </div>
+            <div className={styles.row1Mobile}>
+              <img
+                className={styles.photo1Mobile}
+                src={fotoMosaico9Url ? fotoMosaico9Url : "/night-club-9.webp"}
+              />
+              <img
+                className={styles.photo2Mobile}
+                src={
+                  fotoMosaico10Url ? fotoMosaico10Url : "/night-club-10.webp"
+                }
+              />
+            </div>
+            <div className={styles.row2Mobile}>
+              <img
+                className={styles.photo2Mobile}
+                src={
+                  fotoMosaico11Url ? fotoMosaico11Url : "/night-club-11.webp"
+                }
+              />
+              <img
+                className={styles.photo1Mobile}
+                src={fotoMosaico12Url ? fotoMosaico12Url : "/night-club-1.webp"}
+              />
+            </div>
+          </div>
         </section>
         <section
           className={styles.formSectionEvento}
@@ -386,6 +464,18 @@ export default function NightClubWebsite({
             <div className={styles.rightSideFooter}>
               <Link href="">Termos de serviço </Link>
               <Link href="">Política de privacidade</Link>
+            </div>
+          </div>
+        </section>
+        <section className={styles.footerEventoMobile}>
+          <div className={styles.divisorFooter}>
+            <hr />
+          </div>
+          <div className={styles.footerBlockMobile}>
+            <img src="/logoPresente.svg" />
+            <div className={styles.rightSideFooterMobile}>
+              <Link href="">© 2023 Deidepresente.</Link>
+              <Link href="">Todos os direitos reservados</Link>
             </div>
           </div>
         </section>

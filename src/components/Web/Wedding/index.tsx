@@ -255,6 +255,11 @@ export default function WeddingWebsite({
                 <p>fotos do casal</p>
                 <hr />
               </div>
+              <div className={styles.sectionFotosDivisorMobile}>
+                <hr />
+                <p>fotos do casal</p>
+                <hr />
+              </div>
               <div className={styles.titleSectionFotos}>
                 <h2>Um pouco do nosso amor em fotos</h2>
                 <p>
@@ -299,6 +304,11 @@ export default function WeddingWebsite({
           <div className={styles.mapsSectionContent}>
             <div className={styles.sectionFotosDivisor}>
               <p>local do casamento</p>
+              <hr />
+            </div>
+            <div className={styles.sectionFotosDivisorMobile}>
+              <hr />
+              <p>fotos do casal</p>
               <hr />
             </div>
             <div className={styles.titleMaps}>
@@ -371,9 +381,13 @@ export default function WeddingWebsite({
               <div className={styles.acompanhantesInputBlock}>
                 <label>Quantos acompanhantes:</label>
                 <div className={styles.decrement}>
-                  <button type="button" /*onClick={decrementar}*/>-</button>
-                  <input type="number" /*value={acompanhantes}*/ readOnly />
-                  <button type="button" /*onClick={incrementar}*/>+</button>
+                  <button type="button" onClick={decrementar}>
+                    -
+                  </button>
+                  <input type="number" value={acompanhantes} readOnly />
+                  <button type="button" onClick={incrementar}>
+                    +
+                  </button>
                 </div>
               </div>
               <button className={styles.submitButton} type="submit">
@@ -398,6 +412,18 @@ export default function WeddingWebsite({
             <div className={styles.rightSideFooter}>
               <Link href="">Termos de serviço </Link>
               <Link href="">Política de privacidade</Link>
+            </div>
+          </div>
+        </section>
+        <section className={styles.footerEventoMobile}>
+          <div className={styles.divisorFooter}>
+            <hr />
+          </div>
+          <div className={styles.footerBlockMobile}>
+            <img src="/orangeLogo.svg" />
+            <div className={styles.rightSideFooterMobile}>
+              <Link href="">© 2023 Deidepresente.</Link>
+              <Link href="">Todos os direitos reservados</Link>
             </div>
           </div>
         </section>

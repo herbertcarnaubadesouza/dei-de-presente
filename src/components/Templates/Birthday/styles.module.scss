@@ -1,0 +1,141 @@
+.templateContainer {
+  font-family: "Poppins";
+}
+
+.banner {
+  background: #dfc6bf;
+  position: relative;
+  height: 100vh;
+}
+
+.menu {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 23.4px;
+  align-items: center;
+
+  @media only screen and (max-width: 768px) {
+    display: none;
+  }
+
+  li {
+    cursor: pointer;
+    text-transform: uppercase;
+    color: #101d47;
+    font-family: "Poppins";
+    font-size: 16px;
+    white-space: nowrap;
+    font-style: normal;
+    font-weight: 500;
+    text-transform: uppercase;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  button {
+    text-transform: uppercase;
+    padding-block-start: 8px;
+    padding-block-end: 20px;
+    min-width: 232px;
+    width: 100%;
+    color: #fff;
+    background: #101d47;
+    cursor: pointer;
+    position: relative;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: -9px;
+      left: -9px;
+      width: calc(100% + 4px);
+      height: calc(100% + 4px);
+      border: 2px solid #fff;
+      box-sizing: border-box;
+      pointer-events: none;
+    }
+  }
+}
+
+.headerWebsite {
+  display: flex;
+  align-items: center;
+  padding-inline: 194px;
+  justify-content: space-between;
+}
+
+.middleContent {
+  display: flex;
+  align-items: center;
+  padding-inline: 194px;
+  position: relative;
+}
+
+.leftSide {
+  display: flex;
+  flex-direction: column;
+  gap: 79px;
+  width: 957px;
+
+  h4 {
+    color: #101d47;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 96px; /* 480% */
+    text-transform: uppercase;
+  }
+
+  h1 {
+    color: #101d47;
+    font-size: 98px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 117.2px; /* 119.592% */
+    text-transform: uppercase;
+  }
+
+  p {
+    color: #101d47;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 33.6px; /* 140% */
+  }
+
+  button {
+    text-transform: uppercase;
+    padding-block-start: 15px;
+    padding-block-end: 25px;
+    width: 100%;
+    color: #fff;
+    background: #101d47;
+    cursor: pointer;
+    position: relative;
+    width: 358px;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: -9px;
+      left: -9px;
+      width: calc(100% + 4px);
+      height: calc(100% + 4px);
+      border: 2px solid #fff;
+      box-sizing: border-box;
+      pointer-events: none;
+    }
+  }
+}
+
+.rightSide {
+  img {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+}
