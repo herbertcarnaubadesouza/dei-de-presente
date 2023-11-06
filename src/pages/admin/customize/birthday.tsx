@@ -1,5 +1,5 @@
 import { defaultOptionsGift } from "@/animation";
-import MarriedTemplate from "@/components/Templates/Wedding";
+import BirthdayTemplate from "@/components/Templates/Birthday";
 import axios from "axios";
 import { GetServerSidePropsContext } from "next";
 import { getSession, useSession } from "next-auth/react";
@@ -621,14 +621,6 @@ export default function CustomizeWedding() {
     }
   }, [loading]);
 
-  useEffect(() => {
-    const originalBackgroundColor = document.body.style.backgroundColor;
-    document.body.style.backgroundColor = "#09a9b5";
-    return () => {
-      document.body.style.backgroundColor = originalBackgroundColor;
-    };
-  }, []);
-
   return (
     <>
       {loading && (
@@ -671,7 +663,7 @@ export default function CustomizeWedding() {
             isRightSideVisible ? "" : styles.exitLeft
           }`}
         >
-          <MarriedTemplate
+          <BirthdayTemplate
             nomeEvento={nomeEvento}
             dataEvento={dataEvento}
             horaEvento={horaEvento}
