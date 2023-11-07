@@ -1,221 +1,235 @@
 .container {
-  background: #fff;
-  font-family: "Outfit";
+    background: #fff;
+    font-family: 'Outfit';
 }
 
 .presentesRecebidos {
-  max-width: 1440px;
-  margin-inline: auto;
-  padding-inline: 187px;
-  padding-top: 170px;
+    max-width: 1440px;
+    margin-inline: auto;
+    padding-inline: 187px;
+    padding-top: 170px;
 
-  @media only screen and (min-width: 768px) {
-    padding-top: 280px;
-  }
+    @media only screen and (min-width: 768px) {
+        padding-top: 280px;
+    }
 
-  @media only screen and (max-width: 768px) {
-    padding-inline: 20px;
-  }
+    @media only screen and (max-width: 768px) {
+        padding-inline: 20px;
+    }
+}
+
+.pageHeader {
+    --spacing: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--spacing);
+    margin-bottom: var(--spacing);
+
+    @media only screen and (max-width: 500px) {
+        --spacing: 30px;
+        flex-direction: column;
+        button {
+            width: 100%;
+        }
+    }
 }
 
 .textSection {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  max-width: 422px;
-  padding-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-width: 422px;
 
-  @media only screen and (max-width: 768px) {
-    padding-bottom: 30px;
-  }
-  p {
-    color: #222;
-    font-family: "Outfit";
-    font-size: 26px;
-    font-style: normal;
-    font-weight: 500;
+    p {
+        color: #222;
+        font-family: 'Outfit';
+        font-size: 26px;
+        font-style: normal;
+        font-weight: 500;
 
-    @media only screen and (max-width: 768px) {
-      font-size: 20px;
+        @media only screen and (max-width: 768px) {
+            font-size: 20px;
+        }
     }
-  }
 
-  span {
-    color: #222;
-    font-family: "Outfit";
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    opacity: 0.6;
+    span {
+        color: #222;
+        font-family: 'Outfit';
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        opacity: 0.6;
 
-    @media only screen and (max-width: 768px) {
-      font-size: 14px;
+        @media only screen and (max-width: 768px) {
+            font-size: 14px;
+        }
     }
-  }
 }
 
 .secondSectionPresentesRecebidos {
-  display: flex;
-  justify-content: space-between;
-  gap: 24px;
-
-  .firstPresentes {
     display: flex;
-    align-items: center;
-    gap: 16px;
-    opacity: 0.6;
+    justify-content: space-between;
+    gap: 24px;
 
-    span {
-      color: #222;
-      font-size: 20px;
-      font-style: normal;
+    .firstPresentes {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        opacity: 0.6;
 
-      @media only screen and (max-width: 768px) {
-        font-size: 9.923px;
-      }
+        span {
+            color: #222;
+            font-size: 20px;
+            font-style: normal;
+
+            @media only screen and (max-width: 768px) {
+                font-size: 9.923px;
+            }
+        }
     }
-  }
 }
 
 .containerPresentes {
-  background: #f2f3f8;
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-  width: 100%;
-
-  @media only screen and (max-width: 768px) {
-    gap: 8px;
-    padding: 15px;
-    height: 97.249px;
-  }
-
-  p {
-    color: #222;
-    font-family: "Outfit";
-    font-size: 38.571px;
-    font-style: normal;
-    font-weight: 400;
+    background: #f2f3f8;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    width: 100%;
 
     @media only screen and (max-width: 768px) {
-      font-size: 18.138px;
+        gap: 8px;
+        padding: 15px;
+        height: 97.249px;
     }
 
-    @media only screen and (max-width: 414px) {
-      font-size: 15.138px;
+    p {
+        color: #222;
+        font-family: 'Outfit';
+        font-size: 38.571px;
+        font-style: normal;
+        font-weight: 400;
+
+        @media only screen and (max-width: 768px) {
+            font-size: 18.138px;
+        }
+
+        @media only screen and (max-width: 414px) {
+            font-size: 15.138px;
+        }
     }
-  }
 }
 
 .containerLogo {
-  padding: 6px;
-  border-radius: 9px;
-  background: #09a9b5;
+    padding: 6px;
+    border-radius: 9px;
+    background: #09a9b5;
 
-  @media only screen and (max-width: 768px) {
-    img {
-      width: 19.847px;
-      height: 19.847px;
-      object-fit: cover;
+    @media only screen and (max-width: 768px) {
+        img {
+            width: 19.847px;
+            height: 19.847px;
+            object-fit: cover;
+        }
     }
-  }
 }
 
 .presentesRecebidosText {
-  max-width: 1440px;
-  margin-inline: auto;
-  display: flex;
-  padding-inline: 187px;
-  margin-top: 111px;
-  text-align: left;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 62px;
-  @media only screen and (max-width: 768px) {
-    padding-inline: 20px;
-    margin-top: 70px;
-    margin-bottom: 42px;
-  }
-  p {
-    color: #222;
-    font-size: 26px;
-    font-style: normal;
-    font-weight: 500;
+    max-width: 1440px;
+    margin-inline: auto;
+    display: flex;
+    padding-inline: 187px;
+    margin-top: 111px;
+    text-align: left;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 62px;
     @media only screen and (max-width: 768px) {
-      font-size: 20px;
+        padding-inline: 20px;
+        margin-top: 70px;
+        margin-bottom: 42px;
     }
-  }
-
-  button {
-    border: none;
-    border-radius: 4.776px;
-    background: #09a9b5;
-    padding: 15.284px 53.493px;
-    color: white;
-    cursor: pointer;
-
-    @media only screen and (max-width: 768px) {
-      padding: 15.284px 22.493px;
+    p {
+        color: #222;
+        font-size: 26px;
+        font-style: normal;
+        font-weight: 500;
+        @media only screen and (max-width: 768px) {
+            font-size: 20px;
+        }
     }
-  }
+
+    button {
+        border: none;
+        border-radius: 4.776px;
+        background: #09a9b5;
+        padding: 15.284px 53.493px;
+        color: white;
+        cursor: pointer;
+
+        @media only screen and (max-width: 768px) {
+            padding: 15.284px 22.493px;
+        }
+    }
 }
 
 .presentesRecebidos {
-  button {
-    border: none;
-    border-radius: 4.776px;
-    background: #09a9b5;
-    padding: 15.284px 53.493px;
-    color: white;
-    cursor: pointer;
-  }
+    button {
+        border: none;
+        border-radius: 4.776px;
+        background: #09a9b5;
+        padding: 15.284px 53.493px;
+        color: white;
+        cursor: pointer;
+    }
 }
 .presentesRecebidosGifts {
-  padding-top: 64px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  max-width: 1440px;
-  margin-inline: auto;
-  padding-inline: 187px;
+    padding-top: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1440px;
+    margin-inline: auto;
+    padding-inline: 187px;
 
-  @media only screen and (max-width: 768px) {
-    padding-top: 180px;
-    padding-inline: 20px;
-    gap: 10px;
-  }
+    @media only screen and (max-width: 768px) {
+        padding-top: 180px;
+        padding-inline: 20px;
+        gap: 10px;
+    }
 
-  button {
-    border: none;
-    border-radius: 4.776px;
-    background: #09a9b5;
-    padding: 15.284px 53.493px;
-    color: white;
-    cursor: pointer;
-  }
+    button {
+        border: none;
+        border-radius: 4.776px;
+        background: #09a9b5;
+        padding: 15.284px 53.493px;
+        color: white;
+        cursor: pointer;
+    }
 }
 
 .show {
-  transform: translateX(0);
+    transform: translateX(0);
 }
 
 .overlay {
-  position: fixed;
-  display: none;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 0;
-  cursor: pointer;
-  transition: opacity 0.3s ease-in-out;
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 0;
+    cursor: pointer;
+    transition: opacity 0.3s ease-in-out;
 }
 
 .showOverlay {
-  display: block;
-  opacity: 0.6;
+    display: block;
+    opacity: 0.6;
 }
