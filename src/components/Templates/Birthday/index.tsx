@@ -323,12 +323,10 @@ export default function BirthdayTemplate({
           <div className={styles.middleContent}>
             <div className={styles.leftSide}>
               <h4>prepare-se para a experiência</h4>
-              <h1>A melhor festa de todas</h1>
+              <h1>{nomeEvento || "A melhor festa de todas"}</h1>
               <p>
-                Lorem ipsum dolor sit amet consectetur. Amet ullamcorper quam
-                maecenas ac placerat porttitor porttitor mi. Ipsum volutpat
-                proin quisque urna tortor et. Praesent porttitor aliquam a
-                tristique tortor et eget. Potenti eu maecenas diam aenean nec.{" "}
+                {mensagemCurta ||
+                  "Lorem ipsum dolor sit amet consectetur. Amet ullamcorper quam maecenas ac placerat porttitor porttitor mi. Ipsum volutpat proin quisque urna tortor et. Praesent porttitor aliquam a tristique tortor et eget. Potenti eu maecenas diam aenean nec. Lorem ipsum dolor sit amet consectetur."}
               </p>
               <button>confirmar presença</button>
             </div>
@@ -340,19 +338,19 @@ export default function BirthdayTemplate({
             <h2>falta pouco para o grande dia</h2>
             <div className={styles.blockTimeContainer}>
               <div className={styles.blockTime}>
-                <p>06</p>
+                <p>{days}</p>
                 <span>dias</span>
               </div>
               <div className={styles.blockTime}>
-                <p>08</p>
+                <p>{hours}</p>
                 <span>horas</span>
               </div>
               <div className={styles.blockTime}>
-                <p>44</p>
+                <p>{minutes}</p>
                 <span>minutos</span>
               </div>
               <div className={styles.blockTime}>
-                <p>13</p>
+                <p>{seconds}</p>
                 <span>segundos</span>
               </div>
             </div>
@@ -364,18 +362,26 @@ export default function BirthdayTemplate({
               <h4>sobre</h4>
               <h2>um pouco sobre a aniversariante</h2>
               <div className={styles.leftSideSobreMobile}>
-                <img src="/defaultBirthdayTemplate.png" />
+                <img
+                  src={
+                    fotoEventoUrl
+                      ? fotoEventoUrl
+                      : "/defaultBirthdayTemplate.png"
+                  }
+                />
               </div>
               <p>
-                Lorem ipsum dolor sit amet consectetur. Amet ullamcorper quam
-                maecenas ac placerat porttitor porttitor mi. Ipsum volutpat
-                proin quisque urna tortor et. Praesent porttitor aliquam a
-                tristique tortor et eget. Potenti eu maecenas diam aenean nec.{" "}
+                {sobreEvento ||
+                  "Lorem ipsum dolor sit amet consectetur. Amet ullamcorper quam maecenas ac placerat porttitor porttitor mi. Ipsum volutpat proin quisque urna tortor et. Praesent porttitor aliquam a tristique tortor et eget. Potenti eu maecenas diam aenean nec."}
               </p>
               <button>confirmar presença</button>
             </div>
             <div className={styles.rightSideSobre}>
-              <img src="/defaultBirthdayTemplate.png" />
+              <img
+                src={
+                  fotoEventoUrl ? fotoEventoUrl : "/defaultBirthdayTemplate.png"
+                }
+              />
             </div>
           </div>
         </section>
