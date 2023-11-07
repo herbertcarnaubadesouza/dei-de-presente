@@ -1,4 +1,4 @@
-import GiftsListFromSavedWebsite from "@/components/Web/Night Club/GiftsFromSavedWebsite";
+import GiftsListFromSavedWebsite from "@/components/Web/Birthday/GiftsFromSavedWebsite";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
