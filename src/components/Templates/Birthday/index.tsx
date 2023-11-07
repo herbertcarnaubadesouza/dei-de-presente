@@ -1,4 +1,6 @@
+import Link from "next/link";
 import { useEffect, useState } from "react";
+import GiftsList from "./GiftsList";
 import styles from "./styles.module.scss";
 
 interface BirthdayInterface {
@@ -339,32 +341,186 @@ export default function BirthdayTemplate({
               <button>confirmar presença</button>
             </div>
             <div className={styles.rightSide}>
-              <img src="/giftTemplateImage.png" />
+              <img src="/giftTemplateImage3.png" />
             </div>
           </div>
-          {/* <div className={styles.counterBlock}>
-            <div className={styles.counter}>
-              <div className={styles.timeBlock}>
-                <p>{days} </p>
-                <span>Dias </span>
+          <div className={styles.timerblock}>
+            <h2>falta pouco para o grande dia</h2>
+            <div className={styles.blockTimeContainer}>
+              <div className={styles.blockTime}>
+                <p>06</p>
+                <span>dias</span>
               </div>
-              <p className={styles.miniDivisor}>:</p>
-              <div className={styles.timeBlock}>
-                <p>{hours} </p>
-                <span> Horas </span>
+              <div className={styles.blockTime}>
+                <p>08</p>
+                <span>horas</span>
               </div>
-              <p className={styles.miniDivisor}>:</p>
-              <div className={styles.timeBlock}>
-                <p>{minutes} </p>
-                <span> Minutos </span>
+              <div className={styles.blockTime}>
+                <p>44</p>
+                <span>minutos</span>
               </div>
-              <p className={styles.miniDivisor}>:</p>
-              <div className={styles.timeBlock}>
-                <p>{seconds} </p>
-                <span>Segundos </span>
+              <div className={styles.blockTime}>
+                <p>13</p>
+                <span>segundos</span>
               </div>
             </div>
-          </div> */}
+          </div>
+        </section>
+        <section className={styles.sobre} id="sobre">
+          <div className={styles.sobreContent}>
+            <div className={styles.leftSideSobre}>
+              <h4>sobre</h4>
+              <h2>um pouco sobre a aniversariante</h2>
+              <div className={styles.leftSideSobreMobile}>
+                <img src="/defaultBirthdayTemplate.png" />
+              </div>
+              <p>
+                Lorem ipsum dolor sit amet consectetur. Amet ullamcorper quam
+                maecenas ac placerat porttitor porttitor mi. Ipsum volutpat
+                proin quisque urna tortor et. Praesent porttitor aliquam a
+                tristique tortor et eget. Potenti eu maecenas diam aenean nec.{" "}
+              </p>
+              <button>confirmar presença</button>
+            </div>
+            <div className={styles.rightSideSobre}>
+              <img src="/defaultBirthdayTemplate.png" />
+            </div>
+          </div>
+        </section>
+        <section className={styles.map} id="local">
+          <div className={styles.mapBlock}>
+            <div className={styles.leftSideSobre}>
+              <h4>local</h4>
+              <h2>salve bem esse lugar especial</h2>
+              <iframe
+                src={mapUrl}
+                width="600"
+                height="689"
+                loading="lazy"
+              ></iframe>
+              <div className={styles.mapsFooter}>
+                <div className={styles.mapsFooterBlock}>
+                  <img src="/calendarAzul.svg" />
+                  <div className={styles.dataHora}>
+                    <p>Data e horário</p>
+                    <span>
+                      {dataEvento ? formatDate(dataEvento) : "24/10/2023"} às{" "}
+                      {horaEvento || "16:00h"}
+                    </span>
+                  </div>
+                </div>
+                <div className={styles.mapsFooterBlock}>
+                  <img src="/mapAzul.svg" />
+                  <div className={styles.dataHora}>
+                    <p>Endereço</p>
+                    <span>
+                      {nomeRua && complemento && numeroRua
+                        ? `${nomeRua}, ${complemento} ${numeroRua}, ${cep}`
+                        : "Rua das laranjeiras, Lote 1420/1520 chácara Recanto dos sabiás, Brasília - DF"}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section className={styles.mosaico} id="mosaico">
+          <div className={styles.mosaicoContent}>
+            <p>fotos</p>
+            <h2>galeria do aniversariante</h2>
+            <div className={styles.fotosGrid}>
+              <div className={styles.blockImageContainer}>
+                <img src="/defaultMarried.png" className={styles.foto} />
+              </div>
+              <div className={styles.blockImageContainer}>
+                <img src="/defaultMarried.png" className={styles.foto} />
+              </div>
+              <div className={styles.blockImageContainer}>
+                <img src="/defaultMarried.png" className={styles.foto} />
+              </div>
+            </div>
+          </div>
+        </section>
+        <section
+          className={styles.formSectionCasamento}
+          style={
+            internalFotoLocalUrl
+              ? { backgroundImage: `url(${internalFotoLocalUrl})` }
+              : { backgroundImage: "url(/backgroundLocalBirthday.png)" }
+          }
+        >
+          <div className={styles.formContainer}>
+            <div className={styles.formDivisorBlock}>
+              <hr />
+              <p>Confirmação de presença</p>
+              <hr />
+            </div>
+            <div className={styles.titleFormSection}>
+              <h2>Vem comemorar conosco?</h2>
+            </div>
+            <form className={styles.form}>
+              <div className={styles.formInputBlock}>
+                <label>Nome completo</label>
+                <input placeholder="Escreva aqui seu nome..." type="text" />
+              </div>
+              <div className={styles.formInputBlock}>
+                <label>Você irá ao casamento?</label>
+                <select>
+                  <option value="" disabled selected>
+                    Selecione uma opção...
+                  </option>
+                  <option value="sim">Sim</option>
+                  <option value="nao">Não</option>
+                </select>
+              </div>
+              <div className={styles.acompanhantesInputBlock}>
+                <label>Quantos acompanhantes:</label>
+                <div className={styles.decrement}>
+                  <button type="button" onClick={decrementar}>
+                    -
+                  </button>
+                  <input type="number" value={acompanhantes} readOnly />
+                  <button type="button" onClick={incrementar}>
+                    +
+                  </button>
+                </div>
+              </div>
+              <button className={styles.submitButton} type="submit">
+                confirmar presença
+              </button>
+            </form>
+          </div>
+        </section>
+        <GiftsList />
+        <section className={styles.footerEvento}>
+          <div className={styles.divisorFooter}>
+            <hr />
+          </div>
+          <div className={styles.footerBlock}>
+            <div className={styles.leftSideFooter}>
+              <p>© 2023 Deidepresente. </p>
+              <p>Todos os direitos reservados</p>
+            </div>
+            <div className={styles.middleSideFooter}>
+              <img src="/blueDei.svg" />
+            </div>
+            <div className={styles.rightSideFooter}>
+              <Link href="">Termos de serviço </Link>
+              <Link href="">Política de privacidade</Link>
+            </div>
+          </div>
+        </section>
+        <section className={styles.footerEventoMobile}>
+          <div className={styles.divisorFooter}>
+            <hr />
+          </div>
+          <div className={styles.footerBlockMobile}>
+            <img src="/blueDei.svg" />
+            <div className={styles.rightSideFooterMobile}>
+              <Link href="">© 2023 Deidepresente.</Link>
+              <Link href="">Todos os direitos reservados</Link>
+            </div>
+          </div>
         </section>
       </div>
     </>
