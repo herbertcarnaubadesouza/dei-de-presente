@@ -722,7 +722,7 @@ export default function CustomizeWedding() {
               <div className={styles.inputAccordion}>
                 <label>Nome do Evento</label>
                 <input
-                  placeholder="LAURA & LEONARDO"
+                  placeholder="A MELHOR FESTA DE TODAS"
                   type="text"
                   value={nomeEvento}
                   onChange={handleNomeEventoChange}
@@ -731,7 +731,7 @@ export default function CustomizeWedding() {
               <div className={styles.inputAccordion}>
                 <label>Mensagem curta</label>
                 <textarea
-                  placeholder="Noivos, convidados e amigos, sejam todos bem-vindos a um lugar onde sonhos se tornam realidade. Nossa plataforma de presentes de Evento é o seu guia para uma jornada inesquecível rumo ao altar."
+                  placeholder="Convidados e amigos, sejam todos bem-vindos a um lugar onde sonhos se tornam realidade. Nossa plataforma de presentes de Evento é o seu guia para uma jornada inesquecível rumo ao altar."
                   value={mensagemCurta}
                   onChange={handleMensagemCurtaChange}
                 />
@@ -752,28 +752,6 @@ export default function CustomizeWedding() {
                   value={horaEvento}
                   onChange={handleHoraEventoChange}
                 />
-              </div>
-              <div className={styles.inputAccordion}>
-                <label>Banner do site</label>
-              </div>
-              <div className={styles.PrintContainer}>
-                <img src="/upload.png" className={styles.Upload} />
-                <label htmlFor="fileInput" className={styles.LabelUpload}>
-                  Arraste e jogue seu anexo aqui ou se preferir{" "}
-                </label>
-                <input
-                  type="file"
-                  accept=" .jpeg, .jpg, .png"
-                  onChange={handleImageBannerChange}
-                  id="fileInput"
-                  style={{ display: "none" }}
-                />
-                <button className={styles.UploadButton} onClick={handleClick}>
-                  Escolher arquivo
-                </button>
-                <p className={styles.UploadInfo}>
-                  Formatos aceitos PDF, JPEG e PNG
-                </p>
               </div>
 
               <div
@@ -821,7 +799,7 @@ export default function CustomizeWedding() {
                 />
               </div>
               <div className={styles.inputAccordion}>
-                <label>Foto do Evento</label>
+                <label>Foto do Aniversariante</label>
               </div>
               <div className={styles.PrintContainer}>
                 <img src="/upload.png" className={styles.Upload} />
@@ -878,14 +856,6 @@ export default function CustomizeWedding() {
           </div>
           {activeAccordion === "FotosEvento" && (
             <div className={styles.accordionContent}>
-              <div className={styles.inputAccordion}>
-                <label>Mensagem curta</label>
-                <textarea
-                  placeholder="Noivos, convidados e amigos, sejam todos bem-vindos a um lugar onde sonhos se tornam realidade. Nossa plataforma de presentes de Evento é o seu guia para uma jornada inesquecível rumo ao altar."
-                  value={fotosEventoText}
-                  onChange={handleFotosEventoTextChange}
-                />
-              </div>
               <div className={styles.PrintContainer}>
                 <img src="/upload.png" className={styles.Upload} />
                 <label htmlFor="fileInput" className={styles.LabelUpload}>
@@ -927,7 +897,7 @@ export default function CustomizeWedding() {
                 />
               </div>
               <div className={styles.gridFotos}>
-                {[1, 2, 3, 4, 5, 6].map((item, index) => {
+                {[1, 2, 3].map((item, index) => {
                   const fileNameFromLocalStorage = localStorage.getItem(
                     `fotosEvento${item}`
                   );

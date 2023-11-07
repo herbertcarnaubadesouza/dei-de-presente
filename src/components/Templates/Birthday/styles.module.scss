@@ -114,6 +114,7 @@
   gap: 59px;
   width: 957px;
   margin-top: 241px;
+  z-index: 2;
 
   @media only screen and (max-width: 768px) {
     width: 100%;
@@ -210,11 +211,17 @@
     top: 0;
     margin-top: -10%;
 
+    @media only screen and (max-width: 1298px) {
+      // width: 780px;
+      // height: auto;
+    }
+
     @media only screen and (max-width: 768px) {
       position: relative;
       width: 550px;
       margin-left: -10%;
       margin-top: 0px;
+      z-index: 1;
     }
   }
 }
@@ -461,12 +468,16 @@
 
 .rightSideSobre {
   img {
-    width: 680px;
-    height: 680px;
+    width: 480px;
+    height: 480px;
     border: none;
     position: relative;
     box-shadow: 50px 50px 0px 0px #101d47, 0px 0px 0px 0px #101d47;
 
+    @media only screen and (max-width: 1298px) {
+      width: 380px;
+      height: 380px;
+    }
     @media only screen and (max-width: 768px) {
       display: none;
     }
