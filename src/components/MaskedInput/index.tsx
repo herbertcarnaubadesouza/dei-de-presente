@@ -4,16 +4,14 @@ interface MaskedInputProps extends InputHTMLAttributes<HTMLInputElement> {
     mask: string;
 }
 
-const MaskedInput = ({ mask = '_______-_', ...props }: MaskedInputProps) => {
+const MaskedInput = ({ mask, ...props }: MaskedInputProps) => {
     const [value, setValue] = useState<string>('');
     const inputRef = useRef<HTMLInputElement>(null);
 
-    // Function to format CPF/CNPJ with the mask
     const applyMask = (val: string, oldVal: string) => {
         const cleaned = val.replace(/\D/g, '');
         const oldCleaned = oldVal.replace(/\D/g, '');
         const isDeleting = cleaned.length < oldCleaned.length;
-        console.log(isDeleting, cleaned, oldCleaned);
 
         let formattedValue = '';
         let maskIndex = 0;
@@ -24,7 +22,6 @@ const MaskedInput = ({ mask = '_______-_', ...props }: MaskedInputProps) => {
         }
 
         while (maskIndex < mask.length && valueIndex < cleaned.length) {
-            console.log(maskIndex, valueIndex, formattedValue);
             if (mask[maskIndex] === '_') {
                 if (valueIndex < cleaned.length) {
                     formattedValue += cleaned[valueIndex++];
@@ -70,27 +67,35 @@ const MaskedInput = ({ mask = '_______-_', ...props }: MaskedInputProps) => {
             const currentValue = e.currentTarget.value;
             const deletedChar = currentValue[selectionStart - 1];
             const isNumber = deletedChar && !isNaN(Number(deletedChar));
-            console.log(isNumber, deletedChar);
 
             let rawValue = value.replace(/[^\d]/g, '');
+            const charDiff = currentValue.length - rawValue.length;
             let nextPosition = selectionStart - (!isNumber ? 1 : 0);
-            console.log(rawValue, nextPosition, selectionEnd);
-
-            const position = currentValue.length - rawValue.length;
+            const deletePosition =
+                selectionStart - charDiff > 0
+                    ? selectionStart - charDiff + 1
+                    : selectionStart;
 
             if (e.key === 'Backspace' && selectionStart > 0) {
                 // Shift characters to the right
-                rawValue = rawValue.slice(0, -1);
-            } else if (e.key === 'Delete' && selectionStart < rawValue.length) {
                 rawValue =
-                    rawValue.substring(0, selectionStart) +
-                    rawValue.substring(selectionStart + 1);
-
-                console.log(rawValue);
+                    rawValue.substring(0, selectionStart - charDiff - 1) +
+                    rawValue.substring(selectionStart - charDiff);
+                nextPosition--;
+            } else if (e.key === 'Delete') {
+                if (deletePosition < rawValue.length) {
+                    rawValue =
+                        rawValue.substring(0, deletePosition) +
+                        rawValue.substring(deletePosition + 1);
+                } else {
+                    rawValue =
+                        rawValue.substring(0, deletePosition - 1) +
+                        rawValue.substring(deletePosition);
+                }
+                nextPosition = selectionStart;
             }
 
             const { formattedValue } = applyMask(rawValue, value);
-            console.log(formattedValue, nextPosition, rawValue);
             setValue(formattedValue);
 
             // Set cursor position after state update

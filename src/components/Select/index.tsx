@@ -10,7 +10,11 @@ type Bank = {
     fullName: string;
 };
 
-export default function Select() {
+interface SelectProps {
+    name?: string;
+}
+
+export default function Select({ ...props }: SelectProps) {
     const [isClearable, setIsClearable] = useState(true);
     const [isSearchable, setIsSearchable] = useState(true);
     const [isDisabled, setIsDisabled] = useState(false);
@@ -45,7 +49,7 @@ export default function Select() {
             const code = String(bank.code).padStart(3, '0');
             acc.push({
                 label: `${code} - ${bank.fullName}`,
-                value: code,
+                value: `${code} - ${bank.fullName}`,
             });
             return acc;
         }, new Array<{ label: string; value: string }>())
@@ -68,7 +72,6 @@ export default function Select() {
             isClearable={isClearable}
             isRtl={isRtl}
             isSearchable={isSearchable}
-            name="bank"
             options={options}
             placeholder="Selecione um banco..."
             theme={(theme) => ({
@@ -78,6 +81,7 @@ export default function Select() {
                     primary: '#09a9b5',
                 },
             })}
+            {...props}
         />
     );
 }

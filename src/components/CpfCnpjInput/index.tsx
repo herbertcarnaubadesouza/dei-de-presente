@@ -43,24 +43,38 @@ const CpfCnpjInput = ({ ...props }: CpfCnpjInputProps) => {
             selectionStart !== null
         ) {
             e.preventDefault();
+            const currentValue = e.currentTarget.value;
+            const deletedChar = currentValue[selectionStart - 1];
+            const isNumber = deletedChar && !isNaN(Number(deletedChar));
 
             let rawValue = value.replace(/[^\d]/g, '');
-            let nextPosition = selectionStart;
+            const charDiff = currentValue.length - rawValue.length;
+            let nextPosition = selectionStart - (!isNumber ? 1 : 0);
+            const deletePosition =
+                selectionStart - charDiff > 0
+                    ? selectionStart - charDiff + 1
+                    : selectionStart;
 
             if (e.key === 'Backspace' && selectionStart > 0) {
                 // Shift characters to the right
                 rawValue =
-                    rawValue.substring(0, selectionStart - 1) +
-                    rawValue.substring(selectionStart);
+                    rawValue.substring(0, selectionStart - charDiff - 1) +
+                    rawValue.substring(selectionStart - charDiff);
                 nextPosition--;
-            } else if (e.key === 'Delete' && selectionStart < rawValue.length) {
-                rawValue =
-                    rawValue.substring(0, selectionStart) +
-                    rawValue.substring(selectionStart + 1);
+            } else if (e.key === 'Delete') {
+                if (deletePosition < rawValue.length) {
+                    rawValue =
+                        rawValue.substring(0, deletePosition) +
+                        rawValue.substring(deletePosition + 1);
+                } else {
+                    rawValue =
+                        rawValue.substring(0, deletePosition - 1) +
+                        rawValue.substring(deletePosition);
+                }
+                nextPosition = selectionStart;
             }
 
             const formattedValue = formatValue(rawValue);
-            console.log(formattedValue, nextPosition, rawValue);
             setValue(formattedValue);
 
             // Set cursor position after state update
