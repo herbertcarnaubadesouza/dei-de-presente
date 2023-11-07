@@ -326,6 +326,12 @@
   gap: 16px;
 }
 
+.gridFotosBirthday {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
 .gridImage {
   position: relative;
   cursor: pointer;

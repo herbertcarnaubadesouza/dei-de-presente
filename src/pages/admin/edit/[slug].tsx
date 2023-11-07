@@ -1,5 +1,6 @@
 // pages/[slug].tsx
 import NotFound from "@/components/404";
+import EditBirthday from "@/components/Admin/Edit/EditBirthday";
 import EditNightClub from "@/components/Admin/Edit/EditNightClub";
 import EditWedding from "@/components/Admin/Edit/EditWedding";
 import { WeddingInterface } from "@/components/Web/Wedding";
@@ -8,111 +9,22 @@ import { GetServerSideProps } from "next";
 export default function WebsitePage(
   props: WeddingInterface & { notFoundPage?: boolean }
 ) {
-  const {
-    nomeRua,
-    mensagemCurta,
-    horaEvento,
-    fotosEventoText,
-    dataEvento,
-    nextHandlerIndex,
-    numeroRua,
-    nomeEvento,
-    complemento,
-    event,
-    sobreEvento,
-    slug,
-    fotoMosaico1Url,
-    fotoLocalUrl,
-    fotoEventoUrl,
-    bannerUrl,
-    fotoMosaico6Url,
-    fotoMosaico5Url,
-    fotoMosaico3Url,
-    fotoMosaico4Url,
-    fotoMosaico2Url,
-    fotoMosaico7Url,
-    fotoMosaico8Url,
-    fotoMosaico9Url,
-    fotoMosaico10Url,
-    fotoMosaico11Url,
-    fotoMosaico12Url,
-    cep,
-    gifts,
-  } = props;
+  const renderEventComponent = () => {
+    if (props.notFoundPage) {
+      return <NotFound />;
+    }
 
-  if (props.notFoundPage) {
-    return <NotFound />;
-  }
+    switch (props.event) {
+      case "wedding":
+        return <EditWedding {...props} />;
+      case "party":
+        return <EditNightClub {...props} />;
+      default:
+        return <EditBirthday {...props} />;
+    }
+  };
 
-  return (
-    <>
-      {event === "wedding" ? (
-        <EditWedding
-          nomeRua={nomeRua}
-          mensagemCurta={mensagemCurta}
-          horaEvento={horaEvento}
-          fotosEventoText={fotosEventoText}
-          dataEvento={dataEvento}
-          nextHandlerIndex={nextHandlerIndex}
-          numeroRua={numeroRua}
-          nomeEvento={nomeEvento}
-          complemento={complemento}
-          event={event}
-          sobreEvento={sobreEvento}
-          slug={slug}
-          fotoMosaico1Url={fotoMosaico1Url}
-          fotoLocalUrl={fotoLocalUrl}
-          fotoEventoUrl={fotoEventoUrl}
-          bannerUrl={bannerUrl}
-          fotoMosaico6Url={fotoMosaico6Url}
-          fotoMosaico5Url={fotoMosaico5Url}
-          fotoMosaico3Url={fotoMosaico3Url}
-          fotoMosaico4Url={fotoMosaico4Url}
-          fotoMosaico2Url={fotoMosaico2Url}
-          cep={cep}
-          gifts={gifts}
-          fotoMosaico7Url={fotoMosaico7Url}
-          fotoMosaico8Url={fotoMosaico8Url}
-          fotoMosaico9Url={fotoMosaico9Url}
-          fotoMosaico10Url={fotoMosaico10Url}
-          fotoMosaico11Url={fotoMosaico11Url}
-          fotoMosaico12Url={fotoMosaico12Url}
-        />
-      ) : (
-        <EditNightClub
-          nomeRua={nomeRua}
-          mensagemCurta={mensagemCurta}
-          horaEvento={horaEvento}
-          fotosEventoText={fotosEventoText}
-          dataEvento={dataEvento}
-          nextHandlerIndex={nextHandlerIndex}
-          numeroRua={numeroRua}
-          nomeEvento={nomeEvento}
-          complemento={complemento}
-          event={event}
-          sobreEvento={sobreEvento}
-          slug={slug}
-          fotoMosaico1Url={fotoMosaico1Url}
-          fotoLocalUrl={fotoLocalUrl}
-          fotoEventoUrl={fotoEventoUrl}
-          bannerUrl={bannerUrl}
-          fotoMosaico6Url={fotoMosaico6Url}
-          fotoMosaico5Url={fotoMosaico5Url}
-          fotoMosaico3Url={fotoMosaico3Url}
-          fotoMosaico4Url={fotoMosaico4Url}
-          fotoMosaico2Url={fotoMosaico2Url}
-          cep={cep}
-          gifts={gifts}
-          fotoMosaico7Url={fotoMosaico7Url}
-          fotoMosaico8Url={fotoMosaico8Url}
-          fotoMosaico9Url={fotoMosaico9Url}
-          fotoMosaico10Url={fotoMosaico10Url}
-          fotoMosaico11Url={fotoMosaico11Url}
-          fotoMosaico12Url={fotoMosaico12Url}
-        />
-      )}
-    </>
-  );
+  return <>{renderEventComponent()}</>;
 }
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
