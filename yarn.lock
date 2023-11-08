@@ -4713,7 +4713,7 @@ next-auth@^4.23.2:
 
 next-connect@^1.0.0:
   version "1.0.0"
-  resolved "https://registry.npmjs.org/next-connect/-/next-connect-1.0.0.tgz"
+  resolved "https://registry.yarnpkg.com/next-connect/-/next-connect-1.0.0.tgz#49361a92b2d22db1cce73f94dfe793cd4b9e0106"
   integrity sha512-FeLURm9MdvzY1SDUGE74tk66mukSqL6MAzxajW7Gqh6DZKBZLrXmXnGWtHJZXkfvoi+V/DUe9Hhtfkl4+nTlYA==
   dependencies:
     "@tsconfig/node16" "^1.0.3"

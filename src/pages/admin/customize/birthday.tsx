@@ -117,7 +117,7 @@ export default function CustomizeWedding() {
 
       if (response.data.file) {
         localStorage.setItem("fotoBanner", response.data.file);
-        setBannerUrl(`/temp/${response.data.file}`);
+        setBannerUrl(`${response.data.file}`);
       }
     } catch (err) {
       console.error("Ocorreu um erro durante o upload:", err);
@@ -143,7 +143,7 @@ export default function CustomizeWedding() {
 
       if (response.data.file) {
         localStorage.setItem("fotoLocal", response.data.file);
-        setFotoLocalUrl(`/temp/${response.data.file}`);
+        setFotoLocalUrl(`${response.data.file}`);
       }
     } catch (err) {
       console.error("Ocorreu um erro durante o upload:", err);
@@ -183,7 +183,7 @@ export default function CustomizeWedding() {
 
       if (response.data.file) {
         localStorage.setItem("fotoEvento", response.data.file);
-        setFotoEventoUrl(`/temp/${response.data.file}`);
+        setFotoEventoUrl(`${response.data.file}`);
       }
     } catch (err) {
       console.error("Ocorreu um erro durante o upload:", err);
@@ -240,7 +240,7 @@ export default function CustomizeWedding() {
 
       if (response.data.file) {
         localStorage.setItem("fotosEvento1", response.data.file);
-        setFotoMosaico1Url(`/temp/${response.data.file}`);
+        setFotoMosaico1Url(`${response.data.file}`);
       }
     } catch (err) {
       console.error("Ocorreu um erro durante o upload:", err);
@@ -264,7 +264,7 @@ export default function CustomizeWedding() {
 
       if (response.data.file) {
         localStorage.setItem("fotosEvento2", response.data.file);
-        setFotoMosaico2Url(`/temp/${response.data.file}`);
+        setFotoMosaico2Url(`${response.data.file}`);
       }
     } catch (err) {
       console.error("Ocorreu um erro durante o upload:", err);
@@ -288,7 +288,7 @@ export default function CustomizeWedding() {
 
       if (response.data.file) {
         localStorage.setItem("fotosEvento3", response.data.file);
-        setFotoMosaico3Url(`/temp/${response.data.file}`);
+        setFotoMosaico3Url(`${response.data.file}`);
       }
     } catch (err) {
       console.error("Ocorreu um erro durante o upload:", err);
@@ -311,7 +311,7 @@ export default function CustomizeWedding() {
 
       if (response.data.file) {
         localStorage.setItem("fotosEvento4", response.data.file);
-        setFotoMosaico4Url(`/temp/${response.data.file}`);
+        setFotoMosaico4Url(`${response.data.file}`);
       }
     } catch (err) {
       console.error("Ocorreu um erro durante o upload:", err);
@@ -334,7 +334,7 @@ export default function CustomizeWedding() {
 
       if (response.data.file) {
         localStorage.setItem("fotosEvento5", response.data.file);
-        setFotoMosaico5Url(`/temp/${response.data.file}`);
+        setFotoMosaico5Url(`${response.data.file}`);
       }
     } catch (err) {
       console.error("Ocorreu um erro durante o upload:", err);
@@ -358,7 +358,7 @@ export default function CustomizeWedding() {
 
       if (response.data.file) {
         localStorage.setItem("fotosEvento6", response.data.file);
-        setFotoMosaico6Url(`/temp/${response.data.file}`);
+        setFotoMosaico6Url(`${response.data.file}`);
       }
     } catch (err) {
       console.error("Ocorreu um erro durante o upload:", err);

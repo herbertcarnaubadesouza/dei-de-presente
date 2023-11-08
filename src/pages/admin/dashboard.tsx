@@ -80,8 +80,6 @@ export default function Dashboard() {
         return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
     }
 
-    console.log(confirmedGuestsCount);
-
     return (
         <>
             <div className={styles.container}>
