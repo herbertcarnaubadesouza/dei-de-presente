@@ -1,6 +1,5 @@
 import { useRef } from 'react';
-import CpfCnpjInput from '../CpfCnpjInput';
-import MaskedInput from '../MaskedInput';
+import MaskedInput from '../MaskedInput/index';
 import Select from '../Select';
 import styles from './styles.module.scss';
 import useDialog from './useDialog';
@@ -40,6 +39,25 @@ export default function Modal() {
                 </header>
                 <article>
                     <div className={styles.inputblock}>
+                        <span>Valor</span>
+                        <MaskedInput
+                            name="amount"
+                            mask={[
+                                {
+                                    mask: 'R$num',
+                                    blocks: {
+                                        num: {
+                                            mask: Number,
+                                            thousandsSeparator: '.',
+                                            min: 0,
+                                        },
+                                    },
+                                },
+                            ]}
+                            placeholder="R$0,00"
+                        />
+                    </div>
+                    <div className={styles.inputblock}>
                         <span>Instituição</span>
                         <Select name="bank" />
                     </div>
@@ -56,16 +74,19 @@ export default function Modal() {
                         <div className={styles.inputblock}>
                             <span>Conta</span>
                             <MaskedInput
-                                name="account"
-                                mask="_______-_"
+                                name="accountNumber"
+                                mask={[
+                                    {
+                                        mask: '0000000-0',
+                                    },
+                                ]}
                                 placeholder="0000000-0"
-                                type="text"
                             />
                         </div>
                     </div>
                     <div className={styles.inputblock}>
                         <span>Tipo de conta</span>
-                        <select name="account-type">
+                        <select name="accountType">
                             <option value="" disabled selected>
                                 Selecione uma opção...
                             </option>
@@ -76,17 +97,25 @@ export default function Modal() {
                     <div className={styles.inputblock}>
                         <span>Nome completo</span>
                         <input
-                            name="receiver-name"
+                            name="accountHolder"
                             placeholder="Nome de quem irá receber"
                             type="text"
                         />
                     </div>
                     <div className={styles.inputblock}>
                         <span>CPF/CNPJ</span>
-                        <CpfCnpjInput
+                        <MaskedInput
                             name="cpfCnpj"
+                            mask={[
+                                {
+                                    mask: '000.000.000-00',
+                                    maxLength: 11,
+                                },
+                                {
+                                    mask: '00.000.000/0000-00',
+                                },
+                            ]}
                             placeholder="CPF/CNPJ de quem irá receber"
-                            type="text"
                         />
                     </div>
                 </article>
