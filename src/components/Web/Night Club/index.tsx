@@ -1,5 +1,7 @@
+import axios from "axios";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import GiftsListFromSavedWebsite from "./GiftsFromSavedWebsite";
 import styles from "./styles.module.scss";
 
@@ -69,6 +71,7 @@ export default function NightClubWebsite({
   fotoMosaico12Url,
   fotoLocalUrl,
   gifts,
+  slug,
 }: NightClubInterface) {
   const [currentPage, setCurrentPage] = useState(1);
   const giftsPerPage = 12;
@@ -83,6 +86,7 @@ export default function NightClubWebsite({
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
   const [acompanhantes, setAcompanhantes] = useState(0);
+  const [nome, setNome] = useState("");
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -103,6 +107,26 @@ export default function NightClubWebsite({
 
   const incrementar = () => {
     setAcompanhantes(acompanhantes + 1);
+  };
+
+  const handleSubmit = async (event: any) => {
+    event.preventDefault();
+    try {
+      const response = await axios.post("/api/websites/addAcompanhantes", {
+        slug,
+        confirmedData: {
+          nome,
+          acompanhantes,
+        },
+      });
+      toast.success("Acompanhantes enviados com sucesso!", {
+        icon: "🎉",
+      });
+      console.log(response.data.message);
+    } catch (error: any) {
+      toast.error("Ocorreu um erro ao enviar os acompanhantes.");
+      console.error(error.response.data.error);
+    }
   };
 
   useEffect(() => {
@@ -415,10 +439,16 @@ export default function NightClubWebsite({
             <div className={styles.titleFormSection}>
               <h2>Vem comemorar conosco?</h2>
             </div>
-            <form className={styles.form}>
+            <form className={styles.form} onSubmit={handleSubmit}>
               <div className={styles.formInputBlock}>
                 <label>Nome completo</label>
-                <input placeholder="Escreva aqui seu nome..." type="text" />
+                <input
+                  placeholder="Escreva aqui seu nome..."
+                  type="text"
+                  value={nome}
+                  onChange={(e) => setNome(e.target.value)}
+                  required
+                />
               </div>
               <div className={styles.formInputBlock}>
                 <label>Você irá ao Evento?</label>
