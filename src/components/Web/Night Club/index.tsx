@@ -87,6 +87,7 @@ export default function NightClubWebsite({
   const [seconds, setSeconds] = useState(0);
   const [acompanhantes, setAcompanhantes] = useState(0);
   const [nome, setNome] = useState("");
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -97,6 +98,10 @@ export default function NightClubWebsite({
     const year = date.getFullYear();
 
     return `${day}/${month}/${year}`;
+  };
+
+  const toggleDrawer = () => {
+    setDrawerOpen(!drawerOpen);
   };
 
   const decrementar = () => {
@@ -191,10 +196,9 @@ export default function NightClubWebsite({
                 confirmar presença
               </button>
             </ul>
-            <img
-              src="/hamburguerNightClub.svg"
-              className={styles.menuHamburguer}
-            />
+            <div className={styles.hamburguer}>
+              <img src="/hamburguer.svg" alt="logo" onClick={toggleDrawer} />
+            </div>
           </div>
           <div className={styles.middleContent}>
             <span>prepare-se para a experiência</span>
@@ -516,4 +520,7 @@ export default function NightClubWebsite({
       </main>
     </>
   );
+}
+function setDrawerOpen(arg0: boolean) {
+  throw new Error("Function not implemented.");
 }
