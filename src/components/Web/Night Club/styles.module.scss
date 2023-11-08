@@ -71,6 +71,7 @@
   padding-inline: 194px;
 
   @media only screen and (max-width: 768px) {
+    padding-right: 30px;
     padding-left: 2px;
     padding-top: 10px;
     img {
@@ -1102,4 +1103,11 @@
   @media only screen and (min-width: 768px) {
     display: none;
   }
+}
+
+.menuHamburguer {
+  @media only screen and (min-width: 768px) {
+    display: none;
+  }
+  width: 45px !important;
 }
