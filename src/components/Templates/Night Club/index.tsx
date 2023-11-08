@@ -558,7 +558,7 @@ export default function NightClub({
             <h2>Uma lembrança das últimas vezes</h2>
           </div>
           <div className={styles.mosaicoGrid}>
-            <div className={styles.row1Mobile}>
+            <div className={styles.row1}>
               <img
                 className={styles.photo1}
                 src={

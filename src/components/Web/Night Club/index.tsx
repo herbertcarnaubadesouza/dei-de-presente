@@ -191,6 +191,10 @@ export default function NightClubWebsite({
                 confirmar presença
               </button>
             </ul>
+            <img
+              src="/hamburguerNightClub.svg"
+              className={styles.menuHamburguer}
+            />
           </div>
           <div className={styles.middleContent}>
             <span>prepare-se para a experiência</span>

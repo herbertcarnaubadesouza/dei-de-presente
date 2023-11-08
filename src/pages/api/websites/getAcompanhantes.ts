@@ -21,21 +21,19 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
         // Check if confirmationsArray is an array and has items
         if (!Array.isArray(confirmationsArray) || confirmationsArray.length === 0) {
-            return res.status(200).json({ totalCount: 0 });
+            return res.status(200).json({ totalCount: 0, confirmations: [] });
         }
 
         console.log(confirmationsArray);
 
-        // Ensure that the property name here matches the actual property name in your objects.
+        // Calculate the total count
         const totalCount = confirmationsArray.reduce((acc, confirmation) => {
-            // It's safer to parse the number in case it's stored as a string
             const accompanyCount = parseInt(confirmation.acompanhantes) || 0;
             return acc + accompanyCount + 1; // Add 1 for the primary individual
         }, 0);
 
-        console.log(totalCount);
-
-        return res.status(200).json({ totalCount });
+        // Return both the total count and the confirmations details
+        return res.status(200).json({ totalCount, confirmations: confirmationsArray });
 
     } catch (error) {
         console.error('Error retrieving confirmation count: ', error);
@@ -44,5 +42,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 };
 
 export default handler;
+
 
 

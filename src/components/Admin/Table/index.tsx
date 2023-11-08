@@ -7,19 +7,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import styles from "./styles.module.scss";
 
-function createData(name: string, presenca: string, fat: number) {
-  return { name, presenca, fat };
-}
-
-const rows = [
-  createData("Frozen yoghurt", "SIM", 6.0),
-  createData("Ice cream sandwich", "SIM", 9.0),
-  createData("Eclair", "SIM", 16.0),
-  createData("Cupcake", "SIM", 3.7),
-  createData("Gingerbread", "SIM", 16.0),
-];
-
-export default function TableUsers() {
+export default function TableUsers({ confirmedGuests }: any) {
   return (
     <div className={styles.tableContainer}>
       <TableContainer component={Paper}>
@@ -32,17 +20,17 @@ export default function TableUsers() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row, index) => (
+            {confirmedGuests.map((guest: any, index: any) => (
               <TableRow
-                key={row.name}
+                key={guest.nome}
                 className={index % 2 === 0 ? styles.rowEven : styles.rowOdd}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
-                  {row.name}
+                  {guest.nome}
                 </TableCell>
-                <TableCell align="left">{row.presenca}</TableCell>
-                <TableCell align="left">{row.fat}</TableCell>
+                <TableCell align="left">SIM</TableCell>
+                <TableCell align="left">{guest.acompanhantes}</TableCell>
               </TableRow>
             ))}
           </TableBody>
