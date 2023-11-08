@@ -1,19 +1,54 @@
+import { XCircle } from 'phosphor-react';
 import { useRef } from 'react';
+import { toast } from 'react-toastify';
 import MaskedInput from '../MaskedInput/index';
 import Select from '../Select';
 import styles from './styles.module.scss';
 import useDialog from './useDialog';
 
-export default function Modal() {
+interface ModalProps {
+    maxWithdrawAmount: number;
+}
+
+export default function Modal({ maxWithdrawAmount }: ModalProps) {
     const dialogRef = useRef<HTMLDialogElement>(null);
     useDialog(dialogRef);
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         console.log(e.currentTarget);
         const formData = new FormData(e.currentTarget);
         const data = Object.fromEntries(formData.entries());
-        console.log(data);
+
+        try {
+            const response = await fetch('/api/withdraw/request', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            if (response.status === 200) {
+                toast.success('Nova solicitação de saque enviada!', {
+                    icon: '🎉',
+                });
+                // @ts-ignore
+                window.MegaDialog.close('submit');
+            } else if (response.status === 401) {
+                toast.error('Usuário não autorizado', {
+                    icon: <XCircle size={32} color="#ff3838" />,
+                });
+                // @ts-ignore
+                window.MegaDialog.close('error');
+            }
+        } catch (error) {
+            toast.error('Não foi possivel realizar a solicitação no momento!', {
+                icon: <XCircle size={32} color="#ff3838" />,
+            });
+            // @ts-ignore
+            window.MegaDialog.close('error');
+        }
     };
 
     return (
@@ -50,11 +85,13 @@ export default function Modal() {
                                             mask: Number,
                                             thousandsSeparator: '.',
                                             min: 0,
+                                            max: maxWithdrawAmount,
                                         },
                                     },
                                 },
                             ]}
                             placeholder="R$0,00"
+                            required
                         />
                     </div>
                     <div className={styles.inputblock}>
@@ -69,6 +106,7 @@ export default function Modal() {
                                 placeholder="0000"
                                 type="text"
                                 maxLength={4}
+                                required
                             />
                         </div>
                         <div className={styles.inputblock}>
@@ -81,12 +119,13 @@ export default function Modal() {
                                     },
                                 ]}
                                 placeholder="0000000-0"
+                                required
                             />
                         </div>
                     </div>
                     <div className={styles.inputblock}>
                         <span>Tipo de conta</span>
-                        <select name="accountType">
+                        <select name="accountType" required>
                             <option value="" disabled selected>
                                 Selecione uma opção...
                             </option>
@@ -100,6 +139,7 @@ export default function Modal() {
                             name="accountHolder"
                             placeholder="Nome de quem irá receber"
                             type="text"
+                            required
                         />
                     </div>
                     <div className={styles.inputblock}>
@@ -116,6 +156,7 @@ export default function Modal() {
                                 },
                             ]}
                             placeholder="CPF/CNPJ de quem irá receber"
+                            required
                         />
                     </div>
                 </article>

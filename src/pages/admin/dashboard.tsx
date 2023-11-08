@@ -144,7 +144,7 @@ export default function Dashboard() {
                 setShowSidebarEdit={setShowSidebarEdit}
                 onEditGift={handleEditGift}
             />
-            <Modal />
+            <Modal maxWithdrawAmount={4999.54} />
         </>
     );
 }

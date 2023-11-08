@@ -73,6 +73,7 @@ export default function Select({ ...props }: SelectProps) {
             isRtl={isRtl}
             isSearchable={isSearchable}
             options={options}
+            required
             placeholder="Selecione um banco..."
             theme={(theme) => ({
                 ...theme,

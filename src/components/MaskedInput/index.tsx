@@ -7,6 +7,7 @@ interface MaskedInputProps {
     mask: { mask: string; maxLength?: number; blocks?: any }[];
     max?: number;
     min?: number;
+    required?: boolean;
 }
 
 const MaskedInput = ({ mask, ...inputProps }: MaskedInputProps) => {
@@ -19,7 +20,6 @@ const MaskedInput = ({ mask, ...inputProps }: MaskedInputProps) => {
             unmask={true}
             ref={ref}
             inputRef={inputRef} // access to nested input
-            onAccept={(value, mask) => console.log(value)}
             {...inputProps}
         />
     );
