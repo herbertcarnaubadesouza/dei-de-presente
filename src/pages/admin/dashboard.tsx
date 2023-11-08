@@ -23,6 +23,8 @@ export default function Dashboard() {
     const [gifts, setGifts] = useState<Gift[]>([]);
     const [selectedGiftId, setSelectedGiftId] = useState<string | null>(null);
     const session = useSession();
+    const [slug, setSlug] = useState(null);
+    const [confirmedGuestsCount, setConfirmedGuestsCount] = useState(0);
 
     const handleGiftAdded = () => {
         setGiftCounter((prevCounter) => prevCounter + 1);
@@ -32,6 +34,35 @@ export default function Dashboard() {
         setSelectedGiftId(id);
         setShowSidebarEdit(true);
     };
+
+    useEffect(() => {
+        const userId = session.data?.id;
+
+        fetch(`/api/websites/checkWebsites?userId=${userId}`)
+            .then((res) => res.json())
+            .then((data) => {
+                if (data.slug) {
+                    setSlug(data.slug);
+                }
+            })
+
+            .catch((error) =>
+                console.error('Failed to fetch websites:', error)
+            );
+    }, []);
+
+    useEffect(() => {
+        if (slug) {
+            axios
+                .get(`/api/websites/getAcompanhantes?slug=${slug}`)
+                .then((response) => {
+                    setConfirmedGuestsCount(response.data.totalCount);
+                })
+                .catch((error) =>
+                    console.error('Failed to fetch confirmed guests:', error)
+                );
+        }
+    }, [slug]);
 
     useEffect(() => {
         const userId = session.data?.id;
@@ -48,6 +79,8 @@ export default function Dashboard() {
     function capitalizeFirstLetter(name: string) {
         return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
     }
+
+    console.log(confirmedGuestsCount);
 
     return (
         <>
@@ -128,7 +161,7 @@ export default function Dashboard() {
                                 </div>
                                 <span>Pessoas confirmadas</span>
                             </div>
-                            <p>Total: 156 pessoas</p>
+                            <p>Total: {confirmedGuestsCount} pessoas</p>
                         </div>
                     </div>
                 </div>
