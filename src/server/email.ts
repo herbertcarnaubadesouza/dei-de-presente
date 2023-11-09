@@ -26,6 +26,10 @@ export async function sendWithdrawalRequestEmail(data: {
     accountHolder: string;
     cpfCnpj: string;
 }) {
+    if (!process.env.EMAIL_WITHDRAW) {
+        console.error('Please set the withdraw email receiver: EMAIL_WITHDRAW');
+    }
+
     const {
         email,
         nome,
@@ -40,7 +44,7 @@ export async function sendWithdrawalRequestEmail(data: {
 
     const mailOptions = {
         from: process.env.SMTP_FROM_EMAIL,
-        to: ['thihxm@gmail.com'],
+        to: [process.env.EMAIL_WITHDRAW ?? '', email],
         subject: 'Dei de presente - Nova solicitação de saque',
         text: `Solicitação de saque de ${nome} recebida!`,
         html: `
