@@ -1,4 +1,5 @@
 import axios from "axios";
+import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -104,6 +105,14 @@ export default function NightClubWebsite({
     setDrawerOpen(!drawerOpen);
   };
 
+  const handleLinkClick = () => {
+    setDrawerOpen(false);
+  };
+
+  const handleSignOut = () => {
+    signOut({ callbackUrl: "/" });
+  };
+
   const decrementar = () => {
     if (acompanhantes > 0) {
       setAcompanhantes(acompanhantes - 1);
@@ -199,6 +208,47 @@ export default function NightClubWebsite({
             <div className={styles.hamburguer}>
               <img src="/hamburguer.svg" alt="logo" onClick={toggleDrawer} />
             </div>
+            <div
+              className={`${styles.drawer} ${drawerOpen ? styles.open : ""}`}
+            >
+              <div className={styles.contentDrawer}>
+                <div className={styles.topContentDrawer}>
+                  <img
+                    className={styles.logo}
+                    src="/logoPresente.svg"
+                    alt="logo"
+                  />
+                  <img
+                    className={styles.close}
+                    src="/close.svg"
+                    alt="logo"
+                    onClick={toggleDrawer}
+                  />
+                </div>
+                <div className={styles.middleContentDrawer}>
+                  <ul>
+                    {slug && (
+                      <Link href={`/${slug}`}>
+                        <li onClick={handleLinkClick}>ver meu site</li>
+                      </Link>
+                    )}
+                    <Link href="/admin/gifts">
+                      <li onClick={handleLinkClick}>presentes</li>
+                    </Link>
+                    <Link href="/admin/confirmations">
+                      <li onClick={handleLinkClick}>confirmações</li>
+                    </Link>
+                  </ul>
+                  <button onClick={handleSignOut}>sair</button>
+                </div>
+              </div>
+            </div>
+            <div
+              className={`${styles.overlay} ${
+                drawerOpen ? styles.visible : ""
+              }`}
+              onClick={toggleDrawer}
+            ></div>
           </div>
           <div className={styles.middleContent}>
             <span>prepare-se para a experiência</span>
