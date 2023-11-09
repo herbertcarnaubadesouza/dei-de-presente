@@ -167,6 +167,7 @@ export default function NightClubWebsite({
   }, [dataEvento]);
 
   const smoothScroll = (targetId: any) => {
+    setDrawerOpen(false);
     const target = document.getElementById(targetId);
     if (target) {
       target.scrollIntoView({ behavior: "smooth" });
@@ -227,19 +228,17 @@ export default function NightClubWebsite({
                 </div>
                 <div className={styles.middleContentDrawer}>
                   <ul>
-                    {slug && (
-                      <Link href={`/${slug}`}>
-                        <li onClick={handleLinkClick}>ver meu site</li>
-                      </Link>
-                    )}
-                    <Link href="/admin/gifts">
-                      <li onClick={handleLinkClick}>presentes</li>
-                    </Link>
-                    <Link href="/admin/confirmations">
-                      <li onClick={handleLinkClick}>confirmações</li>
-                    </Link>
+                    <li onClick={() => smoothScroll("sobre")}>sobre nós</li>
+
+                    <li onClick={() => smoothScroll("mosaico")}>fotos</li>
+
+                    <li onClick={() => smoothScroll("local")}>
+                      local do evento
+                    </li>
                   </ul>
-                  <button onClick={handleSignOut}>sair</button>
+                  <button onClick={() => smoothScroll("confirmar")}>
+                    confirmar presença
+                  </button>
                 </div>
               </div>
             </div>
@@ -257,7 +256,9 @@ export default function NightClubWebsite({
               {mensagemCurta ||
                 "Lorem ipsum dolor sit amet consectetur. Amet ullamcorper quam maecenas ac placerat porttitor porttitor mi. Ipsum volutpat proin quisque urna tortor et. Praesent porttitor aliquam a tristique tortor et eget. Potenti eu maecenas diam aenean nec. Lorem ipsum dolor sit amet consectetur."}
             </p>
-            <button>confirmar presença</button>
+            <button onClick={() => smoothScroll("confirmar")}>
+              confirmar presença
+            </button>
           </div>
         </section>
         <section className={styles.sobre} id="date">
@@ -299,7 +300,9 @@ export default function NightClubWebsite({
               {sobreEvento ||
                 "Lorem ipsum dolor sit amet consectetur. Amet ullamcorper quam maecenas ac placerat porttitor porttitor mi. Ipsum volutpat proin quisque urna tortor et. Praesent porttitor aliquam a tristique tortor et eget. Potenti eu maecenas diam aenean nec."}
             </p>
-            <button>confirmar presença</button>
+            <button onClick={() => smoothScroll("confirmar")}>
+              confirmar presença
+            </button>
           </div>
         </section>
         <section className={styles.bannerAlcoolMobile}>
@@ -311,7 +314,9 @@ export default function NightClubWebsite({
               {sobreEvento ||
                 "Lorem ipsum dolor sit amet consectetur. Amet ullamcorper quam maecenas ac placerat porttitor porttitor mi. Ipsum volutpat proin quisque urna tortor et. Praesent porttitor aliquam a tristique tortor et eget. Potenti eu maecenas diam aenean nec."}
             </p>
-            <button>confirmar presença</button>
+            <button onClick={() => smoothScroll("confirmar")}>
+              confirmar presença
+            </button>
           </div>
         </section>
         <section className={styles.local} id="local">

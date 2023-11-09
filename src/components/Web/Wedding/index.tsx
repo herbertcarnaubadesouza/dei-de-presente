@@ -87,6 +87,8 @@ export default function WeddingWebsite({
   const [acompanhantes, setAcompanhantes] = useState(0);
   const [nome, setNome] = useState("");
 
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     date.setDate(date.getDate() + 1);
@@ -102,6 +104,10 @@ export default function WeddingWebsite({
     if (acompanhantes > 0) {
       setAcompanhantes(acompanhantes - 1);
     }
+  };
+
+  const toggleDrawer = () => {
+    setDrawerOpen(!drawerOpen);
   };
 
   const incrementar = () => {
@@ -152,6 +158,7 @@ export default function WeddingWebsite({
   }, [dataEvento]);
 
   const smoothScroll = (targetId: any) => {
+    setDrawerOpen(false);
     const target = document.getElementById(targetId);
     if (target) {
       target.scrollIntoView({ behavior: "smooth" });
@@ -191,6 +198,50 @@ export default function WeddingWebsite({
                   confirmar presença
                 </button>
               </ul>
+              <div className={styles.hamburguer}>
+                <img src="/hamburguer.svg" alt="logo" onClick={toggleDrawer} />
+              </div>
+              <div
+                className={`${styles.drawer} ${drawerOpen ? styles.open : ""}`}
+              >
+                <div className={styles.contentDrawer}>
+                  <div className={styles.topContentDrawer}>
+                    <img
+                      className={styles.logo}
+                      src="/logoPresente.svg"
+                      alt="logo"
+                    />
+                    <img
+                      className={styles.close}
+                      src="/close.svg"
+                      alt="logo"
+                      onClick={toggleDrawer}
+                    />
+                  </div>
+                  <div className={styles.middleContentDrawer}>
+                    <ul>
+                      <li onClick={() => smoothScroll("historia")}>
+                        sobre nós
+                      </li>
+
+                      <li onClick={() => smoothScroll("fotosevento")}>fotos</li>
+
+                      <li onClick={() => smoothScroll("localdocasamento")}>
+                        local do evento
+                      </li>
+                    </ul>
+                    <button onClick={() => smoothScroll("confirmar")}>
+                      confirmar presença
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div
+                className={`${styles.overlayWebsite} ${
+                  drawerOpen ? styles.visible : ""
+                }`}
+                onClick={toggleDrawer}
+              ></div>
             </div>
             <div className={styles.middleContent}>
               <div className={styles.divisorBlock}>
@@ -250,7 +301,9 @@ export default function WeddingWebsite({
                 {sobreEvento ||
                   "Lorem ipsum dolor sit amet consectetur. Amet ullamcorper quam maecenas ac placerat porttitor porttitor mi. Ipsum volutpat proin quisque urna tortor et. Praesent porttitor aliquam a tristique tortor et eget."}
               </p>
-              <button>confirmar presença</button>
+              <button onClick={() => smoothScroll("confirmar")}>
+                confirmar presença
+              </button>
             </div>
             <div className={styles.rightSideHistoryContent}>
               <div className={styles.firstMoldura}>

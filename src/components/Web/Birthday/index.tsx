@@ -78,6 +78,11 @@ export default function BirthdayWebsite({
   const [seconds, setSeconds] = useState(0);
   const [acompanhantes, setAcompanhantes] = useState(0);
   const [nome, setNome] = useState("");
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const toggleDrawer = () => {
+    setDrawerOpen(!drawerOpen);
+  };
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -167,11 +172,53 @@ export default function BirthdayWebsite({
           <div className={styles.headerWebsite}>
             <img src="/blueDei.svg" />
             <ul className={styles.menu}>
-              <li>sobre nós</li>
-              <li>fotos</li>
-              <li>presentes</li>
-              <button>confirmar presença</button>
+              <li onClick={() => smoothScroll("sobre")}>sobre nós</li>
+              <li onClick={() => smoothScroll("mosaico")}>fotos</li>
+              <li onClick={() => smoothScroll("local")}>local do evento</li>
+              <button onClick={() => smoothScroll("confirmar")}>
+                confirmar presença
+              </button>
             </ul>
+            <div className={styles.hamburguer}>
+              <img
+                src="/hamburguerazul.svg"
+                alt="logo"
+                onClick={toggleDrawer}
+              />
+            </div>
+            <div
+              className={`${styles.drawer} ${drawerOpen ? styles.open : ""}`}
+            >
+              <div className={styles.contentDrawer}>
+                <div className={styles.topContentDrawer}>
+                  <img
+                    className={styles.logo}
+                    src="/logoPresente.svg"
+                    alt="logo"
+                  />
+                  <img
+                    className={styles.close}
+                    src="/close.svg"
+                    alt="logo"
+                    onClick={toggleDrawer}
+                  />
+                </div>
+                <div className={styles.middleContentDrawer}>
+                  <ul>
+                    <li onClick={() => smoothScroll("sobre")}>sobre nós</li>
+
+                    <li onClick={() => smoothScroll("mosaico")}>fotos</li>
+
+                    <li onClick={() => smoothScroll("local")}>
+                      local do evento
+                    </li>
+                  </ul>
+                  <button onClick={() => smoothScroll("confirmar")}>
+                    confirmar presença
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
           <div className={styles.middleContent}>
             <div className={styles.leftSide}>
@@ -181,7 +228,9 @@ export default function BirthdayWebsite({
                 {mensagemCurta ||
                   "Lorem ipsum dolor sit amet consectetur. Amet ullamcorper quam maecenas ac placerat porttitor porttitor mi. Ipsum volutpat proin quisque urna tortor et. Praesent porttitor aliquam a tristique tortor et eget. Potenti eu maecenas diam aenean nec. Lorem ipsum dolor sit amet consectetur."}
               </p>
-              <button>confirmar presença</button>
+              <button onClick={() => smoothScroll("confirmar")}>
+                confirmar presença
+              </button>
             </div>
             <div className={styles.rightSide}>
               <img src="/giftTemplateImage3.png" />
@@ -227,7 +276,9 @@ export default function BirthdayWebsite({
                 {sobreEvento ||
                   "Lorem ipsum dolor sit amet consectetur. Amet ullamcorper quam maecenas ac placerat porttitor porttitor mi. Ipsum volutpat proin quisque urna tortor et. Praesent porttitor aliquam a tristique tortor et eget. Potenti eu maecenas diam aenean nec."}
               </p>
-              <button>confirmar presença</button>
+              <button onClick={() => smoothScroll("confirmar")}>
+                confirmar presença
+              </button>
             </div>
             <div className={styles.rightSideSobre}>
               <img
@@ -309,6 +360,7 @@ export default function BirthdayWebsite({
         </section>
         <section
           className={styles.formSectionCasamento}
+          id="confirmar"
           style={
             fotoLocalUrl
               ? { backgroundImage: `url(${fotoLocalUrl})` }

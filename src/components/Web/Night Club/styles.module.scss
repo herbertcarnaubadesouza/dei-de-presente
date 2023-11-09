@@ -71,7 +71,7 @@
   padding-inline: 194px;
 
   @media only screen and (max-width: 768px) {
-    padding-right: 45px;
+    padding-right: 16px;
     padding-left: 16px;
     padding-top: 10px;
     img {
@@ -120,11 +120,12 @@
     .logo {
       width: 79px;
       object-fit: cover;
-      margin-top: -13px;
+      margin-top: -7px;
     }
 
     .close {
-      margin-top: 4px;
+      height: 29px;
+      width: 29px;
     }
   }
 }
