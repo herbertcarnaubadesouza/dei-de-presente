@@ -1,9 +1,8 @@
-
-import { NextApiRequest, NextApiResponse } from "next";
-import firebaseAdmin from "../../../server/firebaseAdmin";
+import { NextApiRequest, NextApiResponse } from 'next';
+import firebaseAdmin from '../../../server/firebaseAdmin';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-    if (req.method !== "GET") {
+    if (req.method !== 'GET') {
         return res.status(405).end();
     }
 
@@ -12,7 +11,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
         const db = firebaseAdmin.firestore();
 
-        const querySnapshot = await db.collection('Website').where('slug', '==', slug).get();
+        const querySnapshot = await db
+            .collection('Website')
+            .where('slug', '==', slug)
+            .get();
 
         if (querySnapshot.empty) {
             return res.status(404).json({ error: 'Website not found' });
@@ -20,9 +22,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
         const websiteData = querySnapshot.docs[0].data();
 
-        return res.status(200).json(websiteData);
+        return res
+            .status(200)
+            .json({ id: querySnapshot.docs[0].id, ...websiteData });
     } catch (error: any) {
-        console.error("Error fetching website:", error);
+        console.error('Error fetching website:', error);
         return res.status(500).json({ error: error.message });
     }
 };

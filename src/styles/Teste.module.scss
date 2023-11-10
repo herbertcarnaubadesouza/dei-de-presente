@@ -1,282 +1,245 @@
 .headerPayment {
-  background: #09a9b5;
+    background: #09a9b5;
 
-  .headerContent {
-    display: flex;
-    padding-inline: 187px;
-    max-width: 1440px;
-    margin-inline: auto;
-    text-transform: uppercase;
-    align-items: center;
-    justify-content: space-between;
-    padding-block: 25px;
+    .headerContent {
+        display: flex;
+        padding-inline: 187px;
+        max-width: 1440px;
+        margin-inline: auto;
+        text-transform: uppercase;
+        align-items: center;
+        justify-content: space-between;
+        padding-block: 25px;
 
-    @media only screen and (max-width: 768px) {
-      padding-inline: 20px;
-      padding-block: 16px;
+        @media only screen and (max-width: 768px) {
+            padding-inline: 20px;
+            padding-block: 16px;
+        }
+
+        p {
+            font-family: 'Outfit';
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 500;
+        }
+
+        img {
+            cursor: pointer;
+        }
     }
-
-    p {
-      font-family: "Outfit";
-      font-size: 20px;
-      font-style: normal;
-      font-weight: 500;
-    }
-
-    img {
-      cursor: pointer;
-    }
-  }
 }
 
 .paymentContentContainer {
-  display: flex;
+    display: grid;
+    grid-template-columns: 4fr 3fr;
 
-  @media only screen and (max-width: 768px) {
-    flex-direction: column;
-  }
+    @media only screen and (max-width: 768px) {
+        grid-template-columns: 1fr;
+    }
 }
 
 .paymentContent {
-  margin-left: max(0px, (100% - 1440px)/2);
-  width: 100%;
-  padding-right: 62px;
-  padding-left: 187px;
-  height: 100vh;
-  max-width: 766px;
+    width: 100%;
+    padding-inline: 64px;
+    justify-self: center;
+    height: 100vh;
+    max-width: 766px;
+    padding-block: 90px;
 
-  @media only screen and (max-width: 768px) {
-    padding-inline: 20px;
-    height: 650px;
-  }
+    @media only screen and (max-width: 768px) {
+        padding-inline: 20px;
+        padding-block: 56px;
+        height: 650px;
+    }
 }
 
 .titleBlock {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 90px;
-
-  .pedidoTitleBlock {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    h2 {
-      font-family: "Outfit";
-      font-size: 18px;
-      font-style: normal;
-      font-weight: 700;
-      text-transform: uppercase;
-      color: rgba(0, 0, 0, 0.87);
-
-      @media only screen and (max-width: 768px) {
-        font-size: 16px;
-      }
-    }
-
-    p {
-      color: rgba(0, 0, 0, 0.6);
-      font-family: "Outfit";
-      font-size: 16px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: normal;
-
-      @media only screen and (max-width: 768px) {
-        font-size: 14px;
-      }
-    }
-  }
-
-  .compraSeguraCard {
-    border-radius: 10px;
-    opacity: 0.87;
-    background: #09a9b5;
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding-block: 10px;
-    padding-inline: 18px;
+    justify-content: space-between;
 
-    @media only screen and (max-width: 768px) {
-      padding-inline: 5px;
-      padding-block: 7px;
-      font-size: 12px;
+    .pedidoTitleBlock {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        h2 {
+            font-family: 'Outfit';
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: rgba(0, 0, 0, 0.87);
+
+            @media only screen and (max-width: 768px) {
+                font-size: 16px;
+            }
+        }
+
+        p {
+            color: rgba(0, 0, 0, 0.6);
+            font-family: 'Outfit';
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+
+            @media only screen and (max-width: 768px) {
+                font-size: 14px;
+            }
+        }
     }
-  }
+
+    .compraSeguraCard {
+        border-radius: 10px;
+        opacity: 0.87;
+        background: #09a9b5;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding-block: 10px;
+        padding-inline: 18px;
+
+        @media only screen and (max-width: 768px) {
+            padding-inline: 5px;
+            padding-block: 7px;
+            font-size: 12px;
+        }
+    }
 }
 
 .middleContentPaymentMethod {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  gap: 32px;
-  padding-top: 25px;
-  padding-bottom: 52px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    padding-top: 25px;
+    padding-bottom: 52px;
 
-  img {
-    width: 142px;
-    height: 142px;
-    object-fit: contain;
-  }
+    img {
+        width: 142px;
+        height: 142px;
+        object-fit: contain;
+    }
 
-  h3 {
-    color: #000;
-    text-align: center;
-    font-family: "Outfit";
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-    text-transform: uppercase;
-    opacity: 0.6;
-  }
+    h3 {
+        color: #000;
+        text-align: center;
+        font-family: 'Outfit';
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+        text-transform: uppercase;
+        opacity: 0.6;
+    }
 }
 
 .resumoCompraFooter {
-  display: flex;
-  flex-direction: column;
-
-  h4 {
-    color: #000;
-    font-family: "Outfit";
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-    padding-bottom: 24px;
-  }
-
-  .footerPayments {
     display: flex;
     flex-direction: column;
-    gap: 15px;
 
-    .rowPayment {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      p {
-        color: rgba(0, 0, 0, 0.6);
-        font-family: "Outfit";
-        font-size: 15.692px;
+    h4 {
+        color: #000;
+        font-family: 'Outfit';
+        font-size: 16px;
         font-style: normal;
-        font-weight: 500;
+        font-weight: 600;
         line-height: normal;
-      }
+        padding-bottom: 24px;
     }
 
-    hr {
-      opacity: 0.35;
-      background: #000;
-      height: 2px;
+    .footerPayments {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+
+        .rowPayment {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            p {
+                color: rgba(0, 0, 0, 0.6);
+                font-family: 'Outfit';
+                font-size: 15.692px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: normal;
+            }
+        }
+
+        hr {
+            opacity: 0.35;
+            background: #000;
+            height: 2px;
+        }
     }
-  }
 }
 
 .totalPayment {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 25px;
 
-  h4 {
-    color: #000;
-    font-family: "Outfit";
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-  }
+    h4 {
+        color: #000;
+        font-family: 'Outfit';
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+    }
 }
 
 .rightSide {
-  width: 100%;
-  background: #f2f3f8;
-  height: 100vh;
-  @media only screen and (max-width: 768px) {
-    height: auto;
-    padding-bottom: 70px;
-  }
+    width: 100%;
+    background: #f2f3f8;
+    min-height: 100vh;
+    height: 100%;
+    padding-block: 90px;
+    padding-inline: 56px;
+    justify-self: center;
+
+    @media only screen and (max-width: 768px) {
+        height: auto;
+        padding-inline: 20px;
+        padding-block: 56px;
+    }
 }
 
 .rightSideContent {
-  margin-right: max(0px, (100% - 1440px)/2);
-  padding-top: 90px;
-  padding-left: 56px;
-  padding-right: 187px;
+    .titleBlockPayment {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
 
-  @media only screen and (max-width: 768px) {
-    padding-inline: 20px;
-    padding-top: 56px;
-  }
+        h2 {
+            color: #222;
+            font-family: 'Outfit';
+            font-size: 26px;
+            font-style: normal;
+            font-weight: 500;
+        }
 
-  .titleBlockPayment {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-
-    h2 {
-      color: #222;
-      font-family: "Outfit";
-      font-size: 26px;
-      font-style: normal;
-      font-weight: 500;
+        p {
+            color: #222;
+            font-family: 'Outfit';
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 400;
+            opacity: 0.6;
+        }
     }
-
-    p {
-      color: #222;
-      font-family: "Outfit";
-      font-size: 16px;
-      font-style: normal;
-      font-weight: 400;
-      opacity: 0.6;
-    }
-  }
 }
 
 .paymentMethod {
-  max-width: 570px;
-  font-size: 16px;
-  font-family: "Outfit";
-  padding-right: 167px;
-  margin-left: -16px;
+    max-width: 570px;
+    font-size: 16px;
+    font-family: 'Outfit';
 
-  @media only screen and (max-width: 768px) {
-    padding-right: 0px;
-  }
-}
-
-.buttonFooterPaymentmethod {
-  padding-right: 187px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  margin-right: max(0px, (100% - 1440px)/2);
-  max-width: 559px;
-
-  @media only screen and (max-width: 768px) {
-    padding-right: 0px;
-  }
-
-  .finishButton {
-    border-radius: 5px;
-    background: #09a9b5;
-    border: none;
-    text-transform: uppercase;
-    padding-block: 10px;
-    cursor: pointer;
-  }
-
-  .cancelButton {
-    text-transform: uppercase;
-    padding-block: 10px;
-    cursor: pointer;
-    border-radius: 5px;
-    background: none;
-    border: 1px solid #09a9b5;
-    color: #09a9b5;
-  }
+    [class^='button-container'] {
+        max-width: 100% !important;
+    }
 }

@@ -4541,6 +4541,14 @@ memoize-one@^6.0.0:
   resolved "https://registry.yarnpkg.com/memoize-one/-/memoize-one-6.0.0.tgz#b2591b871ed82948aee4727dc6abceeeac8c1045"
   integrity sha512-rkpe71W0N0c0Xz6QD0eJETuWAJGnJ9afsl1srmwPrI+yBCkge5EycXXbYRyvL29zZVUWQCY7InPRCv3GDXuZNw==
 
+mercadopago@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/mercadopago/-/mercadopago-2.0.4.tgz#68558c62e03476eee6bd32cc92102c919aacb14d"
+  integrity sha512-3lBTcJ1EMcjdyNVSoCS6Z3jIBJZAt22ANKmjew2yoN/lFCFLvf4UQBhYbKngEgSNr78Kbw3ip+fQgXgnMgY5rw==
+  dependencies:
+    node-fetch "^2.6.12"
+    uuid "^9.0.0"
+
 merge2@^1.3.0, merge2@^1.4.1:
   version "1.4.1"
   resolved "https://registry.npmjs.org/merge2/-/merge2-1.4.1.tgz"

@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: false,
-}
+    reactStrictMode: true,
+    transpilePackages: ['@mercadopago/sdk-react'],
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

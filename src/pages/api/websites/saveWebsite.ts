@@ -58,8 +58,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             .collection('Website')
             .where('slug', '==', slug)
             .get();
+        const unavailableSlugs = ['admin', 'api', 'checkout'];
 
-        if (!slugAlreadyExists.empty) {
+        if (
+            !slugAlreadyExists.empty ||
+            unavailableSlugs.includes(slug.toLowerCase())
+        ) {
             return res.status(400).json({
                 error: 'slug_already_exists',
                 message: 'Esta slug já está sendo usada. Escolha outra.',
