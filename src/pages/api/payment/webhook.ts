@@ -32,7 +32,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const body = req.body as WebhookResponse;
     const db = firebaseAdmin.firestore();
-    console.log(body);
+    console.log(`Webhook ${body.id}`);
 
     switch (body.type) {
         case 'payment':

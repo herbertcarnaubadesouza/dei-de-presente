@@ -4,7 +4,11 @@ import Sidebar from '@/components/Admin/Sidebar';
 import SidebarEdit from '@/components/Admin/SidebarEdit';
 import Modal from '@/components/Modal';
 import axios from 'axios';
-import { GetServerSidePropsContext } from 'next';
+import {
+    GetServerSideProps,
+    GetServerSidePropsContext,
+    InferGetServerSidePropsType,
+} from 'next';
 import { getSession, useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import styles from '../../styles/Dashboard.module.scss';
@@ -16,14 +20,23 @@ interface Gift {
     imageUrl: string;
 }
 
-export default function Dashboard() {
+function formatPrice(price: number) {
+    return new Intl.NumberFormat('pt-BR', {
+        style: 'currency',
+        currency: 'BRL',
+    }).format(price);
+}
+
+export default function Dashboard({
+    receivedGifts,
+    slug,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
     const [showSidebar, setShowSidebar] = useState(false);
     const [showSidebarEdit, setShowSidebarEdit] = useState(false);
     const [giftCounter, setGiftCounter] = useState(0);
     const [gifts, setGifts] = useState<Gift[]>([]);
     const [selectedGiftId, setSelectedGiftId] = useState<string | null>(null);
     const session = useSession();
-    const [slug, setSlug] = useState(null);
     const [confirmedGuestsCount, setConfirmedGuestsCount] = useState(0);
 
     const handleGiftAdded = () => {
@@ -34,22 +47,6 @@ export default function Dashboard() {
         setSelectedGiftId(id);
         setShowSidebarEdit(true);
     };
-
-    useEffect(() => {
-        const userId = session.data?.id;
-
-        fetch(`/api/websites/checkWebsites?userId=${userId}`)
-            .then((res) => res.json())
-            .then((data) => {
-                if (data.slug) {
-                    setSlug(data.slug);
-                }
-            })
-
-            .catch((error) =>
-                console.error('Failed to fetch websites:', error)
-            );
-    }, []);
 
     useEffect(() => {
         if (slug) {
@@ -74,7 +71,7 @@ export default function Dashboard() {
         };
 
         fetchGifts();
-    }, [giftCounter]);
+    }, [giftCounter, session.data?.id]);
 
     function capitalizeFirstLetter(name: string) {
         return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
@@ -146,7 +143,7 @@ export default function Dashboard() {
                                 </div>
                                 <span>Presentes recebidos</span>
                             </div>
-                            <p>R$ 2.497,90</p>
+                            <p>{formatPrice(receivedGifts.totalReceived)}</p>
                         </div>
                         <div className={styles.containerPresentes}>
                             <div className={styles.firstPresentes}>
@@ -175,12 +172,14 @@ export default function Dashboard() {
                 setShowSidebarEdit={setShowSidebarEdit}
                 onEditGift={handleEditGift}
             />
-            <Modal maxWithdrawAmount={4999.54} />
+            <Modal maxWithdrawAmount={receivedGifts.totalReceived} />
         </>
     );
 }
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
+export const getServerSideProps = (async (
+    context: GetServerSidePropsContext
+) => {
     const session = await getSession(context);
 
     if (!session) {
@@ -192,9 +191,37 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         };
     }
 
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+    const dashboardDataResponse = await fetch(
+        `${apiUrl}/api/users/getDashboardData`,
+        {
+            headers: context.req.headers as any,
+        }
+    );
+
+    const dashboardDataData = (await dashboardDataResponse.json()) as {
+        receivedGifts: {
+            gifts: Gift[];
+            totalReceived: number;
+        };
+        slug: string;
+    };
+
+    if (dashboardDataResponse.status === 404) {
+        return {
+            notFound: true,
+        };
+    }
+
     return {
         props: {
             session,
+            ...dashboardDataData,
         },
     };
-}
+}) satisfies GetServerSideProps<{
+    receivedGifts: {
+        gifts: Gift[];
+        totalReceived: number;
+    };
+}>;

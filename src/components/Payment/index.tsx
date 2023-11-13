@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
+import { defaultOptions } from '@/animation';
 import { PaymentFormDataType } from '@/types/utils';
 import { initMercadoPago, Payment, StatusScreen } from '@mercadopago/sdk-react';
 import {
@@ -7,6 +8,7 @@ import {
     TPaymentType,
 } from '@mercadopago/sdk-react/bricks/payment/type';
 import { IStatusScreenBrickCustomization } from '@mercadopago/sdk-react/bricks/statusScreen/types';
+import Lottie from 'react-lottie';
 import { Gift } from '../Web/Birthday';
 
 type PaymentMercadoPagoProps = Pick<TPaymentType, 'initialization'> & {
@@ -66,6 +68,7 @@ export default function PaymentMercadoPago({
     onProcessing: onSuccess,
 }: PaymentMercadoPagoProps) {
     const [paymentId, setPaymentId] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         initMercadoPago('TEST-962c3a0f-ac01-4efb-910c-c609b32ed98a', {
@@ -81,6 +84,7 @@ export default function PaymentMercadoPago({
 
     const handleSubmit = useCallback(
         async (formData: PaymentFormDataType) => {
+            setIsLoading(true);
             try {
                 const response = await fetch('/api/payment/process', {
                     method: 'POST',
@@ -101,9 +105,14 @@ export default function PaymentMercadoPago({
                 console.error(error);
                 setPaymentId('');
             }
+            setIsLoading(false);
         },
-        [onSuccess]
+        [gift, onSuccess, website]
     );
+
+    if (isLoading) {
+        return <Lottie options={defaultOptions} height={200} width={200} />;
+    }
 
     return paymentId.length === 0 ? (
         <Payment

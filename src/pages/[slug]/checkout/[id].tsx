@@ -73,14 +73,16 @@ export default function Checkout({
     >(undefined);
 
     function handlePaymentProcessing(paymentData: PaymentResponse) {
-        console.log('paymentData', paymentData);
         setPaymentResponse(paymentData);
     }
 
     function handleClose() {
-        const userConfirmed = window.confirm(
-            'Você tem certeza de que deseja fechar? Todos os seus dados serão perdidos!'
-        );
+        let userConfirmed = true;
+        if (!paymentResponse) {
+            userConfirmed = window.confirm(
+                'Você tem certeza de que deseja fechar? Todos os seus dados serão perdidos!'
+            );
+        }
         if (userConfirmed) {
             window.history.back();
         }
