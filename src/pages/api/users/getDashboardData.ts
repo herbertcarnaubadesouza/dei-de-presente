@@ -32,9 +32,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         if (!querySnapshot.empty) {
             const userDoc = querySnapshot.docs[0];
 
-            const approvedPayments = userDoc.data().approvedPayments as {
-                gift: Gift;
-            }[];
+            const approvedPayments =
+                (userDoc.data().approvedPayments as {
+                    gift: Gift;
+                }[]) ||
+                new Array<{
+                    gift: Gift;
+                }>();
 
             const receivedGifts = approvedPayments.reduce(
                 (
