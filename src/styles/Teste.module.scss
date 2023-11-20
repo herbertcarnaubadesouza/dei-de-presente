@@ -1,245 +1,247 @@
 .headerPayment {
-    background: #09a9b5;
+  background: #09a9b5;
 
-    .headerContent {
-        display: flex;
-        padding-inline: 187px;
-        max-width: 1440px;
-        margin-inline: auto;
-        text-transform: uppercase;
-        align-items: center;
-        justify-content: space-between;
-        padding-block: 25px;
+  .headerContent {
+    display: flex;
+    padding-inline: 187px;
+    max-width: 1440px;
+    margin-inline: auto;
+    text-transform: uppercase;
+    align-items: center;
+    justify-content: space-between;
+    padding-block: 25px;
 
-        @media only screen and (max-width: 768px) {
-            padding-inline: 20px;
-            padding-block: 16px;
-        }
-
-        p {
-            font-family: 'Outfit';
-            font-size: 20px;
-            font-style: normal;
-            font-weight: 500;
-        }
-
-        img {
-            cursor: pointer;
-        }
+    @media only screen and (max-width: 768px) {
+      padding-inline: 20px;
+      padding-block: 16px;
     }
+
+    p {
+      font-family: "Outfit";
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 500;
+      color: #fff;
+    }
+
+    img {
+      cursor: pointer;
+    }
+  }
 }
 
 .paymentContentContainer {
-    display: grid;
-    grid-template-columns: 4fr 3fr;
+  display: grid;
+  grid-template-columns: 4fr 3fr;
 
-    @media only screen and (max-width: 768px) {
-        grid-template-columns: 1fr;
-    }
+  @media only screen and (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .paymentContent {
-    width: 100%;
-    padding-inline: 64px;
-    justify-self: center;
-    height: 100vh;
-    max-width: 766px;
-    padding-block: 90px;
+  width: 100%;
+  padding-inline: 64px;
+  justify-self: center;
+  height: 100vh;
+  max-width: 766px;
+  padding-block: 90px;
 
-    @media only screen and (max-width: 768px) {
-        padding-inline: 20px;
-        padding-block: 56px;
-        height: 650px;
-    }
+  @media only screen and (max-width: 768px) {
+    padding-inline: 20px;
+    padding-block: 56px;
+    height: 650px;
+  }
 }
 
 .titleBlock {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .pedidoTitleBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    h2 {
+      font-family: "Outfit";
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: rgba(0, 0, 0, 0.87);
+
+      @media only screen and (max-width: 768px) {
+        font-size: 16px;
+      }
+    }
+
+    p {
+      color: rgba(0, 0, 0, 0.6);
+      font-family: "Outfit";
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+
+      @media only screen and (max-width: 768px) {
+        font-size: 14px;
+      }
+    }
+  }
+
+  .compraSeguraCard {
+    border-radius: 10px;
+    opacity: 0.87;
+    background: #09a9b5;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: 8px;
+    padding-block: 10px;
+    color: #fff;
+    padding-inline: 18px;
 
-    .pedidoTitleBlock {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        h2 {
-            font-family: 'Outfit';
-            font-size: 18px;
-            font-style: normal;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: rgba(0, 0, 0, 0.87);
-
-            @media only screen and (max-width: 768px) {
-                font-size: 16px;
-            }
-        }
-
-        p {
-            color: rgba(0, 0, 0, 0.6);
-            font-family: 'Outfit';
-            font-size: 16px;
-            font-style: normal;
-            font-weight: 400;
-            line-height: normal;
-
-            @media only screen and (max-width: 768px) {
-                font-size: 14px;
-            }
-        }
+    @media only screen and (max-width: 768px) {
+      padding-inline: 5px;
+      padding-block: 7px;
+      font-size: 12px;
     }
-
-    .compraSeguraCard {
-        border-radius: 10px;
-        opacity: 0.87;
-        background: #09a9b5;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        padding-block: 10px;
-        padding-inline: 18px;
-
-        @media only screen and (max-width: 768px) {
-            padding-inline: 5px;
-            padding-block: 7px;
-            font-size: 12px;
-        }
-    }
+  }
 }
 
 .middleContentPaymentMethod {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    gap: 32px;
-    padding-top: 25px;
-    padding-bottom: 52px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  padding-top: 25px;
+  padding-bottom: 52px;
 
-    img {
-        width: 142px;
-        height: 142px;
-        object-fit: contain;
-    }
+  img {
+    width: 142px;
+    height: 142px;
+    object-fit: contain;
+  }
 
-    h3 {
-        color: #000;
-        text-align: center;
-        font-family: 'Outfit';
-        font-size: 18px;
-        font-style: normal;
-        font-weight: 600;
-        line-height: normal;
-        text-transform: uppercase;
-        opacity: 0.6;
-    }
+  h3 {
+    color: #000;
+    text-align: center;
+    font-family: "Outfit";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-transform: uppercase;
+    opacity: 0.6;
+  }
 }
 
 .resumoCompraFooter {
+  display: flex;
+  flex-direction: column;
+
+  h4 {
+    color: #000;
+    font-family: "Outfit";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    padding-bottom: 24px;
+  }
+
+  .footerPayments {
     display: flex;
     flex-direction: column;
+    gap: 15px;
 
-    h4 {
-        color: #000;
-        font-family: 'Outfit';
-        font-size: 16px;
+    .rowPayment {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      p {
+        color: rgba(0, 0, 0, 0.6);
+        font-family: "Outfit";
+        font-size: 15.692px;
         font-style: normal;
-        font-weight: 600;
+        font-weight: 500;
         line-height: normal;
-        padding-bottom: 24px;
+      }
     }
 
-    .footerPayments {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-
-        .rowPayment {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-
-            p {
-                color: rgba(0, 0, 0, 0.6);
-                font-family: 'Outfit';
-                font-size: 15.692px;
-                font-style: normal;
-                font-weight: 500;
-                line-height: normal;
-            }
-        }
-
-        hr {
-            opacity: 0.35;
-            background: #000;
-            height: 2px;
-        }
+    hr {
+      opacity: 0.35;
+      background: #000;
+      height: 2px;
     }
+  }
 }
 
 .totalPayment {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-top: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 25px;
 
-    h4 {
-        color: #000;
-        font-family: 'Outfit';
-        font-size: 16px;
-        font-style: normal;
-        font-weight: 600;
-        line-height: normal;
-    }
+  h4 {
+    color: #000;
+    font-family: "Outfit";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
 }
 
 .rightSide {
-    width: 100%;
-    background: #f2f3f8;
-    min-height: 100vh;
-    height: 100%;
-    padding-block: 90px;
-    padding-inline: 56px;
-    justify-self: center;
+  width: 100%;
+  background: #f2f3f8;
+  min-height: 100vh;
+  height: 100%;
+  padding-block: 90px;
+  padding-inline: 56px;
+  justify-self: center;
 
-    @media only screen and (max-width: 768px) {
-        height: auto;
-        padding-inline: 20px;
-        padding-block: 56px;
-    }
+  @media only screen and (max-width: 768px) {
+    height: auto;
+    padding-inline: 20px;
+    padding-block: 56px;
+  }
 }
 
 .rightSideContent {
-    .titleBlockPayment {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
+  .titleBlockPayment {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 
-        h2 {
-            color: #222;
-            font-family: 'Outfit';
-            font-size: 26px;
-            font-style: normal;
-            font-weight: 500;
-        }
-
-        p {
-            color: #222;
-            font-family: 'Outfit';
-            font-size: 16px;
-            font-style: normal;
-            font-weight: 400;
-            opacity: 0.6;
-        }
+    h2 {
+      color: #222;
+      font-family: "Outfit";
+      font-size: 26px;
+      font-style: normal;
+      font-weight: 500;
     }
+
+    p {
+      color: #222;
+      font-family: "Outfit";
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      opacity: 0.6;
+    }
+  }
 }
 
 .paymentMethod {
-    max-width: 570px;
-    font-size: 16px;
-    font-family: 'Outfit';
+  max-width: 570px;
+  font-size: 16px;
+  font-family: "Outfit";
 
-    [class^='button-container'] {
-        max-width: 100% !important;
-    }
+  [class^="button-container"] {
+    max-width: 100% !important;
+  }
 }
