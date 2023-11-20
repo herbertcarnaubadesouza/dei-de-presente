@@ -44,7 +44,7 @@ export default function CustomizeWedding() {
   today.setDate(today.getDate() + 1);
   const nextDay = today.toISOString().split("T")[0];
 
-  const handleCepChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleCepChange = async (e: ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value;
 
     value = value.replace(/\D/g, "");
@@ -56,6 +56,17 @@ export default function CustomizeWedding() {
     }
 
     setCep(value.substring(0, 9));
+
+    try {
+      const response = await axios.get(
+        `https://viacep.com.br/ws/${value.substring(0, 9)}/json/`
+      );
+
+      setNomeRua(response.data.logradouro);
+      setComplementoRua(response.data.complemento);
+    } catch (error) {
+      console.error("Error fetching address data", error);
+    }
   };
 
   const handlePreviewClick = () => {
@@ -908,6 +919,15 @@ export default function CustomizeWedding() {
           {activeAccordion === "LocalDoEvento" && (
             <div className={styles.accordionContent}>
               <div className={styles.inputAccordion}>
+                <label>Digite o CEP</label>
+                <input
+                  value={cep}
+                  onChange={handleCepChange}
+                  placeholder="80240-031"
+                  type="text"
+                />
+              </div>
+              <div className={styles.inputAccordion}>
                 <label>Nome da rua</label>
                 <input
                   placeholder="Avenida Iguaçu"
@@ -932,15 +952,6 @@ export default function CustomizeWedding() {
                   type="number"
                   value={numeroRua}
                   onChange={handleNumeroDaRuaChange}
-                />
-              </div>
-              <div className={styles.inputAccordion}>
-                <label>Digite o CEP</label>
-                <input
-                  value={cep}
-                  onChange={handleCepChange}
-                  placeholder="80240-031"
-                  type="text"
                 />
               </div>
               <div className={styles.inputAccordion}>
