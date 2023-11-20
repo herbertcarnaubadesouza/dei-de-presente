@@ -81,7 +81,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 22px;
-  justify-content: flex-start;
+  justify-content: center;
 
   @media only screen and (max-width: 768px) {
     padding-inline: 20px;
@@ -106,6 +106,10 @@
     width: 168px;
     gap: 20px;
     height: 325px;
+  }
+
+  @media only screen and (max-width: 414px) {
+    width: 158px;
   }
 
   img {

@@ -1,169 +1,173 @@
 .divisorGiftsSection {
-    display: flex;
-    margin-top: 171px;
-    align-items: center;
-    gap: 24px;
-    justify-content: center;
+  display: flex;
+  margin-top: 171px;
+  align-items: center;
+  gap: 24px;
+  justify-content: center;
 
-    hr {
-        border: none;
-        width: 124px;
-        height: 1px;
-        background: #cc7028;
-
-        @media only screen and (max-width: 768px) {
-            width: 94px;
-        }
-    }
-
-    p {
-        color: #cc7028;
-        text-align: center;
-        font-family: 'Noto Serif';
-        font-size: 20px;
-        font-style: normal;
-        font-weight: 600;
-        text-transform: uppercase;
-
-        @media only screen and (max-width: 768px) {
-            font-size: 14px;
-            padding: 0px;
-            text-align: center;
-        }
-    }
+  hr {
+    border: none;
+    width: 124px;
+    height: 1px;
+    background: #cc7028;
 
     @media only screen and (max-width: 768px) {
-        margin-top: 64px;
+      width: 94px;
     }
+  }
+
+  p {
+    color: #cc7028;
+    text-align: center;
+    font-family: "Noto Serif";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    text-transform: uppercase;
+
+    @media only screen and (max-width: 768px) {
+      font-size: 14px;
+      padding: 0px;
+      text-align: center;
+    }
+  }
+
+  @media only screen and (max-width: 768px) {
+    margin-top: 64px;
+  }
 }
 
 .titleGiftsSection {
-    max-width: 806px;
-    margin-inline: auto;
-    margin-top: 57px;
-    margin-bottom: 125px;
+  max-width: 806px;
+  margin-inline: auto;
+  margin-top: 57px;
+  margin-bottom: 125px;
+
+  @media only screen and (max-width: 768px) {
+    margin-top: 25px;
+    margin-bottom: 48px;
+  }
+
+  h2 {
+    color: #0e1418;
+    text-align: center;
+    font-family: "Noto Serif";
+    font-size: 56px;
+    font-style: normal;
+    font-weight: 600;
+    text-transform: uppercase;
 
     @media only screen and (max-width: 768px) {
-        margin-top: 25px;
-        margin-bottom: 48px;
+      font-size: 28px;
+      line-height: 39.2px;
     }
-
-    h2 {
-        color: #0e1418;
-        text-align: center;
-        font-family: 'Noto Serif';
-        font-size: 56px;
-        font-style: normal;
-        font-weight: 600;
-        text-transform: uppercase;
-
-        @media only screen and (max-width: 768px) {
-            font-size: 28px;
-            line-height: 39.2px;
-        }
-    }
+  }
 }
 
 .gifts {
-    color: #0e1418;
-    max-width: 1440px;
-    margin-inline: auto;
+  color: #0e1418;
+  max-width: 1440px;
+  margin-inline: auto;
 }
 
 .giftsListContainer {
-    max-width: 1440px;
-    margin-inline: auto;
-    padding-inline: 187px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 22px;
-    justify-content: flex-start;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: 187px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 22px;
+  justify-content: center;
 
-    @media only screen and (max-width: 768px) {
-        padding-inline: 20px;
-    }
+  @media only screen and (max-width: 768px) {
+    padding-inline: 20px;
+  }
 }
 
 .card {
-    border-radius: 4px;
-    background: #f7f7f7;
-    padding-top: 22px;
-    padding-left: 22px;
-    padding-right: 22px;
-    padding-bottom: 16px;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    gap: 33px;
+  border-radius: 4px;
+  background: #f7f7f7;
+  padding-top: 22px;
+  padding-left: 22px;
+  padding-right: 22px;
+  padding-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 33px;
+
+  @media only screen and (max-width: 768px) {
+    padding-right: 18px;
+    padding-left: 18px;
+    width: 168px;
+    gap: 20px;
+    height: 325px;
+  }
+
+  @media only screen and (max-width: 414px) {
+    width: 158px;
+  }
+
+  img {
+    width: 201.255px;
+    height: 192.87px;
+    object-fit: cover;
 
     @media only screen and (max-width: 768px) {
-        padding-right: 18px;
-        padding-left: 18px;
-        width: 168px;
-        gap: 20px;
-        height: 325px;
+      width: 131.87px;
+      height: 126.375px;
+      border-radius: 1.832px;
     }
+  }
 
-    img {
-        width: 201.255px;
-        height: 192.87px;
-        object-fit: cover;
+  p {
+    text-transform: uppercase;
+    color: #0e1418;
+    font-size: 13.976px;
+    font-style: normal;
+    font-weight: 400;
+  }
 
-        @media only screen and (max-width: 768px) {
-            width: 131.87px;
-            height: 126.375px;
-            border-radius: 1.832px;
-        }
+  span {
+    color: #0e1418;
+    font-size: 16.771px;
+    font-style: normal;
+    font-weight: 600;
+  }
+
+  button {
+    border-radius: 88px;
+    background: #cc7028;
+    border: none;
+    text-transform: uppercase;
+    padding-block: 13px;
+    cursor: pointer;
+
+    @media only screen and (max-width: 768px) {
+      padding-block: 9px;
     }
-
-    p {
-        text-transform: uppercase;
-        color: #0e1418;
-        font-size: 13.976px;
-        font-style: normal;
-        font-weight: 400;
-    }
-
-    span {
-        color: #0e1418;
-        font-size: 16.771px;
-        font-style: normal;
-        font-weight: 600;
-    }
-
-    button {
-        border-radius: 88px;
-        background: #cc7028;
-        border: none;
-        text-transform: uppercase;
-        padding-block: 13px;
-        cursor: pointer;
-
-        @media only screen and (max-width: 768px) {
-            padding-block: 9px;
-        }
-    }
+  }
 }
 
 .pagination {
-    color: #cc7028;
-    display: flex;
-    margin-inline: auto;
-    width: 100%;
-    justify-content: center;
-    margin-top: 52px;
-    margin-bottom: 100px;
-    gap: 35px;
-    cursor: pointer;
-    align-items: center;
-    font-family: 'Poppins';
+  color: #cc7028;
+  display: flex;
+  margin-inline: auto;
+  width: 100%;
+  justify-content: center;
+  margin-top: 52px;
+  margin-bottom: 100px;
+  gap: 35px;
+  cursor: pointer;
+  align-items: center;
+  font-family: "Poppins";
 
-    svg {
-        fill: #cc7028 !important;
-    }
+  svg {
+    fill: #cc7028 !important;
+  }
 }
 
 .active {
-    background: rgba(204, 112, 40, 0.2);
-    padding: 12px;
+  background: rgba(204, 112, 40, 0.2);
+  padding: 12px;
 }
