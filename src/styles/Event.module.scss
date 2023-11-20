@@ -58,6 +58,7 @@
     span {
       display: flex;
       justify-content: center;
+      color: #fff;
       margin-block: auto;
       padding: 12px;
       margin-inline: auto;
@@ -73,6 +74,7 @@
     span {
       display: flex;
       justify-content: center;
+      color: #fff;
       margin-block: auto;
       padding: 12px;
       margin-inline: auto;
@@ -125,6 +127,7 @@
     padding: 16px;
     border: none;
     cursor: pointer;
+    color: #fff;
 
     @media only screen and (max-width: 768px) {
       max-width: 120px;
