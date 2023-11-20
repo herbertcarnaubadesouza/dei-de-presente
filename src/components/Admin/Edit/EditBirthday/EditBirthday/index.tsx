@@ -248,7 +248,7 @@ export default function BirthdayForEdit({
                   <div className={styles.dataHora}>
                     <p>Endereço</p>
                     <span>
-                      {nomeRua && complemento && numeroRua
+                      {nomeRua || complemento || numeroRua
                         ? `${nomeRua}, ${complemento} ${numeroRua}, ${cep}`
                         : "Rua das laranjeiras, Lote 1420/1520 chácara Recanto dos sabiás, Brasília - DF"}
                     </span>
