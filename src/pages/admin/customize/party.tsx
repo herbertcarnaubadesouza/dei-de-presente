@@ -44,7 +44,8 @@ export default function CustomizeWedding() {
   const [fotoLocalUrl, setFotoLocalUrl] = useState<string | null>(null);
   const [cep, setCep] = useState("");
   const [loading, setLoading] = useState(false);
-  const [filledIndices, setFilledIndices] = useState(new Array(6).fill(false));
+  const [filledIndices, setFilledIndices] = useState(new Array(12).fill(false));
+
   const session = useSession();
 
   const today = new Date();
@@ -130,6 +131,7 @@ export default function CustomizeWedding() {
     }
 
     setIsFileSelected(false);
+    window.location.reload();
   };
 
   const handleClick = () => {
@@ -205,6 +207,12 @@ export default function CustomizeWedding() {
       3: setFotoMosaico4Url,
       4: setFotoMosaico5Url,
       5: setFotoMosaico6Url,
+      6: setFotoMosaico7Url,
+      7: setFotoMosaico8Url,
+      8: setFotoMosaico9Url,
+      9: setFotoMosaico10Url,
+      10: setFotoMosaico11Url,
+      11: setFotoMosaico12Url,
     };
 
     const fileName = localStorage.getItem(`fotoMosaico${index + 1}Url`);
@@ -219,6 +227,7 @@ export default function CustomizeWedding() {
         const newFilledIndices = [...filledIndices];
         newFilledIndices[index] = false;
         setFilledIndices(newFilledIndices);
+        localStorage.setItem("filledIndices", JSON.stringify(newFilledIndices));
       }
       window.location.reload();
       await axios.post("/api/upload/delete", { fileName });
@@ -261,7 +270,9 @@ export default function CustomizeWedding() {
       return;
     }
 
-    const nextUnfilledIndex = filledIndices.findIndex((isFilled) => !isFilled);
+    const nextUnfilledIndex = filledIndices.findIndex(
+      (isFilled: boolean) => !isFilled
+    );
 
     if (nextUnfilledIndex === -1) return;
 
@@ -272,6 +283,7 @@ export default function CustomizeWedding() {
       const newFilledIndices = [...filledIndices];
       newFilledIndices[nextUnfilledIndex] = true;
       setFilledIndices(newFilledIndices);
+      localStorage.setItem("filledIndices", JSON.stringify(newFilledIndices));
     }
   };
 
@@ -719,6 +731,37 @@ export default function CustomizeWedding() {
     const { event } = router.query;
     const userId = session.data?.id;
 
+    const newFotoBannerUrl =
+      bannerUrl || localStorage.getItem("fotoBanner") || null;
+    const newfotoEventoUrl =
+      fotoEventoUrl || localStorage.getItem("fotoEventoUrl") || null;
+    const newfotoLocalUrl =
+      fotoLocalUrl || localStorage.getItem("fotoLocalUrl") || null;
+    const newfotoMosaico1Url =
+      fotoMosaico1Url || localStorage.getItem("fotoMosaico1Url") || null;
+    const newfotoMosaico2Url =
+      fotoMosaico2Url || localStorage.getItem("fotoMosaico2Url") || null;
+    const newfotoMosaico3Url =
+      fotoMosaico3Url || localStorage.getItem("fotoMosaico3Url") || null;
+    const newfotoMosaico4Url =
+      fotoMosaico4Url || localStorage.getItem("fotoMosaico4Url") || null;
+    const newfotoMosaico5Url =
+      fotoMosaico5Url || localStorage.getItem("fotoMosaico5Url") || null;
+    const newfotoMosaico6Url =
+      fotoMosaico6Url || localStorage.getItem("fotoMosaico6Url") || null;
+    const newfotoMosaico7Url =
+      fotoMosaico7Url || localStorage.getItem("fotoMosaico7Url") || null;
+    const newfotoMosaico8Url =
+      fotoMosaico8Url || localStorage.getItem("fotoMosaico8Url") || null;
+    const newfotoMosaico9Url =
+      fotoMosaico9Url || localStorage.getItem("fotoMosaico9Url") || null;
+    const newfotoMosaico10Url =
+      fotoMosaico10Url || localStorage.getItem("fotoMosaico10Url") || null;
+    const newfotoMosaico11Url =
+      fotoMosaico11Url || localStorage.getItem("fotoMosaico11Url") || null;
+    const newfotoMosaico12Url =
+      fotoMosaico12Url || localStorage.getItem("fotoMosaico12Url") || null;
+
     const fields = {
       userId,
       nomeEvento,
@@ -732,21 +775,21 @@ export default function CustomizeWedding() {
       complemento,
       numeroRua,
       nextHandlerIndex,
-      bannerUrl,
-      fotoEventoUrl,
-      fotoMosaico1Url,
-      fotoMosaico2Url,
-      fotoMosaico3Url,
-      fotoMosaico4Url,
-      fotoMosaico5Url,
-      fotoMosaico6Url,
-      fotoMosaico7Url,
-      fotoMosaico8Url,
-      fotoMosaico9Url,
-      fotoMosaico10Url,
-      fotoMosaico11Url,
-      fotoMosaico12Url,
-      fotoLocalUrl,
+      bannerUrl: newFotoBannerUrl,
+      fotoEventoUrl: newfotoEventoUrl,
+      fotoMosaico1Url: newfotoMosaico1Url,
+      fotoMosaico2Url: newfotoMosaico2Url,
+      fotoMosaico3Url: newfotoMosaico3Url,
+      fotoMosaico4Url: newfotoMosaico4Url,
+      fotoMosaico5Url: newfotoMosaico5Url,
+      fotoMosaico6Url: newfotoMosaico6Url,
+      fotoMosaico7Url: newfotoMosaico7Url,
+      fotoMosaico8Url: newfotoMosaico8Url,
+      fotoMosaico9Url: newfotoMosaico9Url,
+      fotoMosaico10Url: newfotoMosaico10Url,
+      fotoMosaico11Url: newfotoMosaico11Url,
+      fotoMosaico12Url: newfotoMosaico12Url,
+      fotoLocalUrl: newfotoLocalUrl,
       event,
       cep,
     };
@@ -810,6 +853,12 @@ export default function CustomizeWedding() {
     handleImageFotosEvento4,
     handleImageFotosEvento5,
     handleImageFotosEvento6,
+    handleImageFotosEvento7,
+    handleImageFotosEvento8,
+    handleImageFotosEvento9,
+    handleImageFotosEvento10,
+    handleImageFotosEvento11,
+    handleImageFotosEvento12,
   ];
 
   useEffect(() => {
@@ -819,6 +868,13 @@ export default function CustomizeWedding() {
       document.documentElement.style.overflow = "auto";
     }
   }, [loading]);
+
+  useEffect(() => {
+    const storedIndices = localStorage.getItem("filledIndices");
+    if (storedIndices) {
+      setFilledIndices(JSON.parse(storedIndices));
+    }
+  }, []);
 
   return (
     <>
@@ -968,7 +1024,7 @@ export default function CustomizeWedding() {
                 </label>
                 <input
                   type="file"
-                  accept=" .jpeg, .jpg, .png, .webp"
+                  accept=".jpg, .png, .webp"
                   onChange={handleImageBannerChange}
                   id="fileInput"
                   style={{ display: "none" }}
@@ -977,7 +1033,7 @@ export default function CustomizeWedding() {
                   Escolher arquivo
                 </button>
                 <p className={styles.UploadInfo}>
-                  Formatos aceitos PDF, JPEG e PNG
+                  Formatos aceitos PDF, JPG e PNG
                 </p>
               </div>
 

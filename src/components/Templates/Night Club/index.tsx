@@ -60,11 +60,6 @@ export default function NightClub({
   fotoLocalUrl,
   filledIndices,
 }: NighClubInterface) {
-  const initialStateBanner =
-    typeof window !== "undefined"
-      ? bannerUrl || localStorage.getItem("fotoBanner") || null
-      : null;
-
   const initialStateFotoEvento =
     typeof window !== "undefined"
       ? fotoEventoUrl || localStorage.getItem("fotoEventoUrl") || null
@@ -134,7 +129,6 @@ export default function NightClub({
     typeof window !== "undefined"
       ? fotoMosaico12Url || localStorage.getItem("fotoMosaico12Url") || null
       : null;
-
   const [currentPage, setCurrentPage] = useState(1);
   const giftsPerPage = 12;
   const [acompanhantes, setAcompanhantes] = useState(0);
@@ -142,64 +136,62 @@ export default function NightClub({
   const indexOfLastGift = currentPage * giftsPerPage;
   const indexOfFirstGift = indexOfLastGift - giftsPerPage;
   const [mapUrl, setMapUrl] = useState("");
-  const [internalBannerUrl, setInternalBannerUrl] = useState<string | null>(
-    initialStateBanner
-  );
+  const [internalBannerUrl, setInternalBannerUrl] = useState<string | null>();
 
   const [internalFotoEventoUrl, setInternalFotoEventoUrl] = useState<
     string | null
-  >(initialStateFotoEvento);
+  >();
 
   const [internalFotoLocalUrl, setInternalFotoLocalUrl] = useState<
     string | null
-  >(initialStateFotoLocalUrl);
+  >();
 
   const [internalMosaico1lUrl, setInternalMosaico1Url] = useState<
     string | null
-  >(initialStateMosaico1);
+  >();
   const [internalMosaico2lUrl, setInternalMosaico2Url] = useState<
     string | null
-  >(initialStateMosaico2);
+  >();
 
   const [internalMosaico3lUrl, setInternalMosaico3Url] = useState<
     string | null
-  >(initialStateMosaico3);
+  >();
 
   const [internalMosaico4lUrl, setInternalMosaico4Url] = useState<
     string | null
-  >(initialStateMosaico4);
+  >();
 
   const [internalMosaico5lUrl, setInternalMosaico5Url] = useState<
     string | null
-  >(initialStateMosaico5);
+  >();
 
   const [internalMosaico6lUrl, setInternalMosaico6Url] = useState<
     string | null
-  >(initialStateMosaico6);
+  >();
 
   const [internalMosaico7lUrl, setInternalMosaico7Url] = useState<
     string | null
-  >(initialStateMosaico7);
+  >();
 
   const [internalMosaico8lUrl, setInternalMosaico8Url] = useState<
     string | null
-  >(initialStateMosaico8);
+  >();
 
   const [internalMosaico9lUrl, setInternalMosaico9Url] = useState<
     string | null
-  >(initialStateMosaico9);
+  >();
 
   const [internalMosaico10lUrl, setInternalMosaico10Url] = useState<
     string | null
-  >(initialStateMosaico10);
+  >();
 
   const [internalMosaico11lUrl, setInternalMosaico11Url] = useState<
     string | null
-  >(initialStateMosaico11);
+  >();
 
   const [internalMosaico12lUrl, setInternalMosaico12Url] = useState<
     string | null
-  >(initialStateMosaico12);
+  >();
 
   const [days, setDays] = useState(0);
   const [hours, setHours] = useState(0);
@@ -221,9 +213,7 @@ export default function NightClub({
     if (!bannerUrl) {
       const storedBannerUrl = localStorage.getItem("fotoBanner");
       if (storedBannerUrl) {
-        setInternalBannerUrl(`/temp/${storedBannerUrl}`);
-      } else {
-        setInternalBannerUrl(`/banner-website-night-club.webp`);
+        setInternalBannerUrl(`${storedBannerUrl}`);
       }
     } else {
       setInternalBannerUrl(bannerUrl);
@@ -234,7 +224,7 @@ export default function NightClub({
     if (!fotoEventoUrl) {
       const storedEventoUrl = localStorage.getItem("fotoEventoUrl");
       if (storedEventoUrl) {
-        setInternalFotoEventoUrl(`/temp/${storedEventoUrl}`);
+        setInternalFotoEventoUrl(`${storedEventoUrl}`);
       } else {
         setInternalFotoEventoUrl(`/background-alcool.png`);
       }
@@ -245,7 +235,7 @@ export default function NightClub({
     if (!fotoMosaico1Url) {
       const storedMosaico1Url = localStorage.getItem("fotoMosaico1Url");
       if (storedMosaico1Url) {
-        setInternalMosaico1Url(`/temp/${storedMosaico1Url}`);
+        setInternalMosaico1Url(`${storedMosaico1Url}`);
       }
     } else {
       setInternalMosaico1Url(fotoMosaico1Url);
@@ -254,7 +244,7 @@ export default function NightClub({
     if (!fotoMosaico2Url) {
       const storedMosaico2Url = localStorage.getItem("fotoMosaico2Url");
       if (storedMosaico2Url) {
-        setInternalMosaico2Url(`/temp/${storedMosaico2Url}`);
+        setInternalMosaico2Url(`${storedMosaico2Url}`);
       }
     } else {
       setInternalMosaico2Url(fotoMosaico2Url);
@@ -263,7 +253,7 @@ export default function NightClub({
     if (!fotoMosaico3Url) {
       const storedMosaico3Url = localStorage.getItem("fotoMosaico3Url");
       if (storedMosaico3Url) {
-        setInternalMosaico3Url(`/temp/${storedMosaico3Url}`);
+        setInternalMosaico3Url(`${storedMosaico3Url}`);
       }
     } else {
       setInternalMosaico3Url(fotoMosaico3Url);
@@ -272,7 +262,7 @@ export default function NightClub({
     if (!fotoMosaico4Url) {
       const storedMosaico4Url = localStorage.getItem("fotoMosaico4Url");
       if (storedMosaico4Url) {
-        setInternalMosaico4Url(`/temp/${storedMosaico4Url}`);
+        setInternalMosaico4Url(`${storedMosaico4Url}`);
       }
     } else {
       setInternalMosaico4Url(fotoMosaico4Url);
@@ -281,7 +271,7 @@ export default function NightClub({
     if (!fotoMosaico5Url) {
       const storedMosaico5Url = localStorage.getItem("fotoMosaico5Url");
       if (storedMosaico5Url) {
-        setInternalMosaico5Url(`/temp/${storedMosaico5Url}`);
+        setInternalMosaico5Url(`${storedMosaico5Url}`);
       }
     } else {
       setInternalMosaico5Url(fotoMosaico5Url);
@@ -290,7 +280,7 @@ export default function NightClub({
     if (!fotoMosaico6Url) {
       const fotoMosaico6Url = localStorage.getItem("fotoMosaico6Url");
       if (fotoMosaico6Url) {
-        setInternalMosaico6Url(`/temp/${fotoMosaico6Url}`);
+        setInternalMosaico6Url(`${fotoMosaico6Url}`);
       }
     } else {
       setInternalMosaico6Url(fotoMosaico6Url);
@@ -299,7 +289,7 @@ export default function NightClub({
     if (!fotoMosaico7Url) {
       const fotoMosaico7Url = localStorage.getItem("fotoMosaico7Url");
       if (fotoMosaico7Url) {
-        setInternalMosaico7Url(`/temp/${fotoMosaico7Url}`);
+        setInternalMosaico7Url(`${fotoMosaico7Url}`);
       }
     } else {
       setInternalMosaico7Url(fotoMosaico7Url);
@@ -308,7 +298,7 @@ export default function NightClub({
     if (!fotoMosaico8Url) {
       const fotoMosaico8Url = localStorage.getItem("fotoMosaico8Url");
       if (fotoMosaico8Url) {
-        setInternalMosaico8Url(`/temp/${fotoMosaico8Url}`);
+        setInternalMosaico8Url(`${fotoMosaico8Url}`);
       }
     } else {
       setInternalMosaico8Url(fotoMosaico8Url);
@@ -317,7 +307,7 @@ export default function NightClub({
     if (!fotoMosaico9Url) {
       const fotoMosaico9Url = localStorage.getItem("fotoMosaico9Url");
       if (fotoMosaico9Url) {
-        setInternalMosaico9Url(`/temp/${fotoMosaico9Url}`);
+        setInternalMosaico9Url(`${fotoMosaico9Url}`);
       }
     } else {
       setInternalMosaico9Url(fotoMosaico9Url);
@@ -326,7 +316,7 @@ export default function NightClub({
     if (!fotoMosaico10Url) {
       const fotoMosaico10Url = localStorage.getItem("fotoMosaico10Url");
       if (fotoMosaico10Url) {
-        setInternalMosaico10Url(`/temp/${fotoMosaico10Url}`);
+        setInternalMosaico10Url(`${fotoMosaico10Url}`);
       }
     } else {
       setInternalMosaico10Url(fotoMosaico10Url);
@@ -335,7 +325,7 @@ export default function NightClub({
     if (!fotoMosaico11Url) {
       const fotoMosaico11Url = localStorage.getItem("fotoMosaico11Url");
       if (fotoMosaico11Url) {
-        setInternalMosaico11Url(`/temp/${fotoMosaico11Url}`);
+        setInternalMosaico11Url(`${fotoMosaico11Url}`);
       }
     } else {
       setInternalMosaico11Url(fotoMosaico11Url);
@@ -344,7 +334,7 @@ export default function NightClub({
     if (!fotoMosaico12Url) {
       const fotoMosaico12Url = localStorage.getItem("fotoMosaico12Url");
       if (fotoMosaico12Url) {
-        setInternalMosaico12Url(`/temp/${fotoMosaico12Url}`);
+        setInternalMosaico12Url(`${fotoMosaico12Url}`);
       }
     } else {
       setInternalMosaico12Url(fotoMosaico12Url);
@@ -353,7 +343,7 @@ export default function NightClub({
     if (!fotoLocalUrl) {
       const fotoLocalUrl = localStorage.getItem("fotoLocalUrl");
       if (fotoLocalUrl) {
-        setInternalFotoLocalUrl(`/temp/${fotoLocalUrl}`);
+        setInternalFotoLocalUrl(`${fotoLocalUrl}`);
       } else {
         setInternalFotoLocalUrl(`/night-club-confirmation-background.webp`);
       }
@@ -425,6 +415,13 @@ export default function NightClub({
     const newUrl = `https://www.google.com/maps?q=${encodedAddress}&output=embed`;
     setMapUrl(newUrl);
   }, [nomeRua, numeroRua, cep]);
+
+  useEffect(() => {
+    // if (!bannerUrl) {
+    setInternalBannerUrl(localStorage.getItem("fotoBanner"));
+    console.log(internalBannerUrl);
+    // }
+  }, []);
 
   return (
     <>
@@ -583,25 +580,25 @@ export default function NightClub({
               <img
                 className={styles.photo4}
                 src={
+                  internalMosaico3lUrl
+                    ? internalMosaico3lUrl
+                    : "/night-club-3.webp"
+                }
+              />
+              <img
+                className={styles.photo5}
+                src={
                   internalMosaico4lUrl
                     ? internalMosaico4lUrl
                     : "/night-club-4.webp"
                 }
               />
               <img
-                className={styles.photo5}
+                className={styles.photo6}
                 src={
                   internalMosaico5lUrl
                     ? internalMosaico5lUrl
                     : "/night-club-5.webp"
-                }
-              />
-              <img
-                className={styles.photo6}
-                src={
-                  internalMosaico6lUrl
-                    ? internalMosaico6lUrl
-                    : "/night-club-6.webp"
                 }
               />
             </div>
@@ -609,13 +606,21 @@ export default function NightClub({
               <img
                 className={styles.photo7}
                 src={
+                  internalMosaico6lUrl
+                    ? internalMosaico6lUrl
+                    : "/night-club-6.webp"
+                }
+              />
+              <img
+                className={styles.photo8}
+                src={
                   internalMosaico7lUrl
                     ? internalMosaico7lUrl
                     : "/night-club-7.webp"
                 }
               />
               <img
-                className={styles.photo8}
+                className={styles.photo9}
                 src={
                   internalMosaico8lUrl
                     ? internalMosaico8lUrl
@@ -623,7 +628,7 @@ export default function NightClub({
                 }
               />
               <img
-                className={styles.photo9}
+                className={styles.photo10}
                 src={
                   internalMosaico9lUrl
                     ? internalMosaico9lUrl
@@ -631,7 +636,7 @@ export default function NightClub({
                 }
               />
               <img
-                className={styles.photo10}
+                className={styles.photo11}
                 src={
                   internalMosaico10lUrl
                     ? internalMosaico10lUrl
@@ -639,7 +644,7 @@ export default function NightClub({
                 }
               />
               <img
-                className={styles.photo11}
+                className={styles.photo12}
                 src={
                   internalMosaico11lUrl
                     ? internalMosaico11lUrl
@@ -647,19 +652,11 @@ export default function NightClub({
                 }
               />
               <img
-                className={styles.photo12}
+                className={styles.photo3}
                 src={
                   internalMosaico12lUrl
                     ? internalMosaico12lUrl
                     : "/night-club-1.webp"
-                }
-              />
-              <img
-                className={styles.photo3}
-                src={
-                  internalMosaico3lUrl
-                    ? internalMosaico3lUrl
-                    : "/night-club-3.webp"
                 }
               />
             </div>
