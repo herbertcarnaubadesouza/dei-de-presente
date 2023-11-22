@@ -948,7 +948,7 @@ export default function CustomizeWedding() {
                     `fotosEvento${item}`
                   );
                   const imageSource = fileNameFromLocalStorage
-                    ? `/temp/${fileNameFromLocalStorage}`
+                    ? `${fileNameFromLocalStorage}`
                     : "/defaultMarried.png";
                   return (
                     <div key={index} className={styles.gridImage}>

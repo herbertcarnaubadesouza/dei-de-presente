@@ -29,6 +29,7 @@ interface NighClubInterface {
   fotoMosaico11Url: string | null;
   fotoMosaico12Url: string | null;
   fotoLocalUrl: string | null;
+  filledIndices: any[];
 }
 
 export default function NightClub({
@@ -57,6 +58,7 @@ export default function NightClub({
   fotoMosaico11Url,
   fotoMosaico12Url,
   fotoLocalUrl,
+  filledIndices,
 }: NighClubInterface) {
   const initialStateBanner =
     typeof window !== "undefined"
@@ -227,6 +229,8 @@ export default function NightClub({
       setInternalBannerUrl(bannerUrl);
     }
 
+    console.log(fotoMosaico1Url);
+
     if (!fotoEventoUrl) {
       const storedEventoUrl = localStorage.getItem("fotoEventoUrl");
       if (storedEventoUrl) {
@@ -372,6 +376,7 @@ export default function NightClub({
     fotoMosaico11Url,
     fotoMosaico12Url,
     fotoLocalUrl,
+    filledIndices,
   ]);
 
   const decrementar = () => {

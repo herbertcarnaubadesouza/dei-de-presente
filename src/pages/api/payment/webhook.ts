@@ -132,24 +132,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     res.send('ok');
-
-    const { formData, giftId, websiteSlug } = req.body;
-
-    const URL = 'http://localhost:3000';
-    try {
-        const response = await payment.create({
-            body: formData,
-        });
-
-        if (!response.id) {
-            return res.status(500).json({
-                error: 'payment_error',
-                message: 'Não foi possível criar pagamento',
-            });
-        }
-    } catch (error) {
-        res.status(500).send({ error });
-    }
 };
 
 export default handler;

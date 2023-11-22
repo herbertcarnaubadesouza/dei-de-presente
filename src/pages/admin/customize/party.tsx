@@ -44,7 +44,7 @@ export default function CustomizeWedding() {
   const [fotoLocalUrl, setFotoLocalUrl] = useState<string | null>(null);
   const [cep, setCep] = useState("");
   const [loading, setLoading] = useState(false);
-
+  const [filledIndices, setFilledIndices] = useState(new Array(6).fill(false));
   const session = useSession();
 
   const today = new Date();
@@ -196,16 +196,34 @@ export default function CustomizeWedding() {
   };
 
   const handleDeleteImage = async (index: number) => {
+    const setFotoMosaicoUrlFunctions: {
+      [key: number]: React.Dispatch<React.SetStateAction<string | null>>;
+    } = {
+      0: setFotoMosaico1Url,
+      1: setFotoMosaico2Url,
+      2: setFotoMosaico3Url,
+      3: setFotoMosaico4Url,
+      4: setFotoMosaico5Url,
+      5: setFotoMosaico6Url,
+    };
+
     const fileName = localStorage.getItem(`fotoMosaico${index + 1}Url`);
     localStorage.removeItem(`fotoMosaico${index + 1}Url`);
 
-    if (fileName) {
-      try {
-        await axios.post("/api/upload/delete", { fileName });
-        window.location.reload();
-      } catch (err) {
-        console.error("Erro ao deletar o arquivo", err);
+    console.log(`fotoMosaico${index + 1}`);
+
+    try {
+      const setStateFunc = setFotoMosaicoUrlFunctions[index];
+      if (setStateFunc) {
+        setStateFunc(null);
+        const newFilledIndices = [...filledIndices];
+        newFilledIndices[index] = false;
+        setFilledIndices(newFilledIndices);
       }
+      window.location.reload();
+      await axios.post("/api/upload/delete", { fileName });
+    } catch (err) {
+      console.error("Erro ao deletar o arquivo", err);
     }
   };
 
@@ -237,53 +255,24 @@ export default function CustomizeWedding() {
 
   const handleImageEventoGeneric = async (e: any) => {
     const file = e.target.files[0];
+    console.log("Índices preenchidos antes:", filledIndices);
 
     if (!file) {
       return;
     }
 
-    switch (nextHandlerIndex) {
-      case 1:
-        await handleImageFotosEvento1(file);
-        break;
-      case 2:
-        await handleImageFotosEvento2(file);
-        break;
-      case 3:
-        await handleImageFotosEvento3(file);
-        break;
-      case 4:
-        await handleImageFotosEvento4(file);
-        break;
-      case 5:
-        await handleImageFotosEvento5(file);
-        break;
-      case 6:
-        await handleImageFotosEvento6(file);
-        break;
-      case 7:
-        await handleImageFotosEvento7(file);
-        break;
-      case 8:
-        await handleImageFotosEvento8(file);
-        break;
-      case 9:
-        await handleImageFotosEvento9(file);
-        break;
-      case 10:
-        await handleImageFotosEvento10(file);
-        break;
-      case 11:
-        await handleImageFotosEvento11(file);
-        break;
-      case 12:
-        await handleImageFotosEvento12(file);
-        break;
-      default:
-        break;
-    }
+    const nextUnfilledIndex = filledIndices.findIndex((isFilled) => !isFilled);
 
-    setNextHandlerIndex(nextHandlerIndex + 1);
+    if (nextUnfilledIndex === -1) return;
+
+    const handlerFunction = allHandlers[nextUnfilledIndex];
+
+    if (handlerFunction) {
+      await handlerFunction(file);
+      const newFilledIndices = [...filledIndices];
+      newFilledIndices[nextUnfilledIndex] = true;
+      setFilledIndices(newFilledIndices);
+    }
   };
 
   const handleImageFotosEvento1 = async (file: File) => {
@@ -814,6 +803,15 @@ export default function CustomizeWedding() {
     });
   };
 
+  const allHandlers = [
+    handleImageFotosEvento1,
+    handleImageFotosEvento2,
+    handleImageFotosEvento3,
+    handleImageFotosEvento4,
+    handleImageFotosEvento5,
+    handleImageFotosEvento6,
+  ];
+
   useEffect(() => {
     if (loading) {
       document.documentElement.style.overflow = "hidden";
@@ -890,6 +888,7 @@ export default function CustomizeWedding() {
             fotoMosaico11Url={fotoMosaico11Url}
             fotoMosaico12Url={fotoMosaico12Url}
             fotoLocalUrl={fotoLocalUrl}
+            filledIndices={filledIndices}
           />
         </div>
         <div
@@ -1125,7 +1124,7 @@ export default function CustomizeWedding() {
                     `fotoMosaico${item}Url`
                   );
                   const imageSource = fileNameFromLocalStorage
-                    ? `/temp/${fileNameFromLocalStorage}`
+                    ? `${fileNameFromLocalStorage}`
                     : "/night-club-3.webp";
                   return (
                     <div key={index} className={styles.gridImage}>
