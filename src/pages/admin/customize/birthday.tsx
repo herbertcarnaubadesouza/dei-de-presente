@@ -218,35 +218,27 @@ export default function CustomizeWedding() {
 
   const handleImageEventoGeneric = async (e: any) => {
     const file = e.target.files[0];
+    console.log("Índices preenchidos antes:", filledIndices);
 
     if (!file) {
       return;
     }
 
-    switch (nextHandlerIndex) {
-      case 1:
-        await handleImageFotosEvento1(file);
-        break;
-      case 2:
-        await handleImageFotosEvento2(file);
-        break;
-      case 3:
-        await handleImageFotosEvento3(file);
-        break;
-      case 4:
-        await handleImageFotosEvento4(file);
-        break;
-      case 5:
-        await handleImageFotosEvento5(file);
-        break;
-      case 6:
-        await handleImageFotosEvento6(file);
-        break;
-      default:
-        break;
-    }
+    const nextUnfilledIndex = filledIndices.findIndex(
+      (isFilled: boolean) => !isFilled
+    );
 
-    setNextHandlerIndex(nextHandlerIndex + 1);
+    if (nextUnfilledIndex === -1) return;
+
+    const handlerFunction = allHandlers[nextUnfilledIndex];
+
+    if (handlerFunction) {
+      await handlerFunction(file);
+      const newFilledIndices = [...filledIndices];
+      newFilledIndices[nextUnfilledIndex] = true;
+      setFilledIndices(newFilledIndices);
+      localStorage.setItem("filledIndices", JSON.stringify(newFilledIndices));
+    }
   };
 
   const handleImageFotosEvento1 = async (file: File) => {
@@ -640,6 +632,12 @@ export default function CustomizeWedding() {
       document.documentElement.style.overflow = "auto";
     }
   }, [loading]);
+
+  const allHandlers = [
+    handleImageFotosEvento1,
+    handleImageFotosEvento2,
+    handleImageFotosEvento3,
+  ];
 
   return (
     <>
