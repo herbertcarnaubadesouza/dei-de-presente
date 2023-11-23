@@ -53,86 +53,44 @@ export default function BirthdayTemplate({
   fotoLocalUrl,
   filledIndices,
 }: BirthdayInterface) {
-  const initialStateBanner =
-    typeof window !== "undefined"
-      ? bannerUrl || localStorage.getItem("fotoBanner") || null
-      : null;
-
-  const initialStateLocalr =
-    typeof window !== "undefined"
-      ? fotoLocalUrl || localStorage.getItem("fotoLocalUrl") || null
-      : null;
-
-  const initialStateFotoEvento =
-    typeof window !== "undefined"
-      ? fotoEventoUrl || localStorage.getItem("fotoEventoUrl") || null
-      : null;
-
-  const initialStateMosaico1 =
-    typeof window !== "undefined"
-      ? fotoMosaico1Url || localStorage.getItem("fotoEvento1") || null
-      : null;
-  const initialStateMosaico2 =
-    typeof window !== "undefined"
-      ? fotoMosaico2Url || localStorage.getItem("fotoEvento2") || null
-      : null;
-  const initialStateMosaico3 =
-    typeof window !== "undefined"
-      ? fotoMosaico3Url || localStorage.getItem("fotoEvento3") || null
-      : null;
-  const initialStateMosaico4 =
-    typeof window !== "undefined"
-      ? fotoMosaico4Url || localStorage.getItem("fotoEvento4") || null
-      : null;
-  const initialStateMosaico5 =
-    typeof window !== "undefined"
-      ? fotoMosaico5Url || localStorage.getItem("fotoEvento5") || null
-      : null;
-  const initialStateMosaico6 =
-    typeof window !== "undefined"
-      ? fotoMosaico6Url || localStorage.getItem("fotoEvento6") || null
-      : null;
-
   const [days, setDays] = useState(0);
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
   const [acompanhantes, setAcompanhantes] = useState(0);
-  const [internalBannerUrl, setInternalBannerUrl] = useState<string | null>(
-    initialStateBanner
-  );
+  const [internalBannerUrl, setInternalBannerUrl] = useState<string | null>();
 
   const [internalFotoEventoUrl, setInternalFotoEventoUrl] = useState<
     string | null
-  >(initialStateFotoEvento);
+  >();
 
   const [internalFotoLocalUrl, setInternalFotoLocalUrl] = useState<
     string | null
-  >(initialStateLocalr);
+  >();
 
   const [internalMosaico1lUrl, setInternalMosaico1Url] = useState<
     string | null
-  >(initialStateMosaico1);
+  >();
 
   const [internalMosaico2lUrl, setInternalMosaico2Url] = useState<
     string | null
-  >(initialStateMosaico2);
+  >();
 
   const [internalMosaico3lUrl, setInternalMosaico3Url] = useState<
     string | null
-  >(initialStateMosaico3);
+  >();
 
   const [internalMosaico4lUrl, setInternalMosaico4Url] = useState<
     string | null
-  >(initialStateMosaico4);
+  >();
 
   const [internalMosaico5lUrl, setInternalMosaico5Url] = useState<
     string | null
-  >(initialStateMosaico5);
+  >();
 
   const [internalMosaico6lUrl, setInternalMosaico6Url] = useState<
     string | null
-  >(initialStateMosaico6);
+  >();
   const [mapUrl, setMapUrl] = useState("");
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -174,7 +132,7 @@ export default function BirthdayTemplate({
     if (!bannerUrl) {
       const storedBannerUrl = localStorage.getItem("fotoBanner");
       if (storedBannerUrl) {
-        setInternalBannerUrl(`/temp/${storedBannerUrl}`);
+        setInternalBannerUrl(`${storedBannerUrl}`);
       }
     } else {
       setInternalBannerUrl(bannerUrl);
@@ -183,7 +141,7 @@ export default function BirthdayTemplate({
     if (!fotoEventoUrl) {
       const storedEventoUrl = localStorage.getItem("fotoEvento");
       if (storedEventoUrl) {
-        setInternalFotoEventoUrl(`/temp/${storedEventoUrl}`);
+        setInternalFotoEventoUrl(`${storedEventoUrl}`);
       }
     } else {
       setInternalFotoEventoUrl(fotoEventoUrl);
@@ -192,7 +150,7 @@ export default function BirthdayTemplate({
     if (!fotoMosaico1Url) {
       const storedMosaico1Url = localStorage.getItem("fotosEvento1");
       if (storedMosaico1Url) {
-        setInternalMosaico1Url(`/temp/${storedMosaico1Url}`);
+        setInternalMosaico1Url(`${storedMosaico1Url}`);
       } else {
         setInternalMosaico1Url("");
       }
@@ -203,7 +161,7 @@ export default function BirthdayTemplate({
     if (!fotoMosaico2Url) {
       const storedMosaico2Url = localStorage.getItem("fotosEvento2");
       if (storedMosaico2Url) {
-        setInternalMosaico2Url(`/temp/${storedMosaico2Url}`);
+        setInternalMosaico2Url(`${storedMosaico2Url}`);
       }
     } else {
       setInternalMosaico2Url(fotoMosaico2Url);
@@ -212,7 +170,7 @@ export default function BirthdayTemplate({
     if (!fotoMosaico3Url) {
       const storedMosaico3Url = localStorage.getItem("fotosEvento3");
       if (storedMosaico3Url) {
-        setInternalMosaico3Url(`/temp/${storedMosaico3Url}`);
+        setInternalMosaico3Url(`${storedMosaico3Url}`);
       }
     } else {
       setInternalMosaico3Url(fotoMosaico3Url);
@@ -221,7 +179,7 @@ export default function BirthdayTemplate({
     if (!fotoMosaico4Url) {
       const storedMosaico4Url = localStorage.getItem("fotosEvento4");
       if (storedMosaico4Url) {
-        setInternalMosaico4Url(`/temp/${storedMosaico4Url}`);
+        setInternalMosaico4Url(`${storedMosaico4Url}`);
       }
     } else {
       setInternalMosaico4Url(fotoMosaico4Url);
@@ -230,7 +188,7 @@ export default function BirthdayTemplate({
     if (!fotoMosaico5Url) {
       const storedMosaico5Url = localStorage.getItem("fotosEvento5");
       if (storedMosaico5Url) {
-        setInternalMosaico5Url(`/temp/${storedMosaico5Url}`);
+        setInternalMosaico5Url(`${storedMosaico5Url}`);
       }
     } else {
       setInternalMosaico5Url(fotoMosaico5Url);
@@ -239,7 +197,7 @@ export default function BirthdayTemplate({
     if (!fotoMosaico6Url) {
       const fotoMosaico6Url = localStorage.getItem("fotosEvento6");
       if (fotoMosaico6Url) {
-        setInternalMosaico6Url(`/temp/${fotoMosaico6Url}`);
+        setInternalMosaico6Url(`${fotoMosaico6Url}`);
       }
     } else {
       setInternalMosaico6Url(fotoMosaico6Url);
@@ -248,7 +206,7 @@ export default function BirthdayTemplate({
     if (!fotoLocalUrl) {
       const fotoLocalUrl = localStorage.getItem("fotoLocal");
       if (fotoLocalUrl) {
-        setInternalFotoLocalUrl(`/temp/${fotoLocalUrl}`);
+        setInternalFotoLocalUrl(`${fotoLocalUrl}`);
       }
     } else {
       setInternalFotoLocalUrl(fotoLocalUrl);
@@ -361,8 +319,8 @@ export default function BirthdayTemplate({
               <div className={styles.leftSideSobreMobile}>
                 <img
                   src={
-                    fotoEventoUrl
-                      ? fotoEventoUrl
+                    internalFotoEventoUrl
+                      ? internalFotoEventoUrl
                       : "/defaultBirthdayTemplate.png"
                   }
                 />
@@ -376,7 +334,9 @@ export default function BirthdayTemplate({
             <div className={styles.rightSideSobre}>
               <img
                 src={
-                  fotoEventoUrl ? fotoEventoUrl : "/defaultBirthdayTemplate.png"
+                  internalFotoEventoUrl
+                    ? internalFotoEventoUrl
+                    : "/defaultBirthdayTemplate.png"
                 }
               />
             </div>
@@ -427,7 +387,9 @@ export default function BirthdayTemplate({
               <div className={styles.blockImageContainer}>
                 <img
                   src={
-                    fotoMosaico1Url ? fotoMosaico1Url : "/defaultMarried.png"
+                    internalMosaico1lUrl
+                      ? internalMosaico1lUrl
+                      : "/defaultMarried.png"
                   }
                   className={styles.foto}
                 />
@@ -435,7 +397,9 @@ export default function BirthdayTemplate({
               <div className={styles.blockImageContainer}>
                 <img
                   src={
-                    fotoMosaico2Url ? fotoMosaico2Url : "/defaultMarried.png"
+                    internalMosaico2lUrl
+                      ? internalMosaico2lUrl
+                      : "/defaultMarried.png"
                   }
                   className={styles.foto}
                 />
@@ -443,7 +407,9 @@ export default function BirthdayTemplate({
               <div className={styles.blockImageContainer}>
                 <img
                   src={
-                    fotoMosaico3Url ? fotoMosaico3Url : "/defaultMarried.png"
+                    internalMosaico3lUrl
+                      ? internalMosaico3lUrl
+                      : "/defaultMarried.png"
                   }
                   className={styles.foto}
                 />

@@ -37,6 +37,7 @@ export default function CustomizeWedding() {
   const [fotoLocalUrl, setFotoLocalUrl] = useState<string | null>(null);
   const [cep, setCep] = useState("");
   const [loading, setLoading] = useState(false);
+  const [filledIndices, setFilledIndices] = useState(new Array(3).fill(false));
 
   const session = useSession();
 
@@ -162,16 +163,30 @@ export default function CustomizeWedding() {
   };
 
   const handleDeleteImage = async (index: number) => {
+    const setFotoMosaicoUrlFunctions: {
+      [key: number]: React.Dispatch<React.SetStateAction<string | null>>;
+    } = {
+      0: setFotoMosaico1Url,
+      1: setFotoMosaico2Url,
+      2: setFotoMosaico3Url,
+    };
+
     const fileName = localStorage.getItem(`fotosEvento${index + 1}`);
     localStorage.removeItem(`fotosEvento${index + 1}`);
 
-    if (fileName) {
-      try {
-        await axios.post("/api/upload/delete", { fileName });
-        window.location.reload();
-      } catch (err) {
-        console.error("Erro ao deletar o arquivo", err);
+    try {
+      const setStateFunc = setFotoMosaicoUrlFunctions[index];
+      if (setStateFunc) {
+        setStateFunc(null);
+        const newFilledIndices = [...filledIndices];
+        newFilledIndices[index] = false;
+        setFilledIndices(newFilledIndices);
+        localStorage.setItem("filledIndices", JSON.stringify(newFilledIndices));
       }
+      window.location.reload();
+      await axios.post("/api/upload/delete", { fileName });
+    } catch (err) {
+      console.error("Erro ao deletar o arquivo", err);
     }
   };
 
@@ -521,6 +536,25 @@ export default function CustomizeWedding() {
     const { event } = router.query;
     const userId = session.data?.id;
 
+    const newFotoBannerUrl =
+      bannerUrl || localStorage.getItem("fotoBanner") || null;
+    const newfotoEventoUrl =
+      fotoEventoUrl || localStorage.getItem("fotoEventoUrl") || null;
+    const newfotoLocalUrl =
+      fotoLocalUrl || localStorage.getItem("fotoLocalUrl") || null;
+    const newfotoMosaico1Url =
+      fotoMosaico1Url || localStorage.getItem("fotoMosaico1Url") || null;
+    const newfotoMosaico2Url =
+      fotoMosaico2Url || localStorage.getItem("fotoMosaico2Url") || null;
+    const newfotoMosaico3Url =
+      fotoMosaico3Url || localStorage.getItem("fotoMosaico3Url") || null;
+    const newfotoMosaico4Url =
+      fotoMosaico4Url || localStorage.getItem("fotoMosaico4Url") || null;
+    const newfotoMosaico5Url =
+      fotoMosaico5Url || localStorage.getItem("fotoMosaico5Url") || null;
+    const newfotoMosaico6Url =
+      fotoMosaico6Url || localStorage.getItem("fotoMosaico6Url") || null;
+
     const fields = {
       userId,
       nomeEvento,
@@ -534,15 +568,15 @@ export default function CustomizeWedding() {
       complemento,
       numeroRua,
       nextHandlerIndex,
-      bannerUrl,
-      fotoEventoUrl,
-      fotoMosaico1Url,
-      fotoMosaico2Url,
-      fotoMosaico3Url,
-      fotoMosaico4Url,
-      fotoMosaico5Url,
-      fotoMosaico6Url,
-      fotoLocalUrl,
+      bannerUrl: newFotoBannerUrl,
+      fotoEventoUrl: newfotoEventoUrl,
+      fotoMosaico1Url: newfotoMosaico1Url,
+      fotoMosaico2Url: newfotoMosaico2Url,
+      fotoMosaico3Url: newfotoMosaico3Url,
+      fotoMosaico4Url: newfotoMosaico4Url,
+      fotoMosaico5Url: newfotoMosaico5Url,
+      fotoMosaico6Url: newfotoMosaico6Url,
+      fotoLocalUrl: newfotoLocalUrl,
       event,
       cep,
     };
