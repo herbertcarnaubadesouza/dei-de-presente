@@ -243,3 +243,50 @@
     max-width: 100% !important;
   }
 }
+
+.rowPaymentImages {
+  p {
+    color: #333;
+    font-family: "Outfit";
+    font-size: 1.125rem;
+    font-style: normal;
+    font-weight: 700;
+    margin-bottom: 28px;
+
+    @media only screen and (max-width: 768px) {
+      margin-top: 37px;
+    }
+  }
+}
+
+.firstRow {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-start;
+
+  @media only screen and (max-width: 768px) {
+    justify-content: space-between;
+    img {
+      width: 51px;
+      height: 27px;
+      object-fit: contain;
+    }
+  }
+}
+
+.secondRow {
+  display: flex;
+  gap: 19px;
+  margin-left: 159px;
+  margin-top: 17px;
+
+  @media only screen and (max-width: 768px) {
+    justify-content: center;
+    margin-inline: auto;
+    img {
+      width: 51px;
+      height: 27px;
+      object-fit: contain;
+    }
+  }
+}
