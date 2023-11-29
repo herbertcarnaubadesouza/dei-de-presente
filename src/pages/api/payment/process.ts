@@ -2,8 +2,11 @@ import { MercadoPagoConfig, Payment } from 'mercadopago';
 import { NextApiRequest, NextApiResponse } from 'next';
 import firebaseAdmin from '../../../server/firebaseAdmin';
 
+// Log para verificar o Access Token
+console.log("MercadoPago Access Token:", process.env.ACCESS_TOKEN);
+
 const client = new MercadoPagoConfig({
-    accessToken: process.env.MP_ACCESS_TOKEN as string,
+    accessToken: process.env.ACCESS_TOKEN as string,
     options: {
         timeout: 5000,
     },
@@ -27,51 +30,54 @@ async function getUserByWebsite(website: { slug: string; websiteId: string }) {
 }
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+    console.log("Received request with body:", req.body);
+
     if (req.method !== 'POST') {
+        console.error("Method not allowed");
         res.status(405).json({ message: 'Method not allowed' });
+        return;
     }
 
     const { formData, gift, website } = req.body;
 
     try {
-        const {
-            id,
-            card,
-            status,
-            status_detail,
-            authorization_code,
-            charges_details,
-            date_approved,
-            date_created,
-            date_last_updated,
-            date_of_expiration,
-            money_release_date,
-            fee_details,
-            payer,
-            payment_method,
-            refunds,
-            transaction_amount,
-            transaction_amount_refunded,
-            transaction_details,
-        } = await payment.create({
+        console.log("Creating payment with formData:", formData);
+        const paymentResponse = await payment.create({
             body: formData,
         });
 
-        if (!id) {
+        console.log("Payment Response:", paymentResponse);
+
+        if (!paymentResponse.id) {
+            console.error("Payment ID not found in response");
             return res.status(500).json({
                 error: 'payment_error',
-                message: 'Não foi possível criar pagamento',
+                message: 'ID do pagamento não encontrado',
             });
         }
+
+        if (paymentResponse.status === 'pending' && paymentResponse.payment_method_id === 'pix') {
+            return res.status(200).json({
+                status: 'pending',
+                paymentId: paymentResponse.id,
+                paymentMethod: paymentResponse.payment_method_id,
+                pixQrCode: paymentResponse.point_of_interaction?.transaction_data?.qr_code,
+                pixQrCodeBase64: paymentResponse.point_of_interaction?.transaction_data?.qr_code_base64,
+                externalResourceUrl: paymentResponse.transaction_details?.external_resource_url,
+                ticketUrl: paymentResponse.point_of_interaction?.transaction_data?.ticket_url, // Adicionado
+            });
+        }
+
 
         const db = firebaseAdmin.firestore();
 
         const querySnapshot = await db
             .collection('Payments')
-            .where('mp_paymentId', '==', id)
+            .where('mp_paymentId', '==', paymentResponse.id)
             .get();
 
         if (!querySnapshot.empty) {
+            console.error("Payment already exists");
             return res.status(409).json({
                 error: 'payment_already_exists',
                 message: 'Pagamento já registrado',
@@ -84,30 +90,15 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             gift,
             website,
             userId: userRef.id,
-            mp_paymentId: id,
-            card,
-            status,
-            status_detail,
-            authorization_code,
-            charges_details,
-            date_approved,
-            date_created,
-            date_last_updated,
-            date_of_expiration,
-            money_release_date,
-            fee_details,
-            payer,
-            payment_method,
-            refunds,
-            transaction_amount,
-            transaction_amount_refunded,
-            transaction_details,
+            mp_paymentId: paymentResponse.id,
+            ...paymentResponse,
         };
 
-        const paymentRef = await db.collection('Payments').add(paymentData);
+        await db.collection('Payments').add(paymentData);
 
-        if (status !== 'approved') {
-            return res.status(200).send({ paymentId: id });
+        if (paymentResponse.status !== 'approved') {
+            console.log("Payment not approved");
+            return res.status(200).send({ paymentId: paymentResponse.id });
         }
 
         await db.runTransaction(async (transaction) => {
@@ -124,9 +115,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             });
         });
 
-        res.status(200).send({ paymentId: id });
-    } catch (error) {
-        res.status(500).send({ error });
+        res.status(200).send({ paymentId: paymentResponse.id });
+    } catch (error: any) {
+        console.error("Error in payment processing:", error);
+        res.status(500).send({ error: 'Erro no processamento de pagamento', details: error.message });
     }
 };
 
