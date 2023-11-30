@@ -125,8 +125,6 @@ export default function PaymentMercadoPago({
     [gift, onSuccess, website]
   );
 
-  //update env
-
   if (pixInfo) {
     return (
       <div>
