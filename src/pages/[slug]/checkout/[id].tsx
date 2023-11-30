@@ -161,6 +161,7 @@ export default function Checkout({
             <div className={styles.paymentMethod}>
               <PaymentMercadoPago
                 initialization={paymentData}
+                // @ts-ignore
                 onProcessing={handlePaymentProcessing}
                 website={website}
                 gift={gift}
