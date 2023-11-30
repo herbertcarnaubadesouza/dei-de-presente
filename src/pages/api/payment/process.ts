@@ -2,8 +2,7 @@ import { MercadoPagoConfig, Payment } from 'mercadopago';
 import { NextApiRequest, NextApiResponse } from 'next';
 import firebaseAdmin from '../../../server/firebaseAdmin';
 
-// Log para verificar o Access Token
-console.log("MercadoPago Access Token:", process.env.ACCESS_TOKEN);
+
 
 const client = new MercadoPagoConfig({
     accessToken: process.env.ACCESS_TOKEN as string,
