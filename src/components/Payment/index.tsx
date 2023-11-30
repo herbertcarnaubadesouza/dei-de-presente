@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
 
-import { defaultOptions } from "@/animation";
 import { PaymentFormDataType } from "@/types/utils";
 import { initMercadoPago, Payment, StatusScreen } from "@mercadopago/sdk-react";
 import {
@@ -8,7 +7,6 @@ import {
   TPaymentType,
 } from "@mercadopago/sdk-react/bricks/payment/type";
 import { IStatusScreenBrickCustomization } from "@mercadopago/sdk-react/bricks/statusScreen/types";
-import Lottie from "react-lottie";
 import { Gift } from "../Web/Birthday";
 
 type PaymentResponse = {
@@ -127,9 +125,7 @@ export default function PaymentMercadoPago({
     [gift, onSuccess, website]
   );
 
-  if (isLoading) {
-    return <Lottie options={defaultOptions} height={200} width={200} />;
-  }
+  //update env
 
   if (pixInfo) {
     return (
