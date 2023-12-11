@@ -55,21 +55,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             });
         }
 
-        if (paymentResponse.status === 'pending' && paymentResponse.payment_method_id === 'pix') {
-            return res.status(200).json({
-                status: 'pending',
-                paymentId: paymentResponse.id,
-                paymentMethod: paymentResponse.payment_method_id,
-                pixQrCode: paymentResponse.point_of_interaction?.transaction_data?.qr_code,
-                pixQrCodeBase64: paymentResponse.point_of_interaction?.transaction_data?.qr_code_base64,
-                externalResourceUrl: paymentResponse.transaction_details?.external_resource_url,
-                ticketUrl: paymentResponse.point_of_interaction?.transaction_data?.ticket_url, // Adicionado
-            });
-        }
-
-
         const db = firebaseAdmin.firestore();
-
         const querySnapshot = await db
             .collection('Payments')
             .where('mp_paymentId', '==', paymentResponse.id)
@@ -92,6 +78,20 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             mp_paymentId: paymentResponse.id,
             ...paymentResponse,
         };
+
+        await db.collection('Payments').add(paymentData);
+
+        if (paymentResponse.status === 'pending' && paymentResponse.payment_method_id === 'pix') {
+            return res.status(200).json({
+                status: 'pending',
+                paymentId: paymentResponse.id,
+                paymentMethod: paymentResponse.payment_method_id,
+                pixQrCode: paymentResponse.point_of_interaction?.transaction_data?.qr_code,
+                pixQrCodeBase64: paymentResponse.point_of_interaction?.transaction_data?.qr_code_base64,
+                externalResourceUrl: paymentResponse.transaction_details?.external_resource_url,
+                ticketUrl: paymentResponse.point_of_interaction?.transaction_data?.ticket_url,
+            });
+        }
 
         await db.collection('Payments').add(paymentData);
 
