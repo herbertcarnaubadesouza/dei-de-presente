@@ -82,6 +82,20 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         await db.collection('Payments').add(paymentData);
 
         if (paymentResponse.status === 'pending' && paymentResponse.payment_method_id === 'pix') {
+            await db.runTransaction(async (transaction) => {
+                const userDoc = await transaction.get(userRef);
+                if (!userDoc.exists) {
+                    throw new Error('User does not exist!');
+                }
+
+                transaction.update(userRef, {
+                    approvedPayments: [
+                        ...(userDoc.data()?.approvedPayments || []),
+                        paymentData,
+                    ],
+                });
+            });
+
             return res.status(200).json({
                 status: 'pending',
                 paymentId: paymentResponse.id,
