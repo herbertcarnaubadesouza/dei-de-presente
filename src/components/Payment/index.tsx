@@ -77,6 +77,8 @@ export default function PaymentMercadoPago({
   const [paymentId, setPaymentId] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [pixInfo, setPixInfo] = useState<PaymentResponse | null>(null);
+  const [paymentDocId, setPaymentDocId] = useState("");
+  const [userDocId, setUserDocId] = useState("");
 
   useEffect(() => {
     initMercadoPago("TEST-962c3a0f-ac01-4efb-910c-c609b32ed98a", {
@@ -89,6 +91,46 @@ export default function PaymentMercadoPago({
       }
     };
   }, []);
+
+  useEffect(() => {
+    let intervalId: NodeJS.Timeout;
+    let timeoutId: NodeJS.Timeout;
+
+    if (pixInfo && pixInfo.status === "pending") {
+      const checkStatus = async () => {
+        try {
+          const response = await fetch(
+            `/api/payment/checkPaymentStatus?paymentId=${pixInfo.paymentId}&paymentDocId=${paymentDocId}&userDocId=${userDocId}`
+          );
+          const data = await response.json();
+
+          if (response.ok && data.status === "approved") {
+            clearInterval(intervalId);
+            clearTimeout(timeoutId);
+            setPixInfo(data);
+            onSuccess?.(data);
+            alert("Pagamento aprovado"); // Exibir toast de sucesso
+          }
+        } catch (error) {
+          console.error("Error checking payment status:", error);
+          clearInterval(intervalId);
+        }
+      };
+
+      intervalId = setInterval(checkStatus, 30000);
+
+      // Configurar timeout de 5 minutos
+      timeoutId = setTimeout(() => {
+        clearInterval(intervalId);
+        alert("Tempo de pagamento esgotado"); // Exibir toast de erro
+      }, 300000); // 5 minutos em milissegundos
+    }
+
+    return () => {
+      if (intervalId) clearInterval(intervalId);
+      if (timeoutId) clearTimeout(timeoutId);
+    };
+  }, [pixInfo, onSuccess, paymentDocId, userDocId]);
 
   const handleSubmit = useCallback(
     async (formData: PaymentFormDataType) => {
@@ -110,6 +152,8 @@ export default function PaymentMercadoPago({
           data.paymentMethod === "pix"
         ) {
           setPixInfo(data);
+          setPaymentDocId(data.paymentDocId);
+          setUserDocId(data.userDocId);
         } else if (response.status !== 200) {
           throw new Error(data.error.message);
         } else {
@@ -124,8 +168,6 @@ export default function PaymentMercadoPago({
     },
     [gift, onSuccess, website]
   );
-
-  //update env
 
   if (pixInfo) {
     return (

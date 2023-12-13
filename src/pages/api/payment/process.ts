@@ -2,8 +2,6 @@ import { MercadoPagoConfig, Payment } from 'mercadopago';
 import { NextApiRequest, NextApiResponse } from 'next';
 import firebaseAdmin from '../../../server/firebaseAdmin';
 
-
-
 const client = new MercadoPagoConfig({
     accessToken: process.env.ACCESS_TOKEN as string,
     options: {
@@ -16,9 +14,7 @@ const payment = new Payment(client);
 async function getUserByWebsite(website: { slug: string; websiteId: string }) {
     const db = firebaseAdmin.firestore();
     const userRef = db.collection('Users');
-
     const userQuery = userRef.where('websites', 'array-contains', website);
-
     const querySnapshot = await userQuery.get();
 
     if (querySnapshot.empty || !querySnapshot.docs[0].exists) {
@@ -41,34 +37,15 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     try {
         console.log("Creating payment with formData:", formData);
-        const paymentResponse = await payment.create({
-            body: formData,
-        });
-
+        const paymentResponse = await payment.create({ body: formData });
         console.log("Payment Response:", paymentResponse);
 
         if (!paymentResponse.id) {
             console.error("Payment ID not found in response");
-            return res.status(500).json({
-                error: 'payment_error',
-                message: 'ID do pagamento não encontrado',
-            });
+            return res.status(500).json({ error: 'payment_error', message: 'ID do pagamento não encontrado' });
         }
 
         const db = firebaseAdmin.firestore();
-        const querySnapshot = await db
-            .collection('Payments')
-            .where('mp_paymentId', '==', paymentResponse.id)
-            .get();
-
-        if (!querySnapshot.empty) {
-            console.error("Payment already exists");
-            return res.status(409).json({
-                error: 'payment_already_exists',
-                message: 'Pagamento já registrado',
-            });
-        }
-
         const userRef = await getUserByWebsite(website);
 
         const paymentData = {
@@ -79,23 +56,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             ...paymentResponse,
         };
 
-        await db.collection('Payments').add(paymentData);
+        const paymentDocRef = await db.collection('Payments').add(paymentData);
 
         if (paymentResponse.status === 'pending' && paymentResponse.payment_method_id === 'pix') {
-            await db.runTransaction(async (transaction) => {
-                const userDoc = await transaction.get(userRef);
-                if (!userDoc.exists) {
-                    throw new Error('User does not exist!');
-                }
-
-                transaction.update(userRef, {
-                    approvedPayments: [
-                        ...(userDoc.data()?.approvedPayments || []),
-                        paymentData,
-                    ],
-                });
-            });
-
             return res.status(200).json({
                 status: 'pending',
                 paymentId: paymentResponse.id,
@@ -104,10 +67,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                 pixQrCodeBase64: paymentResponse.point_of_interaction?.transaction_data?.qr_code_base64,
                 externalResourceUrl: paymentResponse.transaction_details?.external_resource_url,
                 ticketUrl: paymentResponse.point_of_interaction?.transaction_data?.ticket_url,
+                paymentDocId: paymentDocRef.id,
+                userDocId: userRef.id
             });
         }
 
-        await db.collection('Payments').add(paymentData);
 
         if (paymentResponse.status !== 'approved') {
             console.log("Payment not approved");
